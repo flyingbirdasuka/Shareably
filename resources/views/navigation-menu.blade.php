@@ -21,6 +21,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                    @if (Auth::user()->is_admin)
                     <div class="ml-3 relative">
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -67,6 +68,7 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
+                    @endif
                 @endif
 
                 <!-- Settings Dropdown -->
