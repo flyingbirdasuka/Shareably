@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\CategoryController;
+use App\Http\Controllers\User\PracticeController;
+use App\Http\Controllers\User\LanguageController;
+use App\Http\Controllers\User\TeamsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +29,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::resource('categories',CategoryController::class);
+    Route::resource('practices',PracticeController::class);
+    Route::resource('languages',LanguageController::class);
+    Route::resource('teams',TeamsController::class);
 });
+
 
 
 // Only Admins

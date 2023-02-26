@@ -128,7 +128,7 @@
                 <!-- Team Member List -->
                 <x-slot name="content">
                     <div class="space-y-6">
-                        @foreach ($team->users->where('is_admin', '!=', '1')->sortBy('name') as $user)
+                        @foreach ($team->users->where('id', 'Auth::user()->id')->sortBy('name') as $user)
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
@@ -146,6 +146,7 @@
                                             {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
                                         </div>
                                     @endif
+
 
                                     <!-- Remove Team Member -->
                                         <button class="cursor-pointer ml-6 text-sm text-red-500" wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
