@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Language extends Model
 {
@@ -17,4 +19,15 @@ class Language extends Model
     protected $fillable = [
         'language_code'
     ];
+
+    /**
+     * Get the user that owns the language.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    
+
 }

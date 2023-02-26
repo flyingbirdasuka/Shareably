@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Language;
+use App\Models\Practice;
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,4 +64,31 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the languages for the user.
+     */
+    public function languages(): HasMany
+    {
+        return $this->hasMany(Language::class);
+    }
+
+    /**
+    * The practices that belong to the user. (favorites)
+    */
+    public function practices(): BelongsToMany
+    {
+        return $this->belongsToMany(Practice::class, 'favorites');
+
+    }
+
+    /**
+    * The categoris that belong to the user. (favorites)
+    */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'user_categories');
+
+    }
+
 }
