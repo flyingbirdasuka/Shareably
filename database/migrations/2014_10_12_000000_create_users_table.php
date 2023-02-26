@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -26,6 +27,17 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
+
+
+        DB::table('users')->insert(
+            array(
+                'name' => 'Tommu Desu',
+                'email' => 'admin@admin.com',
+                'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
+                // vLe064h$0PdN
+                'is_admin' => 1,
+            )
+        );
     }
 
     /**

@@ -57,8 +57,8 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function addToDefaultTeam(User $user): void
     {
-        // For now 4 is the hardcoded default team
-        $teamToAssign = Team::find(4);
+        // For now 1 is the hardcoded default team that comes from the migration
+        $teamToAssign = Team::find(1);
         $teamToAssign->users()->attach($user, array('role' => 'reader'));
 
         $user->switchTeam($teamToAssign);

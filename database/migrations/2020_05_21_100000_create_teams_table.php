@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Team;
+
 
 return new class extends Migration
 {
@@ -18,6 +20,26 @@ return new class extends Migration
             $table->boolean('personal_team');
             $table->timestamps();
         });
+
+
+        /// Create the default team and add the admin
+        DB::table('teams')->insert(
+            array(
+                'user_id' => '1',
+                'name' => 'All Users',
+                'personal_team' => 0
+            )
+        );
+
+        // Create the personal team for the admin
+        DB::table('teams')->insert(
+            array(
+                'user_id' => '1',
+                'name' => 'Personal team',
+                'personal_team' => 1
+            )
+        );
+
     }
 
     /**
