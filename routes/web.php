@@ -26,3 +26,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+// Only Admins
+
+// Route::group(['middleware'=>'admins'],function(){
+//     Route::get('/', function () {
+//         return view('welcome');  
+//     });
+// });
