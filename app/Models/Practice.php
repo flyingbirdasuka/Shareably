@@ -29,7 +29,6 @@ class Practice extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favorites');
-
     }
 
     /**
@@ -38,7 +37,6 @@ class Practice extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'practice_categories');
-
     }
 
     /**
@@ -47,7 +45,6 @@ class Practice extends Model
     public function musics(): BelongsToMany
     {
         return $this->belongsToMany(Music::class, 'music_practices');
-
     }
 
     /**
@@ -56,6 +53,22 @@ class Practice extends Model
     public function musicsheets(): BelongsToMany
     {
         return $this->belongsToMany(MusicSheet::class, 'music_sheet_practices');
+    }
 
+    /**
+    * title mutators (runs before the data is saved to the database)
+    * when "name" will save, it will convert into lowercase
+    */
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = strtolower($value);
+    }
+
+    /**
+    * title accessors (runs when we get the data from the database)
+    */ 
+    public function getTitleAttribute($value)
+    {
+        return ucwords($value);
     }
 }

@@ -79,7 +79,6 @@ class User extends Authenticatable
     public function practices(): BelongsToMany
     {
         return $this->belongsToMany(Practice::class, 'favorites');
-
     }
 
     /**
@@ -88,7 +87,31 @@ class User extends Authenticatable
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'user_categories');
+    }
 
+    /**
+    * name mutators (runs before the data is saved to the database)
+    * when "name" will save, it will convert into lowercase
+    */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
+
+    /**
+    * email mutators
+    */
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = trim(strtolower($value));
+    }
+
+    /**
+    * name accessors (runs when we get the data from the database)
+    */ 
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
     }
 
 }

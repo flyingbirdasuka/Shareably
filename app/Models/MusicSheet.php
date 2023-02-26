@@ -26,6 +26,22 @@ class MusicSheet extends Model
     public function practices(): BelongsToMany
     {
         return $this->belongsToMany(Practice::class, 'music_sheet_practices');
+    }
 
+    /**
+    * title mutators (runs before the data is saved to the database)
+    * when "name" will save, it will convert into lowercase
+    */
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = strtolower($value);
+    }
+
+    /**
+    * title accessors (runs when we get the data from the database)
+    */ 
+    public function getTitleAttribute($value)
+    {
+        return ucwords($value);
     }
 }

@@ -26,7 +26,6 @@ class Category extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_categories');
-
     }
 
     /**
@@ -35,6 +34,22 @@ class Category extends Model
     public function practices(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'practice_categories');
+    }
 
+    /**
+    * title mutators (runs before the data is saved to the database)
+    * when "name" will save, it will convert into lowercase
+    */
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = strtolower($value);
+    }
+
+    /**
+    * title accessors (runs when we get the data from the database)
+    */ 
+    public function getTitleAttribute($value)
+    {
+        return ucwords($value);
     }
 }
