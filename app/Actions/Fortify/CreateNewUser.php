@@ -34,7 +34,8 @@ class CreateNewUser implements CreatesNewUsers
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
-                $this->createTeam($user);
+                // $this->createTeam($user);
+                $this->addToDefaultTeam($user);
             });
         });
     }
@@ -49,5 +50,19 @@ class CreateNewUser implements CreatesNewUsers
             'name' => explode(' ', $user->name, 2)[0]."'s Team",
             'personal_team' => true,
         ]));
+    }
+
+    /**
+     * Add to default team
+     */
+    protected function addToDefaultTeam(User $user): void
+    {
+        // For now 1 is the hardcoded default team that comes from the migration
+        $teamToAssign = Team::find(1);
+        $teamToAssign->users()->attach($user, array('role' => 'reader'));
+
+        $user->switchTeam($teamToAssign);
+
+        $user->update();
     }
 }
