@@ -1,5 +1,4 @@
 <div>
-    @if (Gate::check('addTeamMember', $team))
         <x-section-border />
 
         <!-- Add Team Member -->
@@ -74,7 +73,6 @@
                 </x-slot>
             </x-form-section>
         </div>
-    @endif
 
     @if ($team->teamInvitations->isNotEmpty() && Gate::check('addTeamMember', $team))
         <x-section-border />
@@ -130,7 +128,7 @@
                 <!-- Team Member List -->
                 <x-slot name="content">
                     <div class="space-y-6">
-                        @foreach ($team->users->sortBy('name') as $user)
+                        @foreach ($team->users->where('is_admin', '!=', '1')->sortBy('name') as $user)
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
@@ -149,18 +147,11 @@
                                         </div>
                                     @endif
 
-                                    <!-- Leave Team -->
-                                    @if ($this->user->id === $user->id)
-                                        <button class="cursor-pointer ml-6 text-sm text-red-500" wire:click="$toggle('confirmingLeavingTeam')">
-                                            {{ __('Leave') }}
-                                        </button>
-
                                     <!-- Remove Team Member -->
-                                    @elseif (Gate::check('removeTeamMember', $team))
                                         <button class="cursor-pointer ml-6 text-sm text-red-500" wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
                                             {{ __('Remove') }}
                                         </button>
-                                    @endif
+                             
                                 </div>
                             </div>
                         @endforeach
