@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User\CategoryController;
-use App\Http\Controllers\User\PracticeController;
-use App\Http\Controllers\User\LanguageController;
-use App\Http\Controllers\User\TeamsController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PracticeController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\TeamsController;
 
 /*
 |--------------------------------------------------------------------------
