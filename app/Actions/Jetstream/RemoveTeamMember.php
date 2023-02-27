@@ -17,13 +17,16 @@ class RemoveTeamMember implements RemovesTeamMembers
      */
     public function remove(User $user, Team $team, User $teamMember): void
     {
-        $this->authorize($user, $team, $teamMember);
+        
+        if($user->is_admin){
+            
+            $this->ensureUserDoesNotOwnTeam($teamMember, $team);
 
-        $this->ensureUserDoesNotOwnTeam($teamMember, $team);
+            $team->removeUser($teamMember);
 
-        $team->removeUser($teamMember);
-
-        TeamMemberRemoved::dispatch($team, $teamMember);
+            TeamMemberRemoved::dispatch($team, $teamMember);
+        }
+        
     }
 
     /**
