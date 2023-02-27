@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\TeamsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +31,6 @@ Route::middleware([
     Route::resource('categories',CategoryController::class);
     Route::resource('practices',PracticeController::class);
     Route::resource('languages',LanguageController::class);
-    Route::resource('teams',TeamsController::class);
 });
 
 
