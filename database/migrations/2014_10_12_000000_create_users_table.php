@@ -19,9 +19,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_admin')->default(0);
-            $table->foreignId('language')->default(1);
-            $table->boolean('notification_setting')->default(0);
-            $table->boolean('sound_setting')->default(0);
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
