@@ -23,18 +23,19 @@ class InviteTeamMember implements InvitesTeamMembers
      */
     public function invite(User $user, Team $team, string $email, string $role = null): void
     {
-        Gate::forUser($user)->authorize('addTeamMember', $team);
+        if($user->is_admin){
 
-        $this->validate($team, $email, $role);
+            $this->validate($team, $email, $role);
 
-        InvitingTeamMember::dispatch($team, $email, $role);
+            InvitingTeamMember::dispatch($team, $email, $role);
 
-        $invitation = $team->teamInvitations()->create([
-            'email' => $email,
-            'role' => $role,
-        ]);
+            $invitation = $team->teamInvitations()->create([
+                'email' => $email,
+                'role' => $role,
+            ]);
 
-        Mail::to($email)->send(new TeamInvitation($invitation));
+            Mail::to($email)->send(new TeamInvitation($invitation));
+        }
     }
 
     /**
