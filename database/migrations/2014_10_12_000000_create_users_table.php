@@ -33,6 +33,7 @@ return new class extends Migration
                 'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
                 // vLe064h$0PdN
                 'is_admin' => 1,
+                'current_team_id' => 1 // default all user team
             )
         );
     }
