@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\User;
+use App\Models\UserSettings;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Language extends Model
 {
@@ -17,17 +17,15 @@ class Language extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'language_code'
+        'language_code', 'language'
     ];
 
     /**
-     * Get the user that owns the language.
-     */
-    public function user(): BelongsTo
+    * The user_settings that belong to the language.
+    */
+    public function user_settings(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(UserSettings::class, 'user_settings_language');
     }
-
-    
 
 }

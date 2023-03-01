@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function (Blueprint $table) {
+        Schema::create('user_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('language_code');
-            $table->string('language');
+            $table->foreignId('user_id');
+            $table->boolean('notification_setting')->default(0);
+            $table->boolean('sound_setting')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('user_settings');
     }
 };

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Language;
 use App\Models\Practice;
 use App\Models\Category;
+use App\Models\UserSettings;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,6 +16,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
@@ -31,7 +33,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password', 'language', 'notification_setting', 'sound_setting'
+        'name', 'email', 'password'
     ];
 
     /**
@@ -66,13 +68,12 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the languages for the user.
-     */
-    public function languages(): HasMany
+    * The practices that belong to the user. (favorites)
+    */
+    public function user_settings(): HasOne
     {
-        return $this->hasMany(Language::class);
+        return $this->hasOne(UserSettings::class,'user_id');
     }
-
     /**
     * The practices that belong to the user. (favorites)
     */
