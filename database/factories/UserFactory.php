@@ -34,6 +34,8 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
             'current_team_id' => null,
+            'is_admin' => 0,
+            'current_team_id' => 1
         ];
     }
 
@@ -56,18 +58,18 @@ class UserFactory extends Factory
      *
      * @return $this
      */
-    public function withPersonalTeam(): static
-    {
-        if (! Features::hasTeamFeatures()) {
-            return $this->state([]);
-        }
+    // public function withPersonalTeam(): static
+    // {
+    //     if (! Features::hasTeamFeatures()) {
+    //         return $this->state([]);
+    //     }
 
-        return $this->has(
-            Team::factory()
-                ->state(function (array $attributes, User $user) {
-                    return ['name' => $user->name.'\'s Team', 'user_id' => $user->id, 'personal_team' => true];
-                }),
-            'ownedTeams'
-        );
-    }
+    //     return $this->has(
+    //         Team::factory()
+    //             ->state(function (array $attributes, User $user) {
+    //                 return ['name' => $user->name.'\'s Team', 'user_id' => $user->id, 'personal_team' => true];
+    //             }),
+    //         'ownedTeams'
+    //     );
+    // }
 }
