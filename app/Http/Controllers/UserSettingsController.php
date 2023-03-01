@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Model\UserSettings;
 
-class CategoryController extends Controller
+class UserSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $user_setting = UserSettings::all();
+        return $user_setting;
     }
 
     /**

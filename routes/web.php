@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Livewire\CategorySection;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::resource('categories',CategoryController::class);
+
+    Route::get('/categories',CategorySection::class);
+    // Route::resource('categories',CategoryController::class);
     Route::resource('practices',PracticeController::class);
     Route::resource('languages',LanguageController::class);
 });
