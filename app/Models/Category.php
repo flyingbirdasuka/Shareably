@@ -33,7 +33,7 @@ class Category extends Model
     */
     public function practices(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'practice_categories');
+        return $this->belongsToMany(Practice::class, 'practice_categories');
     }
 
     /**
