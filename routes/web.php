@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Livewire\Category\CategorySection;
+use App\Http\Livewire\Category\CategoryDetails;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/categories',CategorySection::class);
+    Route::get('/categories/{id}',CategoryDetails::class);
     // Route::resource('categories',CategoryController::class);
     Route::resource('practices',PracticeController::class);
     Route::resource('languages',LanguageController::class);
