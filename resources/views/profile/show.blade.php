@@ -22,7 +22,7 @@
             @endif
 
             <div class="mt-10 sm:mt-0">
-                    @livewire('user-settings-section')
+                    @livewire('user-settings.user-settings-section')
                 </div>
 
                 <x-section-border />

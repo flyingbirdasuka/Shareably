@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\UserSettings;
 
 use DB;
 use Livewire\Component;
 use App\Models\UserSettings;
 use App\Models\Language;
-use App\Http\Controllers\UserSettingController;
+
 
 class UserSettingsSection extends Component
 {
@@ -31,7 +31,7 @@ class UserSettingsSection extends Component
 
     public function render()
     {
-        return view('livewire.user-settings-section', [
+        return view('livewire.user-settings.user-settings-sectiont', [
             'user', $this->user, 
             'notification_setting', $this->notification_setting,
             'sound_setting',$this->sound_setting, 

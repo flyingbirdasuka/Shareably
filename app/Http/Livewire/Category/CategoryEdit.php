@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
 use App\Models\Category;
@@ -22,7 +22,7 @@ class CategoryEdit extends Component
 
     public function render()
     {
-        return view('livewire.category-edit',[
+        return view('livewire.category.category-edit',[
             'title', $this->title,
             'description', $this->description,
         ]);

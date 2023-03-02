@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Livewire\CategorySection;
+use App\Http\Livewire\Category\CategorySection;
 
 /*
 |--------------------------------------------------------------------------
