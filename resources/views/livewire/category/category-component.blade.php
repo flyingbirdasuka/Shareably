@@ -1,7 +1,7 @@
 <div class="border-solid border-2 border-indigo-600 py-4">
     @if ($editable)
         @if ($edit_category)
-            <livewire:category-edit :category="$category" :key="now() . $category->id" :edit_category="$edit_category" >
+            <livewire:category.category-edit :category="$category" :key="now() . $category->id" :edit_category="$edit_category" >
         @else
             {{ $category->id }}
             <b>{{ $category->title }}</b>
