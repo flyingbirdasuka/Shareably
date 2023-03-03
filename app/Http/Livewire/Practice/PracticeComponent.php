@@ -15,7 +15,7 @@ class PracticeComponent extends Component
         $this->practice = $practice;
         $this->editable = $editable;
     }
-    
+
     public function edit($practice_id)
     {
         return redirect('practices/'.$practice_id);
