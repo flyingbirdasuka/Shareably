@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PracticeController;
-use App\Http\Controllers\LanguageController;
 use App\Http\Livewire\Category\CategorySection;
 use App\Http\Livewire\Category\CategoryDetails;
+use App\Http\Livewire\Practice\PracticeSection;
+use App\Http\Livewire\Practice\PracticeDetails;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +32,8 @@ Route::middleware([
 
     Route::get('/categories',CategorySection::class);
     Route::get('/categories/{id}',CategoryDetails::class);
-    // Route::resource('categories',CategoryController::class);
-    Route::resource('practices',PracticeController::class);
-    Route::resource('languages',LanguageController::class);
+    Route::get('/practices',PracticeSection::class);
+    Route::get('/practices/{id}',PracticeDetails::class);
 });
 
 
