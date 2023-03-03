@@ -25,7 +25,7 @@ class CategoryComponent extends Component
 
     public function delete()
     {
-        Category::where('id',$this->category->id)->delete();
+        Category::where('id', $this->category->id)->delete();
         $this->emitUp('refreshParent');
     }
 
