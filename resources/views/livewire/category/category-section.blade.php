@@ -1,6 +1,6 @@
 <div>
     <label>
-        <input type="checkbox" wire:model="editable"/>
+        <input type="checkbox" wire:model="editable" checked="false" />
     </label>
     <livewire:category.category-add>
     @foreach ($categories as $category)
