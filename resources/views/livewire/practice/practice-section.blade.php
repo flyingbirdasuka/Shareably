@@ -1,7 +1,5 @@
 <div>
     @foreach ($practices as $practice)
-        <a href="practices/{{$practice->id}}">
-            <livewire:practice.practice-component :practice="$practice" :key="now() . $practice->id">
-        </a>
+        <livewire:practice.practice-component :practice="$practice" :is_admin="$is_admin" :key="now() . $practice->id">
     @endforeach
 </div>

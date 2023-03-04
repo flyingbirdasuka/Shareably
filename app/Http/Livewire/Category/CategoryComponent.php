@@ -8,10 +8,12 @@ use App\Models\Category;
 class CategoryComponent extends Component
 {
     public $category;
+    public $is_admin;
 
-    public function mount($category)
+    public function mount($category, $is_admin)
     {
         $this->category = $category;
+        $this->is_admin = $is_admin;
     }
 
     public function render()
