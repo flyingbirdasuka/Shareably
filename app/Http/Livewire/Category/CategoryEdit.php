@@ -4,36 +4,35 @@ namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
 use App\Models\Category;
+use LivewireUI\Modal\ModalComponent;
 
-class CategoryEdit extends Component
+class CategoryEdit extends ModalComponent
 {
-    public $category;
+    public $category_id;
     public $title;
     public $description;
-    public $edit_category;
 
-    public function mount($category, $edit_category)
+    public function mount($title, $description)
     {
-        $this->category = $category;
-        $this->edit_category = $edit_category;
-        $this->title = $category->title;
-        $this->description = $category->description;
+
+        $this->title = $title;
+        $this->description = $description;
     }
 
     public function render()
     {
-        return view('livewire.category.category-edit',[
-            'title', $this->title,
-            'description', $this->description,
-        ]);
+        return view('livewire.category.category-edit');
     }
+
     public function edit()
     {
-        Category::where('id', $this->category->id)->update([
+        Category::where('id', $this->category_id)->update([
             'title' => $this->title,
             'description' => $this->description,
         ]);
-        $this->emitUp('refreshParent');
 
+        $this->closeModal();
+        // $this->emitUp('refreshParent');
+        return redirect()->to('/categories');
     }
 }

@@ -1,11 +1,6 @@
 <div>
-    <label>
-        <input type="checkbox" wire:model="editable"/>
-    </label>
-    <livewire:category.category-add>
+    <button wire:click="$emit('openModal', 'category.category-add')">Add Category</button>
     @foreach ($categories as $category)
-        <a href="categories/{{$category->id}}">
-            <livewire:category.category-component :category="$category" :key="now() . $category->id" :editable="$editable">
-        </a>
+        <livewire:category.category-component :category="$category" :key="now() . $category->id">
     @endforeach
 </div>

@@ -8,12 +8,10 @@ use App\Models\Practice;
 class PracticeComponent extends Component
 {
     public $practice;
-    public $editable = false;
 
-    public function mount($practice, $editable)
+    public function mount($practice)
     {
         $this->practice = $practice;
-        $this->editable = $editable;
     }
 
     public function edit($practice_id)

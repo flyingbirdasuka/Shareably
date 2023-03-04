@@ -4,8 +4,9 @@ namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
 use App\Models\Category;
+use LivewireUI\Modal\ModalComponent;
 
-class CategoryAdd extends Component
+class CategoryAdd extends ModalComponent
 {
     public $title ='';
     public $description = '';
@@ -27,6 +28,8 @@ class CategoryAdd extends Component
             'description' => $this->description,
         ]);
         session()->flash('message', 'Category successfully added.');
+        $this->closeModal();
+        // $this->emitUp('refreshParent');
         return redirect()->to('/categories');
     }
 

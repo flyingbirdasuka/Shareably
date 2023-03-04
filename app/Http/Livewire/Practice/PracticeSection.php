@@ -9,7 +9,6 @@ use App\Models\User;
 class PracticeSection extends Component
 {
     public $practices;
-    public $editable=false;
     public $user;
 
     protected $listeners = [

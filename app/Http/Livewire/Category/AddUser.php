@@ -4,13 +4,14 @@ namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
 use App\Models\User;
+use LivewireUI\Modal\ModalComponent;
 
-class AddUser extends Component
+class AddUser extends ModalComponent
 {
     public $email;
     public $user_id;
     public $category_id;
-    public $users;
+    public $users =[];
 
     protected $rules = [
         'email' => 'required|email',
@@ -32,22 +33,24 @@ class AddUser extends Component
         $this->validate();
 
         $user = User::where('email',$this->email)->first();
-
         if(!$user){
             session()->flash('message', 'This email does not exists as a user.');
             return;
-        }else {
+        } else {
             $user_id = $user->id;
         }
-        if(!$this->users->contains('id',$user_id)){
-            User::findOrFail($user_id)->categories()->attach($this->category_id);
-            session()->flash('message', 'User successfully added.');
-        } else {
-            session()->flash('message', 'This email already exists in this category.');
+        foreach($this->users as $users){
+            if ($users['id'] == $user->id) {
+                session()->flash('message', 'This email already exists in this category.');
+                return;
+            }
         }
 
+        User::findOrFail($user_id)->categories()->attach($this->category_id);
+        session()->flash('message', 'User successfully added.');
         return redirect('categories/'.$this->category_id);
     }
+
     public function render()
     {
         return view('livewire.category.add-user');

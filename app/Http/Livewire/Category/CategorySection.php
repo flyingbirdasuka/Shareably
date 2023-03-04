@@ -9,7 +9,6 @@ use App\Models\User;
 class CategorySection extends Component
 {
     public $categories;
-    public $editable=false;
     public $user;
 
     protected $listeners = [

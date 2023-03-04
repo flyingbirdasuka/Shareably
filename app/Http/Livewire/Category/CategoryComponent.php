@@ -8,14 +8,10 @@ use App\Models\Category;
 class CategoryComponent extends Component
 {
     public $category;
-    public $editable;
-    public $edit_category;
 
-    public function mount($category, $editable)
+    public function mount($category)
     {
         $this->category = $category;
-        $this->editable = $editable;
-        $this->edit_category = false;
     }
 
     public function render()
