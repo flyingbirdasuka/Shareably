@@ -9,4 +9,4 @@
     </label>
     <button type="submit">Update</button>
 </form>
-<button wire:click="$set('edit_category', false)" class="border-solid border-2 border-indigo-600 py-4">Cancel</button>
+<button wire:click.prevent="$set('edit_category', false)" class="border-solid border-2 border-indigo-600 py-4">Cancel</button>
