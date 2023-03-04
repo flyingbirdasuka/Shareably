@@ -12,4 +12,5 @@
         @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
     </label>
     <button type="submit" class="border-solid border-2 border-indigo-600 py-4">Add Member</button>
+    <button wire:click="$emit('closeModal')">Close</button>
 </form>

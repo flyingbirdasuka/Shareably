@@ -8,5 +8,5 @@
         <textarea wire:model.delay.500ms="description"></textarea>
     </label>
     <button type="submit">Update</button>
+    <button wire:click="$emit('closeModal')">Close</button>
 </form>
-<button wire:click.prevent="$set('edit_category', false)" class="border-solid border-2 border-indigo-600 py-4">Cancel</button>

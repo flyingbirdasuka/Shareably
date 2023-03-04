@@ -16,4 +16,5 @@
         <textarea wire:model.delay.500ms="description"></textarea>
     </label>
     <button type="submit" class="border-solid border-2 border-indigo-600 py-4">Add Category</button>
+    <button wire:click="$emit('closeModal')">Close</button>
 </form>
