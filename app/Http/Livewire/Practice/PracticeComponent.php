@@ -8,10 +8,12 @@ use App\Models\Practice;
 class PracticeComponent extends Component
 {
     public $practice;
+    public $is_admin;
 
-    public function mount($practice)
+    public function mount($practice, $is_admin)
     {
         $this->practice = $practice;
+        $this->is_admin = $is_admin;
     }
 
     public function edit($practice_id)

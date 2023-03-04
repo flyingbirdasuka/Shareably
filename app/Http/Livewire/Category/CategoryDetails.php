@@ -13,12 +13,14 @@ class CategoryDetails extends Component
     public $users;
     public $user_id;
     public $all_practices;
+    public $is_admin;
 
     public function mount($id)
     {
         $this->category = Category::find($id);
         $this->practices = $this->category->practices()->get();
         $this->users = $this->category->users()->get();
+        $this->is_admin = auth()->user()->is_admin;
     }
 
     public function edit_practice($practice_id)

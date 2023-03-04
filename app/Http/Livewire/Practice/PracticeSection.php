@@ -10,6 +10,7 @@ class PracticeSection extends Component
 {
     public $practices;
     public $user;
+    public $is_admin;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -19,6 +20,7 @@ class PracticeSection extends Component
     {
         $user = auth()->user();
         $this->practices = $user->is_admin ? Practice::all() : User::find($user)->first()->practices()->get();
+        $this->is_admin = $user->is_admin;
     }
 
     public function render()
