@@ -2,29 +2,32 @@
 
 namespace App\Http\Livewire\Practice;
 
-use File;
+// use File;
+// use Storage;
 use Livewire\Component;
 use App\Models\Practice;
 use App\Models\Category;
-// use Livewire\WithFileUploads;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\File; 
 
 class PracticeEdit extends Component
 {
-    // use WithFileUploads;
+    use WithFileUploads;
     
     public $practice;
     public $title;
     public $description;
-    // public $file;
-    // public $new_file;
-    // public $practice_file;
+    public $original_file;
+    public $original_file_name;
+    public $new_file;
     public $all_categories = [];
     public $add_categories = [];
+    public $isUploaded=false;
 
-    protected $rules = [
-        'add_categories' => 'requried',
-        // 'new_file.*' => 'required|file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
-    ];
+    // protected $rules = [
+    //     'add_categories' => 'requried',
+    //     'new_file.*' => 'file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
+    // ];
 
     protected $message = [
         'title.required' => 'The Title cannot be empty.',
@@ -36,30 +39,27 @@ class PracticeEdit extends Component
         $this->practice = Practice::find($id);
         $this->title = $this->practice->title;
         $this->description = $this->practice->description;
-        // $this->practice_file = $this->practice->musicsheets()->get()->first();
-        // $this->file = asset('practice/' . $this->practice_file->filename);
+        $this->original_file_name = $this->practice->musicsheets()->get()->first()->filename;
+        $this->original_file = asset('practice/' . $this->original_file_name);
         $this->all_categories = Category::all();
         // (THIS WORKS AND DONT CHANGE THE VALUE IN THE VIEW)
         $this->add_categories = $this->practice->categories()->pluck('categories.id')->all();
        
     }
 
-    // public function submit($id, $formData){
-    //     dd($formData);
-    // }
+    public function updatedNewFile($value)
+    {
+        // dd('test');
+        $this->isUploaded = true;
+        // dd($this->isUploaded);
+        $this->validate([
+            'new_file' => 'file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
+        ]);
+    }
 
     public function update_practice()
     {
-
-        // dd($this->title, $this->practice);
-        // $edit_file = $this->new_file? true : false;
-        // if($edit_file){ // if the new file is attatched
-            // $this->validate();
-        // }
-
-        // dd($this->add_categories);
-        // update the practice table
-        // Practice::where('id', $this->practice->id);
+        // !!! check validation later
 
         // (THIS WORKS)
         Practice::where('id', $this->practice->id)->update([
@@ -67,24 +67,27 @@ class PracticeEdit extends Component
             'description' => $this->description,
         ]);
 
-        // if($edit_file){
-        //     // remove the previous file and relationship of previous musicsheet and practice
-        //     File::delete($this->file);
-        //     // dd($this->practice_file);
-        //     $this->file->detach($this->practice_file);
+        if($this->new_file){
+            // remove the previous file and relationship of previous musicsheet and practice
 
-        //     // add the new file
-        //     $new_filename = $this->new_file->getClientOriginalName();
-        //     $practice->musicsheets()->create([
-        //         'title' => $this->title,
-        //         'filename' => $new_filename,
-        //     ]);
-        //     $this->file->storeAs('/', $new_filename, $disk = 'practice');
+            // !!! doesnt delete the file 
+            // File::delete($this->original_file);
+            // dd($this->original_file);
+            dd(File::delete($this->original_file));
+            // Storage::delete($this->original_file);
+            $this->practice->musicsheets()->delete();
 
-        // }
+            // add the new file
+            $new_filename = $this->new_file->getClientOriginalName();
+            $this->practice->musicsheets()->create([
+                'title' => $this->title,
+                'filename' => $new_filename,
+            ]);
+            $this->new_file->storeAs('/', $new_filename, $disk = 'practice');
+        }
+    
 
         // update the attatched categories
-
         // remove the original category for this practice (THIS WORKS)
         foreach($this->practice->categories()->get() as $original_category){
             $this->practice->categories()->detach($original_category);
@@ -94,8 +97,8 @@ class PracticeEdit extends Component
             $this->practice->categories()->attach($category_id);
         }
         
-        // session()->flash('message', 'Practice successfully added.');
-        // return redirect()->to('/practices');
+        session()->flash('message', 'Practice successfully added.');
+        return redirect()->to('/practices');
     }
     public function render()
     {
