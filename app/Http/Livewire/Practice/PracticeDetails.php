@@ -11,12 +11,14 @@ class PracticeDetails extends Component
 {
     public $practice;
     public $practice_file;
+    public $categories;
 
     public function mount($id)
     {
         $this->practice = Practice::find($id);
         $this->practice_file = $this->practice->musicsheets()->get()->first()->filename;
         $this->pdf = asset('practice/' . $this->practice_file);
+        $this->categories = $this->practice->categories()->get();
     }
 
     public function render()

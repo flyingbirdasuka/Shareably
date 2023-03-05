@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Practice;
 
 use Livewire\Component;
 use App\Models\Practice;
+use App\Models\Category;
 use App\Models\MusicSheet;
 use Livewire\WithFileUploads;
 
@@ -14,6 +15,8 @@ class PracticeUpload extends Component
     public $title;
     public $description;
     public $file;
+    public $all_categories = [];
+    public $add_categories = [];
 
     protected $rules = [
         'file.*' => 'required|file|mimes:jpg,jpeg,png,pdf,docx|max:1024'
@@ -24,6 +27,10 @@ class PracticeUpload extends Component
         'file.*' => 'This file type is not supported'
     ];
 
+    public function mount()
+    {
+        $this->all_categories = Category::all();
+    }
     public function updated()
     {
         $this->validate();
@@ -46,6 +53,9 @@ class PracticeUpload extends Component
         
         $this->file->storeAs('/', $filename, $disk = 'practice');
 
+        foreach ($this->add_categories as $category_id){
+            $practice->categories()->attach($category_id);
+        }
         
         session()->flash('message', 'Practice successfully added.');
         return redirect()->to('/practices');
