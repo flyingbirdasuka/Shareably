@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Practice;
 
+
 use Livewire\Component;
 use App\Models\Practice;
 use App\Models\Category;

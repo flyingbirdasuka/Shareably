@@ -18,7 +18,7 @@ class PracticeComponent extends Component
 
     public function edit($practice_id)
     {
-        return redirect('practices/'.$practice_id);
+        return redirect('practices/'.$practice_id.'/edit');
     }
 
     public function delete($practice_id)
