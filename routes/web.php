@@ -6,6 +6,7 @@ use App\Http\Livewire\Category\CategoryDetails;
 use App\Http\Livewire\Practice\PracticeSection;
 use App\Http\Livewire\Practice\PracticeDetails;
 use App\Http\Livewire\Practice\PracticeUpload;
+use App\Http\Livewire\Practice\PracticeEdit;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::middleware([
     Route::get('/practices',PracticeSection::class);
     Route::get('/practices/{id}',PracticeDetails::class);
     Route::get('/practice-upload',PracticeUpload::class);
+    Route::get('/practices/{id}/edit',PracticeEdit::class);
 });
 
 

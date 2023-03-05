@@ -22,7 +22,7 @@
         </label>
     @endforeach
     <input type="file" wire:model="file">
-    @error('files.*') <span class="error">{{ $message }}</span> @enderror
+    @error('file.*') <span class="error">{{ $message }}</span> @enderror
     <button type="submit" class="border-solid border-2 border-indigo-600 py-4">Add Practice</button>
     @if ($file)
         Files Preview:
