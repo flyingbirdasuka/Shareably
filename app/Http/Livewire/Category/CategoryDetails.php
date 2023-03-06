@@ -12,7 +12,6 @@ class CategoryDetails extends Component
     public $practices;
     public $users;
     public $user_id;
-    public $all_practices;
     public $is_admin;
 
     public function mount($id)

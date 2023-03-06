@@ -1,5 +1,5 @@
 @if($all_practices)
-    <form wire:submit.prevent="add_practice">
+    <form wire:submit.prevent="update_practice">
         @foreach($all_practices as $practice)
             <label>
                 <input wire:model="add_practice" value="{{ $practice->id }}" type="checkbox" />

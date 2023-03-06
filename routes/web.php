@@ -37,7 +37,7 @@ Route::middleware([
     Route::get('/practices',PracticeSection::class);
     Route::get('/practices/{id}',PracticeDetails::class);
     Route::get('/practice-upload',PracticeUpload::class);
-    Route::get('/practices/{id}/edit',PracticeEdit::class);
+    // Route::get('/practices/{id}/edit',PracticeEdit::class);
 });
 
 
