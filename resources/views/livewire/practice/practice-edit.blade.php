@@ -28,14 +28,14 @@
     ORIGINAL FILE NAME: {{ $original_file_name }} <br><br>
     fff
     
+
+
     @if ($new_file)
         new file
         {{$new_file}}
-        <iframe src="{{$new_file->temporaryUrl()}}" width="40%" height="200px;">
+        <iframe src="{{$new_file->temporaryUrl()}}" width="40%" height="200px;"></iframe>
+            
     @else
-        {{$original_file}}
-        <iframe src="{{$original_file}}" width="40%" height="200px;">
-    @endif
-   
-
-</form>
+        old file
+        <iframe src="{{$original_file}}" width="40%" height="200px;"></iframe>
+    @endif</form>

@@ -3,12 +3,12 @@
 namespace App\Http\Livewire\Practice;
 
 // use File;
-// use Storage;
+use Storage;
 use Livewire\Component;
 use App\Models\Practice;
 use App\Models\Category;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 
 class PracticeEdit extends Component
 {
@@ -24,10 +24,9 @@ class PracticeEdit extends Component
     public $add_categories = [];
     public $isUploaded=false;
 
-    // protected $rules = [
-    //     'add_categories' => 'requried',
-    //     'new_file.*' => 'file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
-    // ];
+    protected $rules = [
+        'add_categories' => 'requried',
+    ];
 
     protected $message = [
         'title.required' => 'The Title cannot be empty.',
@@ -49,9 +48,7 @@ class PracticeEdit extends Component
 
     public function updatedNewFile($value)
     {
-        // dd('test');
         $this->isUploaded = true;
-        // dd($this->isUploaded);
         $this->validate([
             'new_file' => 'file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
         ]);
@@ -61,21 +58,17 @@ class PracticeEdit extends Component
     {
         // !!! check validation later
 
-        // (THIS WORKS)
+        // $this->validate();
+
         Practice::where('id', $this->practice->id)->update([
             'title' => $this->title,
             'description' => $this->description,
         ]);
 
         if($this->new_file){
-            // remove the previous file and relationship of previous musicsheet and practice
-
-            // !!! doesnt delete the file 
-            // File::delete($this->original_file);
-            // dd($this->original_file);
-            dd(File::delete($this->original_file));
-            // Storage::delete($this->original_file);
-            $this->practice->musicsheets()->delete();
+            Storage::delete('/practice/'.$this->original_file_name); // delete the file
+            $this->practice->musicsheets()->delete(); // delete the previous musicsheet in DB
+            $this->practice->musicsheets()->detach(); // detach the relationship
 
             // add the new file
             $new_filename = $this->new_file->getClientOriginalName();
