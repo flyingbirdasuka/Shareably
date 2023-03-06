@@ -12,6 +12,14 @@ class CategoryEdit extends ModalComponent
     public $title;
     public $description;
 
+    protected $rules = [
+        'title' => 'required',
+    ];
+
+    protected $message = [
+        'title.required' => 'The Title cannot be empty.',
+    ];
+
     public function mount($title, $description)
     {
 
@@ -26,6 +34,8 @@ class CategoryEdit extends ModalComponent
 
     public function edit()
     {
+        $this->validate();
+        
         Category::where('id', $this->category_id)->update([
             'title' => $this->title,
             'description' => $this->description,

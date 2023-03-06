@@ -19,27 +19,45 @@ class PracticeUpload extends Component
     public $all_categories = [];
     public $add_categories = [];
 
-    protected $rules = [
-        'file.*' => 'required|file|mimes:jpg,jpeg,png,pdf,docx|max:1024'
-    ];
+    // protected $rules = [
+    //     'title' => 'required',
+    //     'file' => 'required'
+    // ];
 
-    protected $message = [
-        'title.required' => 'The Title cannot be empty.',
-        'file.*' => 'This file type is not supported'
-    ];
+    // protected $message = [
+    //     'title.required' => 'The Title cannot be empty.',
+    //     'file.required' => 'The file needs to be uploaded', 
+    //     'file.mimes' => 'This file type is not supported',
+    //     'file.max' => 'This file is too big'
+    // ];
 
     public function mount()
     {
         $this->all_categories = Category::all();
     }
-    public function updated()
-    {
-        $this->validate();
-    }
-    
+
+    // public function updatedFile($propertyName)
+    // {
+    //     $test = $this->validateOnly($propertyName, [
+    //         'file' => 'file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
+    //     ]);
+    //     dd($test);
+
+        
+    // }
+
     public function add()
     {
-        $this->validate();
+        // $this->validate();
+        $this->validate([
+            'title' => 'required',
+            'file' => 'required|mimes:jpg,jpeg,png,pdf,docx|max:1024',
+        ],
+        [
+            'title.required' => 'The Title cannot be empty.',
+            'file.required' => 'The file needs to be uploaded.',
+        ],    
+    );
 
         $practice = Practice::create([
             'title' => $this->title,

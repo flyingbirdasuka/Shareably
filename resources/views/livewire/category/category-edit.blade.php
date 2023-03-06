@@ -1,4 +1,11 @@
 <form wire:submit.prevent="edit">
+    <div>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
     <label>
         Title:
         <input type="text" wire:model.delay.500ms="title" value="$title" />
