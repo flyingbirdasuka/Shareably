@@ -47,12 +47,13 @@ class PracticeUpload extends Component
         ]);
 
         $filename = $this->file->getClientOriginalName();
+        $unique_name = uniqid().'-'.$filename;
         $practice->musicsheets()->create([
             'title' => $this->title,
-            'filename' => $filename,
+            'filename' => $unique_name
         ]);
         
-        $this->file->storeAs('/', $filename, $disk = 'practice');
+        $this->file->storeAs('/', $unique_name, $disk = 'practice');
 
         foreach ($this->add_categories as $category_id){
             $practice->categories()->attach($category_id);
