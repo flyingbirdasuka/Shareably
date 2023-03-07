@@ -1,5 +1,5 @@
 <div>
-    <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
+    <input type="text" wire:model="search" placeholder="Search" >
     @foreach ($practices as $practice)
         <livewire:practice.practice-component :practice="$practice" :is_admin="$is_admin" :key="now() . $practice->id">
     @endforeach

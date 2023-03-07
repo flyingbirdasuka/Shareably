@@ -29,13 +29,17 @@ class PracticeSection extends Component
         if($this->is_admin){
             $this->practices = Practice::search('title', $this->search)->orderBy('title')->get();
         } else {
-            if($this->search !=''){
+            if(strlen($this->search) >= 2){
                 foreach($this->practices as $key => $practice){
                     if(!str_contains(strtolower($practice->title), strtolower($this->search))){
                         // If the search query is not found in the practices then remove the false results
                         $this->practices->forget($key);
                     }
                 }
+
+                // Arrange the final results by alphabetical order
+                $this->practices->sortBy('title');
+
             } else {
                 $this->practices = User::find($this->user)->first()->practices()->orderBy('title')->get();
             }

@@ -27,18 +27,21 @@ class CategorySection extends Component
     public function updatedSearch()
     {
         if($this->is_admin){
-            $this->categories = Category::search('title', $this->search)->get();
+            $this->categories = Category::search('title', $this->search)->orderBy('title')->get();
         } else {
-            if($this->search !=''){
+            if(strlen($this->search) >= 2){
                 foreach($this->categories as $key => $category){
                     if(!str_contains(strtolower($category->title), strtolower($this->search))){
                         // If the search query is not found in the practices then remove the false results
                         $this->categories->forget($key);
                     }
                 }
-                // dd($this->categories);
+
+                // Arrange the final results by alphabetical order
+                $this->categories->sortBy('title');
+
             } else {
-                $this->categories = User::find($this->user)->first()->categories()->get();
+                $this->categories = User::find($this->user)->first()->categories()->orderBy('title')->get();
             }
         }
     }
