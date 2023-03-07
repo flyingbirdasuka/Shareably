@@ -18,7 +18,7 @@ class PracticeDetails extends Component
         $this->practice = Practice::find($id);
         $this->practice_file = $this->practice->musicsheets()->get()->first()->filename;
         $this->pdf = asset('practice/' . $this->practice_file);
-        $this->categories = $this->practice->categories()->get();
+        $this->categories = $this->practice->categories()->orderBy('title')->get();
     }
 
     public function render()

@@ -33,7 +33,7 @@ class PracticeUpload extends Component
 
     public function mount()
     {
-        $this->all_categories = Category::all();
+        $this->all_categories = Category::orderBy('title')->get();
     }
 
     // public function updatedFile($propertyName)
