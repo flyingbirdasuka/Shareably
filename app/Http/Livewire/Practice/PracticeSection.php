@@ -19,9 +19,9 @@ class PracticeSection extends Component
 
     public function mount()
     {
-        $user = auth()->user();
-        $this->practices = $user->is_admin ? Practice::all() : User::find($user)->first()->practices()->get();
-        $this->is_admin = $user->is_admin;
+        $this->user = auth()->user();
+        $this->practices = $this->user->is_admin ? Practice::orderBy('title')->get() : User::find($this->user)->first()->practices()->orderBy('title')->get();
+        $this->is_admin = $this->user->is_admin;
     }
 
     public function updatedSearch()
@@ -36,9 +36,8 @@ class PracticeSection extends Component
                         $this->practices->forget($key);
                     }
                 }
-                dd($this->practices);
             } else {
-                $this->practices = User::find(auth()->user())->first()->practices()->get();
+                $this->practices = User::find($this->user)->first()->practices()->get();
             }
         }
     }

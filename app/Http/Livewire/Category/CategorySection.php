@@ -19,9 +19,9 @@ class CategorySection extends Component
 
     public function mount()
     {
-        $user = auth()->user();
-        $this->categories = $user->is_admin ? Category::all() : User::find($user)->first()->categories()->get();
-        $this->is_admin = $user->is_admin && true;
+        $this->user = auth()->user();
+        $this->categories = $this->user->is_admin ? Category::orderBy('title')->get() : User::find($this->user)->first()->categories()->orderBy('title')->get();
+        $this->is_admin = $this->user->is_admin && true;
     }
 
     public function updatedSearch()
@@ -38,7 +38,7 @@ class CategorySection extends Component
                 }
                 // dd($this->categories);
             } else {
-                $this->categories = User::find(auth()->user())->first()->categories()->get();
+                $this->categories = User::find($this->user)->first()->categories()->get();
             }
         }
     }

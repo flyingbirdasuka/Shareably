@@ -40,7 +40,7 @@ class PracticeEdit extends Component
         $this->description = $this->practice->description;
         $this->original_file_name = $this->practice->musicsheets()->get()->first()->filename;
         $this->original_file = asset('practice/' . $this->original_file_name);
-        $this->all_categories = Category::all();
+        $this->all_categories = Category::orderBy('title')->get();
         // (THIS WORKS AND DONT CHANGE THE VALUE IN THE VIEW)
         $this->add_categories = $this->practice->categories()->pluck('categories.id')->all();
        
