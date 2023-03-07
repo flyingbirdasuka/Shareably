@@ -17,7 +17,7 @@ class AddPractice extends ModalComponent
     public function mount($category_id)
     {
         $this->category_id = $category_id;
-        $this->all_practices = Practice::all();
+        $this->all_practices = Practice::orderBy('title')->get();
         $this->category = Category::find($category_id);
         $this->add_practice = $this->category->practices()->pluck('practices.id')->all();
     }

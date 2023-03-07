@@ -19,7 +19,7 @@ class PracticeSection extends Component
     public function mount()
     {
         $user = auth()->user();
-        $this->practices = $user->is_admin ? Practice::all() : User::find($user)->first()->practices()->get();
+        $this->practices = $user->is_admin ? Practice::orderBy('title')->get() : User::find($user)->first()->practices()->orderBy('title')->get();
         $this->is_admin = $user->is_admin;
     }
 

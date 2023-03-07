@@ -19,7 +19,7 @@ class CategorySection extends Component
     public function mount()
     {
         $user = auth()->user();
-        $this->categories = $user->is_admin ? Category::all() : User::find($user)->first()->categories()->get();
+        $this->categories = $user->is_admin ? Category::orderBy('title')->get() : User::find($user)->first()->categories()->orderBy('title')->get();
         $this->is_admin = $user->is_admin && true;
     }
 
