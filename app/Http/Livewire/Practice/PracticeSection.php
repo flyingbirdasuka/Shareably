@@ -27,7 +27,7 @@ class PracticeSection extends Component
     public function updatedSearch()
     {
         if($this->is_admin){
-            $this->practices = Practice::search('title', $this->search)->get();
+            $this->practices = Practice::search('title', $this->search)->orderBy('title')->get();
         } else {
             if($this->search !=''){
                 foreach($this->practices as $key => $practice){
@@ -37,7 +37,7 @@ class PracticeSection extends Component
                     }
                 }
             } else {
-                $this->practices = User::find($this->user)->first()->practices()->get();
+                $this->practices = User::find($this->user)->first()->practices()->orderBy('title')->get();
             }
         }
     }
