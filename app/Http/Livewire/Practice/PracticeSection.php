@@ -40,7 +40,7 @@ class PracticeSection extends Component
                 $this->practices = User::find($this->user)->first()->practices()->orderBy('title')->get();
             }
         }
-    }
+  }
 
     public function render()
     {
