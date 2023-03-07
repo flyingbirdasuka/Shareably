@@ -26,18 +26,21 @@ class PracticeSection extends Component
 
     public function updatedSearch()
     {
-        // dd($this->practices->where('title', 'like', '%'.$this->search.'%'));
-        $this->practices = Practice::search('title', $this->search)->get();
-        // dd($this->practices->);
-        // foreach($practices as $practice){
-        //     foreach($practice->users() as $user){
-        //         dd($user->id);
-        //     }
-            // if($practice->users()->user_id)){
-            //     dd($practice);
-            // };
-        // };
-
+        if($this->is_admin){
+            $this->practices = Practice::search('title', $this->search)->get();
+        } else {
+            if($this->search !=''){
+                foreach($this->practices as $key => $practice){
+                    if(!str_contains(strtolower($practice->title), strtolower($this->search))){
+                        // If the search query is not found in the practices then remove the false results
+                        $this->practices->forget($key);
+                    }
+                }
+                dd($this->practices);
+            } else {
+                $this->practices = User::find(auth()->user())->first()->practices()->get();
+            }
+        }
     }
 
     public function render()
