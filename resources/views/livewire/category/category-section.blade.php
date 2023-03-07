@@ -1,4 +1,5 @@
 <div>
+    <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
     @if($is_admin)
         <button wire:click="$emit('openModal', 'category.category-add')">Add Category</button>
     @endif
