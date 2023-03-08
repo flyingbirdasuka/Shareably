@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Laravel\Jetstream\Contracts\AddsTeamMembers;
+use Laravel\Jetstream\TeamInvitation;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -36,6 +38,27 @@ class CreateNewUser implements CreatesNewUsers
             ]), function (User $user) {
                 // $this->createTeam($user);
                 $this->addToDefaultTeam($user);
+                $this->addDefaultUserSetting($user);
+
+                // when the user clicked from the email invitation, it makes sure that the user will be added to the invited team even from registration form.
+                $pendingInvitations = TeamInvitation::where('email', '=', $user->email)->get();
+
+                if($pendingInvitations && count($pendingInvitations) > 0){
+                  foreach ($pendingInvitations as $invitation) {
+
+                    app(AddsTeamMembers::class)->add(
+                        $invitation->team->owner,
+                        $invitation->team,
+                        $invitation->email,
+                        $invitation->role
+                    );
+
+                    $invitation->delete();
+                    $user->save();
+
+                  }
+                }
+
             });
         });
     }
@@ -64,5 +87,17 @@ class CreateNewUser implements CreatesNewUsers
         $user->switchTeam($teamToAssign);
 
         $user->update();
+    }
+
+    /**
+     * Add default user setting
+     */
+    protected function addDefaultUserSetting(User $user)
+    {
+        $user_settings = $user->user_settings()->create([
+            'notification_setting' => 1,
+            'sound_setting' => 1,
+        ]);
+        $user->user_settings()->where('id', $user_settings->id)->first()->language()->attach(1);
     }
 }
