@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Practice;
 
-// use File;
 use Storage;
 use Livewire\Component;
 use App\Models\Practice;
