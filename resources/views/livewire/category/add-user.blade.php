@@ -11,6 +11,6 @@
         <input type="email" wire:model.delay.500ms="email" />
         @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
     </label>
-    <button type="submit" class="border-solid border-2 border-indigo-600 py-4">Add Member</button>
-    <button wire:click="$emit('closeModal')">Close</button>
+    <button type="submit" class="border-solid border-2 border-indigo-600 py-4">{{ __('categorypage.add_member') }}</button>
+    <button wire:click="$emit('closeModal')">{{ __('categorypage.close') }}</button>
 </form>

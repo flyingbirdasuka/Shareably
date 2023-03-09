@@ -7,12 +7,12 @@
         @endif
     </div>
     <label>
-        Title:
+    {{ __('practicepage.title') }} :
         <input type="text" wire:model.delay.500ms="title" value="{{$title}}"/>
         @error('title') <span class="error text-red-500">{{ $message }}</span> @enderror
     </label>
     <label>
-        Description:
+        {{ __('practicepage.description') }} :
         <textarea wire:model.delay.500ms="description">{{ $description }}</textarea>
     </label>
     @foreach($all_categories as $category)
@@ -24,18 +24,16 @@
     <br><br>
     <input type="file" wire:model="new_file">
     @error('new_file.*') <span class="error">{{ $message }}</span> @enderror
-    <button type="submit" class="border-solid border-2 border-indigo-600 py-4">Update Practice</button>
-    ORIGINAL FILE NAME: {{ $original_file_name }} <br><br>
-    fff
-    
+    <button type="submit" class="border-solid border-2 border-indigo-600 py-4">{{ __('practicepage.update_practice') }}</button>
+    {{ __('practicepage.current_filename') }}: {{ $original_file_name }} <br><br>
 
 
     @if ($new_file)
-        new file
+        {{ __('practicepage.new_file') }} :
         {{$new_file}}
         <iframe src="{{$new_file->temporaryUrl()}}" width="40%" height="200px;"></iframe>
             
     @else
-        old file
+        {{ __('practicepage.current_file') }} :
         <iframe src="{{$original_file}}" width="40%" height="200px;"></iframe>
     @endif</form>

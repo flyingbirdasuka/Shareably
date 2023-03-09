@@ -7,13 +7,13 @@
         @endif
     </div>
     <label>
-        Title:
+        {{ __('categorypage.title') }}:
         <input type="text" wire:model.delay.500ms="title" value="$title" />
     </label>
     <label>
-        Description:
+        {{ __('categorypage.description') }}:
         <textarea wire:model.delay.500ms="description"></textarea>
     </label>
-    <button type="submit">Update</button>
-    <button wire:click="$emit('closeModal')">Close</button>
+    <button type="submit">{{ __('categorypage.update') }}</button>
+    <button wire:click="$emit('closeModal')">{{ __('categorypage.close') }}</button>
 </form>

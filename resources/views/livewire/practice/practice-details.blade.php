@@ -1,7 +1,7 @@
 <div>
-    Title : {{ $practice->title }}
-    Description : {{ $practice->description }}
-    Category :
+{{ __('categorypage.title') }}: {{ $practice->title }}
+{{ __('categorypage.description') }}: {{ $practice->description }}
+{{ __('categorypage.category') }}:
     @if($categories)
         @foreach($categories as $category)
             {{ $category->id }}
