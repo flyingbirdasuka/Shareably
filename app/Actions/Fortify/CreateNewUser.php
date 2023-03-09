@@ -16,6 +16,7 @@ class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
 
+    public $invited_teams = '';
     /**
      * Create a newly registered user.
      *
@@ -37,26 +38,35 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
                 // $this->createTeam($user);
-                $this->addToDefaultTeam($user);
-                $this->addDefaultUserSetting($user);
 
-                // when the user clicked from the email invitation, it makes sure that the user will be added to the invited team even from registration form.
+                // when the user click on the email invitation, it makes sure that the user will be added to the invited team even from registration form and delete the invite.
                 $pendingInvitations = TeamInvitation::where('email', '=', $user->email)->get();
 
                 if($pendingInvitations && count($pendingInvitations) > 0){
-                  foreach ($pendingInvitations as $invitation) {
+                    $this->addToDefaultTeam($user);
+                    $this->addDefaultUserSetting($user);
 
-                    app(AddsTeamMembers::class)->add(
-                        $invitation->team->owner,
-                        $invitation->team,
-                        $invitation->email,
-                        $invitation->role
+                    foreach ($pendingInvitations as $invitation) {
+                        if($invitation->team->id != 1){
+                            app(AddsTeamMembers::class)->add(
+                                $invitation->team->owner,
+                                $invitation->team,
+                                $invitation->email,
+                                $invitation->role
+                            );
+                        }
+
+                        if(strlen($this->invited_teams)>0){
+                            $this->invited_teams .= ', '. $invitation->team->name;
+                        } else {
+                            $this->invited_teams .= $invitation->team->name;
+                        }
+                        $invitation->delete();
+
+                    }
+                    return redirect(config('fortify.home'))->banner(
+                        __('Great! You have accepted the invitation to join :team team.', ['team' => $this->invited_teams]),
                     );
-
-                    $invitation->delete();
-                    $user->save();
-
-                  }
                 }
 
             });
