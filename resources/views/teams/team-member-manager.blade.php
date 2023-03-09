@@ -5,23 +5,23 @@
         <div class="mt-10 sm:mt-0">
             <x-form-section submit="addTeamMember">
                 <x-slot name="title">
-                    {{ __('Add Team Member') }}
+                    {{ __('teamsettingspage.add_team_member') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('Add a new team member to your team, allowing them to collaborate with you.') }}
+                    {{ __('teamsettingspage.add_team_member_description') }}
                 </x-slot>
 
                 <x-slot name="form">
                     <div class="col-span-6">
                         <div class="max-w-xl text-sm text-gray-600">
-                            {{ __('Please provide the email address of the person you would like to add to this team.') }}
+                            {{ __('teamsettingspage.provide_email') }}
                         </div>
                     </div>
 
                     <!-- Member Email -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-label for="email" value="{{ __('Email') }}" />
+                        <x-label for="email" value="{{ __('teamsettingspage.email') }}" />
                         <x-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email" />
                         <x-input-error for="email" class="mt-2" />
                     </div>
@@ -29,7 +29,7 @@
                     <!-- Role -->
                     @if (count($this->roles) > 0)
                         <div class="col-span-6 lg:col-span-4">
-                            <x-label for="role" value="{{ __('Role') }}" />
+                            <x-label for="role" value="{{ __('teamsettingspage.role') }}" />
                             <x-input-error for="role" class="mt-2" />
 
                             <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
@@ -64,11 +64,11 @@
 
                 <x-slot name="actions">
                     <x-action-message class="mr-3" on="saved">
-                        {{ __('Added.') }}
+                        {{ __('teamsettingspage.added') }}
                     </x-action-message>
 
                     <x-button>
-                        {{ __('Add') }}
+                        {{ __('teamsettingspage.add') }}
                     </x-button>
                 </x-slot>
             </x-form-section>
@@ -81,11 +81,11 @@
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Pending Team Invitations') }}
+                    {{ __('teamsettingspage.pending_invitation') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.') }}
+                    {{ __('teamsettingspage.pending_invitation_description') }}
                 </x-slot>
 
                 <x-slot name="content">
@@ -98,7 +98,7 @@
                                         <!-- Cancel Team Invitation -->
                                         <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
                                                             wire:click="cancelTeamInvitation({{ $invitation->id }})">
-                                            {{ __('Cancel') }}
+                                            {{ __('teamsettingspage.cancel') }}
                                         </button>
                                   
                                 </div>
@@ -117,11 +117,11 @@
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Team Members') }}
+                    {{ __('teamsettingspage.team_members') }}
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('All of the people that are part of this team.') }}
+                    {{ __('teamsettingspage.team_members_description') }}
                 </x-slot>
 
                 <!-- Team Member List -->
@@ -149,7 +149,7 @@
 
                                     <!-- Remove Team Member -->
                                         <button class="cursor-pointer ml-6 text-sm text-red-500" wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
-                                            {{ __('Remove') }}
+                                            {{ __('teamsettingspage.remove') }}
                                         </button>
                              
                                 </div>
@@ -164,7 +164,7 @@
     <!-- Role Management Modal -->
     <x-dialog-modal wire:model="currentlyManagingRole">
         <x-slot name="title">
-            {{ __('Manage Role') }}
+            {{ __('teamsettingspage.team_owner') }}
         </x-slot>
 
         <x-slot name="content">
@@ -198,11 +198,11 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="stopManagingRole" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('teamsettingspage.cancel') }}
             </x-secondary-button>
 
             <x-button class="ml-3" wire:click="updateRole" wire:loading.attr="disabled">
-                {{ __('Save') }}
+                {{ __('teamsettingspage.save') }}
             </x-button>
         </x-slot>
     </x-dialog-modal>
@@ -210,20 +210,20 @@
     <!-- Leave Team Confirmation Modal -->
     <x-confirmation-modal wire:model="confirmingLeavingTeam">
         <x-slot name="title">
-            {{ __('Leave Team') }}
+            {{ __('teamsettingspage.leave_team') }}
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you would like to leave this team?') }}
+            {{ __('teamsettingspage.leave_team_check') }}
         </x-slot>
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingLeavingTeam')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('teamsettingspage.cancel') }}
             </x-secondary-button>
 
             <x-danger-button class="ml-3" wire:click="leaveTeam" wire:loading.attr="disabled">
-                {{ __('Leave') }}
+                {{ __('teamsettingspage.leave') }}
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
@@ -231,20 +231,20 @@
     <!-- Remove Team Member Confirmation Modal -->
     <x-confirmation-modal wire:model="confirmingTeamMemberRemoval">
         <x-slot name="title">
-            {{ __('Remove Team Member') }}
+            {{ __('teamsettingspage.remove_team_member') }}
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you would like to remove this person from the team?') }}
+            {{ __('teamsettingspage.remove_member_check') }}
         </x-slot>
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingTeamMemberRemoval')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('teamsettingspage.cancel') }}
             </x-secondary-button>
 
             <x-danger-button class="ml-3" wire:click="removeTeamMember" wire:loading.attr="disabled">
-                {{ __('Remove') }}
+                {{ __('teamsettingspage.remove') }}
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>

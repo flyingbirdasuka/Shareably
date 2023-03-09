@@ -6,6 +6,6 @@
                 {{$practice->id}}{{ $practice->title }}
             </label>
         @endforeach
-        <button type="submit">Add</button>
+        <button type="submit">{{ __('categorypage.add') }}</button>
     </form>
 @endif

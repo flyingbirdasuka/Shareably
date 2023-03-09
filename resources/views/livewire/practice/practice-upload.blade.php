@@ -7,12 +7,12 @@
         @endif
     </div>
     <label>
-        Title:
+        {{ __('practicepage.title') }}:
         <input type="text" wire:model.delay.500ms="title" />
         @error('title') <span class="error text-red-500">{{ $message }}</span> @enderror
     </label>
     <label>
-        Description:
+        {{ __('practicepage.description') }}:
         <textarea wire:model.delay.500ms="description"></textarea>
     </label>
     @foreach($all_categories as $category)
@@ -23,9 +23,9 @@
     @endforeach
     <input type="file" wire:model="file">
     @error('file.*') <span class="error">{{ $message }}</span> @enderror
-    <button type="submit" class="border-solid border-2 border-indigo-600 py-4">Add Practice</button>
+    <button type="submit" class="border-solid border-2 border-indigo-600 py-4">{{ __('practicepage.add_practice') }}</button>
     @if ($file) 
-        Files Preview:
+        {{ __('practicepage.preview') }}:
         <iframe src="{{ $file->temporaryUrl() }}" width="60%" height="600px;">
     @endif
 </form>

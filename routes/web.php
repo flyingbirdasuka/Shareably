@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Category\CategorySection;
 use App\Http\Livewire\Category\CategoryDetails;
@@ -19,7 +20,13 @@ use App\Http\Livewire\Practice\PracticeEdit;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// language
+Route::get('/{language}', function($language){
+    App::setLocale($language);
     return view('welcome');
 });
 
