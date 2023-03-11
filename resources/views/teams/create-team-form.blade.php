@@ -34,3 +34,6 @@
         </x-button>
     </x-slot>
 </x-form-section>
+<x-slot name="footer">
+        @livewire('footer')
+</x-slot>

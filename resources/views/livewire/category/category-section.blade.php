@@ -1,3 +1,8 @@
+<x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('profilepage.profile') }}
+        </h2>
+</x-slot>
 <div>
     <input type="text" wire:model="search" placeholder="Search" >
     @if($is_admin)
@@ -7,3 +12,6 @@
         <livewire:category.category-component :category="$category" :is_admin="$is_admin" :key="now() . $category->id">
     @endforeach
 </div>
+<x-slot name="footer">
+        @livewire('footer')
+</x-slot>

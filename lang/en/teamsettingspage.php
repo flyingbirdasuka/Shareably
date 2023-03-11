@@ -2,7 +2,7 @@
 
 return [
 
-    'team_details_title' => 'Team Details!!',
+    'team_details_title' => 'Team Details',
     'team_details_description' => 'Create a new team to collaborate with others on projects.',
     'team_owner' => 'Team Owner',
     'team_name' => 'Team Name',

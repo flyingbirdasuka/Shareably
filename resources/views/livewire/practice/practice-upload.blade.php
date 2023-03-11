@@ -1,3 +1,8 @@
+<x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('profilepage.profile') }}
+        </h2>
+</x-slot>
 <form wire:submit.prevent="add">
     <div>
         @if (session()->has('message'))
@@ -29,3 +34,6 @@
         <iframe src="{{ $file->temporaryUrl() }}" width="60%" height="600px;">
     @endif
 </form>
+<x-slot name="footer">
+        @livewire('footer')
+</x-slot>
