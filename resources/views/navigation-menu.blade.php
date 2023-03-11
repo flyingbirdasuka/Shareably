@@ -10,17 +10,17 @@
                     </a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link href="{{ route('categories') }}" :active="request()->routeIs('dashboard')">
+                        <x-nav-link href="{{ route('categories') }}" :active="request()->routeIs('categories')">
                             {{ __('navigationsection.category') }}
                         </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('practices') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('practices') }}" :active="request()->routeIs('practices')">
                         {{ __('navigationsection.practice') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link href="{{ route('upload') }}" :active="request()->routeIs('dashboard')">
+                        <x-nav-link href="{{ route('upload') }}" :active="request()->routeIs('upload')">
                             {{ __('navigationsection.upload') }}
                         </x-nav-link>
                 </div>
