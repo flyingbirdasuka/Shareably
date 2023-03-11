@@ -39,11 +39,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/categories',CategorySection::class);
+    Route::get('/categories',CategorySection::class)->name('categories');
     Route::get('/categories/{id}',CategoryDetails::class);
-    Route::get('/practices',PracticeSection::class);
+    Route::get('/practices',PracticeSection::class)->name('practices');
     Route::get('/practices/{id}',PracticeDetails::class);
-    Route::get('/practice-upload',PracticeUpload::class);
+    Route::get('/practice-upload',PracticeUpload::class)->name('upload');
     Route::get('/practices/{id}/edit',PracticeEdit::class);
 });
 

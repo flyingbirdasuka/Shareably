@@ -11,5 +11,8 @@ return [
     'profile' => 'Profile',
     'api_tokens' => 'API Tokens',
     'log_out' => 'Log Out',
+    'category' => 'Category',
+    'practice' => 'Practice',
+    'upload' => 'Upload',
 
 ];

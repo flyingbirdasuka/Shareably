@@ -2,9 +2,9 @@
 
 return [
 
-    'profile_info_title' => 'Profile Information!!',
+    'profile_info_title' => 'Profile Information',
     'profile_info_description' => 'Update your accoun\'s profile information and email address.',
-    'update_title' => 'Update Password!!',
+    'update_title' => 'Update Password',
     'update_description' => 'Ensure your account is using a long, random password to stay secure.',
     'select_photo' => 'Select A New Photo',
     'remove_photo' => 'Remove Photo',
@@ -14,11 +14,11 @@ return [
     'saved' => 'Saved',
     'save' => 'Save',
     'name' => 'Name',
-    'email' => 'Email!!!',
+    'email' => 'Email',
     'current_password' => 'Current Password',
     'new_password' => 'New Password',
     'confirm_password' => 'Confirm password',
-    'profile' => 'Profile!!',
+    'profile' => 'Profile',
     'two_factor_title' => 'Two Factor Authentication',
     'two_factor_descirption' => 'Add additional security to your account using two factor authentication.',
     'two_factor_finish' => 'Finish enabling two factor authentication.',
