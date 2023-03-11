@@ -48,4 +48,7 @@
             @endif
         </div>
     </div>
+    <x-slot name="footer">
+        @livewire('footer')
+    </x-slot>
 </x-app-layout>

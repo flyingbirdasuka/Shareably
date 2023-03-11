@@ -1,3 +1,8 @@
+<x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('profilepage.profile') }}
+        </h2>
+</x-slot>
 <form wire:submit.prevent="edit">
     <div>
         @if (session()->has('message'))
@@ -17,3 +22,6 @@
     <button type="submit">{{ __('categorypage.update') }}</button>
     <button wire:click="$emit('closeModal')">{{ __('categorypage.close') }}</button>
 </form>
+<x-slot name="footer">
+        @livewire('footer')
+</x-slot>

@@ -25,10 +25,10 @@ use App\Http\Livewire\Practice\PracticeEdit;
 // });
 
 // language
-Route::get('/{language}', function($language){
-    App::setLocale($language);
-    return view('welcome');
-});
+// Route::get('/{language}', function($language){
+//     App::setLocale($language);
+//     return view('welcome');
+// });
 
 Route::middleware([
     'auth:sanctum',

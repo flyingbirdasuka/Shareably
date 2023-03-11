@@ -1,5 +1,9 @@
+<x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('profilepage.profile') }}
+        </h2>
+</x-slot>
 <div>
-
     <b>{{ $category->title }}</b> <br>
     @if($is_admin)
         <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})">Add Practice</button>
@@ -24,3 +28,6 @@
         <button wire:click="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})">Add User</button>
     @endif
 </div>
+<x-slot name="footer">
+        @livewire('footer')
+</x-slot>
