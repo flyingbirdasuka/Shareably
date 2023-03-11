@@ -1,0 +1,11 @@
+/* navigation */
+nav {
+    background-color: black;
+    position: sticky;
+    top: 0;
+}
+
+/* footer */
+footer {
+    background-color: black;
+}

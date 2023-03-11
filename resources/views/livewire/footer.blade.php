@@ -1,4 +1,4 @@
-<div class="bg-white">
+<div class="">
         <div class="max-w-7xl mx-auto px-4 lg:px-8">
             <div class="flex justify-between h-8">
                 <div class="flex">
