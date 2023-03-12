@@ -1,8 +1,6 @@
 <?php
 
 return [
-
-
     'title' => 'Title',
     'description' => 'Description',
     'add' => 'Add',
@@ -10,5 +8,6 @@ return [
     'add_member' => 'Add Member',
     'update' => 'Update',
     'close' => 'Close',
+    'categorypage_title' => 'Category'
 
 ];

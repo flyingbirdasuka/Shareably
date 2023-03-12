@@ -1,6 +1,6 @@
 <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('profilepage.profile') }}
+            {{ __('practicepage.uploadpage_title') }}
         </h2>
 </x-slot>
 <form wire:submit.prevent="add">

@@ -15,5 +15,7 @@ return [
     'update_practice' => 'Update Practice',
     'add_practice' => 'Add Practice',
     'preview' => 'Preview',
-    'current_filename' => 'Current File'
+    'current_filename' => 'Current File',
+    'practicepage_title' => 'Practice',
+    'uploadpage_title' => 'Upload'
 ];
