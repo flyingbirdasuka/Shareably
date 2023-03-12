@@ -22,6 +22,3 @@
     <button type="submit">{{ __('categorypage.update') }}</button>
     <button wire:click="$emit('closeModal')">{{ __('categorypage.close') }}</button>
 </form>
-<x-slot name="footer">
-        @livewire('footer')
-</x-slot>

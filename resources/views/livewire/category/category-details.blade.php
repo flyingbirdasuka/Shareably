@@ -28,6 +28,3 @@
         <button wire:click="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})">Add User</button>
     @endif
 </div>
-<x-slot name="footer">
-        @livewire('footer')
-</x-slot>

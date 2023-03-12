@@ -15,6 +15,3 @@
     @endif
     <iframe src="{{ $this->pdf }}" width="60%" height="600px;">
 </div>
-<x-slot name="footer">
-        @livewire('footer')
-</x-slot>

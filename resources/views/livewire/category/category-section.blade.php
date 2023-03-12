@@ -12,6 +12,3 @@
         <livewire:category.category-component :category="$category" :is_admin="$is_admin" :key="now() . $category->id">
     @endforeach
 </div>
-<x-slot name="footer">
-        @livewire('footer')
-</x-slot>
