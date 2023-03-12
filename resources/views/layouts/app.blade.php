@@ -18,7 +18,7 @@
         @livewireStyles
         <link rel="stylesheet" href="{{ asset('css/style.css')}}">
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased relative">
         <x-banner />
 
         <div class="min-h-screen">
@@ -26,7 +26,7 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-black shadow">
+                <header class="shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -39,7 +39,7 @@
             </main>
             <!-- Page Footer -->
             @if (isset($footer))
-                <footer class="bg-black">
+                <footer class="bg-gray-900 w-full">
                     <div class="py-4">
                         {{ $footer }}
                     </div>
