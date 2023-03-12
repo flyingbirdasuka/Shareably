@@ -34,6 +34,3 @@
         <iframe src="{{ $file->temporaryUrl() }}" width="60%" height="600px;">
     @endif
 </form>
-<x-slot name="footer">
-        @livewire('footer')
-</x-slot>

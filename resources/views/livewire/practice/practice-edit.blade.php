@@ -42,6 +42,3 @@
         {{ __('practicepage.current_file') }} :
         <iframe src="{{$original_file}}" width="40%" height="200px;"></iframe>
     @endif</form>
-<x-slot name="footer">
-        @livewire('footer')
-</x-slot>
