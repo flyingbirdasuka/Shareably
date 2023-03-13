@@ -27,7 +27,8 @@ class PracticeSection extends Component
     public function updatedSearch()
     {
         if($this->is_admin){
-            $this->practices = Practice::search('title', $this->search)->orderBy('title')->get();
+            $practices = Practice::search('title', $this->search)->orderBy('title')->get();
+            // dd($practices);
         } else {
             if(strlen($this->search) >= 2){
                 foreach($this->practices as $key => $practice){

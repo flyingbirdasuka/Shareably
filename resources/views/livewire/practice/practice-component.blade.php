@@ -1,11 +1,12 @@
-<div class="border-solid border-2 border-indigo-600 py-4">
-    <a href="practices/{{$practice->id}}">
-        {{ $practice->id }}
-        <b>{{ $practice->title }}</b>
-        {{ $practice->description }}
-    </a>
+<x-table-row>
+        <x-table-data>{{ $practice->id }}</x-table-data>
+        <x-table-data><b><a href="practices/{{$practice->id}}">{{ $practice->title }}</a></b></x-table-data>
+        <x-table-data><a href="practices/{{$practice->id}}">{{ $practice->description }}</a></x-table-data>
+
     @if($is_admin)
-        <button wire:click.prevent="edit({{$practice->id}})" class="border-solid border-2 border-indigo-600 bg-green-400" :key="now() . $category->id">{{ __('practicepage.edit') }}</button>
-        <button wire:click.prevent="delete({{$practice->id}})" class="border-solid border-2 border-indigo-600 bg-red-600">{{ __('practicepage.remove') }}</button>
+        <x-table-data>
+            <button wire:click.prevent="edit({{$practice->id}})" :key="now() . $category->id"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button wire:click.prevent="delete({{$practice->id}})"><i class="fa-solid fa-trash"></i></button>
+        </x-table-data>
     @endif
-</div>
+</x-table-row>
