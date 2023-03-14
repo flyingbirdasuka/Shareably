@@ -1,3 +1,3 @@
-<tr class="hover:bg-gray-50">
+<tr class="hover:bg-indigo-100">
     {{ $slot }}
 </tr>

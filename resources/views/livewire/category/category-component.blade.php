@@ -4,8 +4,8 @@
         <x-table-data><a href="categories/{{$category->id}}">{{ $category->description }}</a></x-table-data>
     @if($is_admin)
         <x-table-data>
-            <button wire:click.prevent="$emit('openModal', 'category.category-edit',{{ json_encode(['category_id' => $category->id, 'title' => $category->title, 'description' => $category->description ]) }})"><i class="fa-regular fa-pen-to-square"></i></button>
-            <button wire:click.prevent="delete()"><i class="fa-solid fa-trash"></i></button>
+            <button wire:click.prevent="$emit('openModal', 'category.category-edit',{{ json_encode(['category_id' => $category->id, 'title' => $category->title, 'description' => $category->description ]) }})" class="w-8"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button wire:click.prevent="delete()" class="w-8"><i class="fa-solid fa-trash"></i></button>
         </x-table-data>
     @endif
 </x-table-row>
