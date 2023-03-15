@@ -3,7 +3,7 @@
             {{ __('practicepage.practicepage_title') }}
         </h2>
 </x-slot>
-<div>
+<div class="pb-10">
     <div class="mx-4 mt-4">
         <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
     </div>
