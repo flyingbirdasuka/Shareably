@@ -38,7 +38,7 @@
                 {{ $slot }}
             </main>
             <!-- Page Footer -->
-            <footer class="bg-gray-900 w-full">
+            <footer class="bg-gray-900 w-full absolute bottom-0">
                 <div class="py-4">
                     <div class="max-w-7xl mx-auto px-4 lg:px-8">
                         <div class="flex justify-between h-8">

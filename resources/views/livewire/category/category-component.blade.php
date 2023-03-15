@@ -1,11 +1,11 @@
-<div class="border-solid border-2 border-indigo-600 py-4">
-    <a href="categories/{{$category->id}}">
-        {{ $category->id }}
-        <b>{{ $category->title }}</b>
-        {{ $category->description }}
-    </a>
+<x-table-row>
+        <x-table-data>{{ $category->id }}</x-table-data>
+        <x-table-data><b><a href="categories/{{$category->id}}">{{ $category->title }}</a></b></x-table-data>
+        <x-table-data><a href="categories/{{$category->id}}">{{ $category->description }}</a></x-table-data>
     @if($is_admin)
-        <button wire:click.prevent="$emit('openModal', 'category.category-edit',{{ json_encode(['category_id' => $category->id, 'title' => $category->title, 'description' => $category->description ]) }})">Edit</button>
-        <button wire:click.prevent="delete()" class="border-solid border-2 border-indigo-600 bg-red-600">REMOVE</button>
+        <x-table-data>
+            <button wire:click.prevent="$emit('openModal', 'category.category-edit',{{ json_encode(['category_id' => $category->id, 'title' => $category->title, 'description' => $category->description ]) }})" class="w-8"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button wire:click.prevent="delete()" class="w-8"><i class="fa-solid fa-trash"></i></button>
+        </x-table-data>
     @endif
-</div>
+</x-table-row>
