@@ -4,10 +4,12 @@
         </h2>
 </x-slot>
 <div>
-    <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
-    @if($is_admin)
-        <button wire:click="$emit('openModal', 'category.category-add')">{{ __('categorypage.add_category') }}</button>
-    @endif
+    <div class="mx-4 mt-4">
+        <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
+        @if($is_admin)
+            <button wire:click="$emit('openModal', 'category.category-add')" class="ml-4">{{ __('categorypage.add_category') }}</button>
+        @endif
+    </div>
     <x-table>
         <x-table-head>
             <x-table-heading>ID</x-table-heading>

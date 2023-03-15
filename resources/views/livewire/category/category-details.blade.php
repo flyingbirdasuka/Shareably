@@ -4,10 +4,10 @@
         </h2>
 </x-slot>
 <div>
-    <div class="flex">
+    <div class="flex my-4 mx-4">
         @if($is_admin)
-            <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class="mx-1.5 my-1.5 border-2 h-8">Add Practice</button>
-            <button wire:click.prevent="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class="mx-1.5 my-1.5 border-2 h-8">{{ __('categorypage.add_user') }}</button>
+            <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class="mx-4 my-1.5">Add Practice</button>
+            <button wire:click.prevent="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class="mx-4 my-1.5">{{ __('categorypage.add_user') }}</button>
             <div class="flex flex-col">
                 @if($users)
                     @foreach($users as $user)
