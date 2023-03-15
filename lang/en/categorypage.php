@@ -11,5 +11,6 @@ return [
     'close' => 'Close',
     'categorypage_title' => 'Category',
     'remove' => 'Remove',
-    'show_users' => 'Show Users'
+    'show_users' => 'Show Users',
+    'no_category' => 'Not added in any categories yet'
 ];

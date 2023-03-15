@@ -12,6 +12,7 @@ class PracticeDetails extends Component
     public $practice;
     public $practice_file;
     public $categories;
+    public $pdf;
 
     public function mount($id)
     {
