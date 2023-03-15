@@ -28,14 +28,14 @@
             @endif
         @endforeach
     @endif    
-    <br><br><br>
+    
     @if($is_admin)
         @if($users)
             @foreach($users as $user)
                 {{ $user->id }} : {{ $user->name }}<br>
-                <button wire:click.prevent="delete_user({{$user->id}})" class="border-solid border-2 border-indigo-600 bg-red-600">REMOVE</button><br>
+                <button wire:click.prevent="delete_user({{$user->id}})" class="border-solid border-2 border-indigo-600 bg-red-600">{{ __('categorypage.remove') }}</button><br>
             @endforeach
         @endif
-        <button wire:click="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})">Add User</button>
+        <button wire:click="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})">{{ __('categorypage.add_user') }}</button>
     @endif
 </div>

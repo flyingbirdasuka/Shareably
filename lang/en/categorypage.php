@@ -5,9 +5,9 @@ return [
     'description' => 'Description',
     'add' => 'Add',
     'add_category' => 'Add Category',
-    'add_member' => 'Add Member',
+    'add_user' => 'Add User',
     'update' => 'Update',
     'close' => 'Close',
-    'categorypage_title' => 'Category'
-
+    'categorypage_title' => 'Category',
+    'remove' => 'Remove'
 ];
