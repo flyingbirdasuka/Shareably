@@ -6,9 +6,6 @@
 <div class="flex">
     <table class="flex flex-start w-1/2">
         <tr>
-            <x-table-data><b>{{ __('categorypage.title') }}</b> : {{ $practice->title }}</x-table-data>
-        </tr>
-        <tr>
             <x-table-data><b>{{ __('categorypage.description') }}</b> : {{ $practice->description }}</x-table-data>
         </tr>
         <tr>

@@ -2,15 +2,16 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $category->title }}
         </h2>
+        <p class="mt-4">{{ $category->description }}</p>
 </x-slot>
 <div>
-    <div class="flex my-4 mx-4">
-        @if($is_admin)
+    @if($is_admin)
+        <div class="flex my-4 mx-4">
             <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class="mx-4 my-1.5">Add Practice</button>
             <button wire:click.prevent="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class="mx-4 my-1.5">{{ __('categorypage.add_user') }}</button>
             <button wire:click.prevent="$emit('openModal', 'category.show-users', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class="mx-4 my-1.5">{{ __('categorypage.show_users') }}</button>
-        @endif
-    </div>
+        </div>
+    @endif
     <x-table>
         <x-table-head>
             <x-table-heading>ID</x-table-heading>
