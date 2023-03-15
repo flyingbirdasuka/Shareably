@@ -6,15 +6,22 @@
             </div>
         @endif
     </div>
-    <label>
-        {{ __('categorypage.title') }}:
-        <input type="text" wire:model.delay.500ms="title" />
-        @error('title') <span class="error text-red-500">{{ $message }}</span> @enderror
-    </label>
-    <label>
-        {{ __('categorypage.description') }}:
-        <textarea wire:model.delay.500ms="description"></textarea>
-    </label>
-    <button type="submit" class="border-solid border-2 border-indigo-600 py-4">{{ __('categorypage.add_category') }}</button>
-    <button wire:click="$emit('closeModal')">{{ __('categorypage.close') }}</button>
+    <p class="font-semibold text-gray-800 p-6">{{ __('categorypage.add_category') }}</p>
+    <div class="flex flex-col px-6 py-5 bg-gray-50">
+        <label class="flex-col flex w-full">
+            {{ __('categorypage.title') }}:
+                <input type="text" wire:model.delay.500ms="title" />
+                @error('title') <span class="error text-red-500">{{ $message }}</span> @enderror
+        </label>
+        <label class="flex-col flex w-full">
+            {{ __('categorypage.description') }}:
+            <textarea wire:model.delay.500ms="description"></textarea>
+                @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
+        </label>
+    </div>
+    <div class="flex flex-row items-center justify-between p-5 border-t border-gray-200">
+        <button wire:click="$emit('closeModal')" class="rounded">{{ __('categorypage.close') }}</button>
+        <button type="submit" class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded">{{ __('categorypage.add_category') }}
+        </button>
+    </div>
 </form>

@@ -47,12 +47,6 @@ class CategoryDetails extends Component
         return redirect('categories/'.$this->category->id);
     }
 
-    public function delete_user($user_id)
-    {
-        Category::where('id',$this->category->id)->first()->users()->detach($user_id);
-        return redirect('categories/'.$this->category->id);
-    }
-
     public function render()
     {
         return view('livewire.category.category-details');

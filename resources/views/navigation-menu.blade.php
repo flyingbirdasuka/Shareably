@@ -130,7 +130,7 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-                <i class="fa-regular fa-bell fa-rotate-by" style="--fa-rotate-angle: 30deg; color:white;"></i>
+                <i class="fa-regular fa-bell fa-rotate-by mx-4" style="--fa-rotate-angle: 30deg; color:white;"></i>
             </div>
 
             <!-- Hamburger -->
