@@ -40,23 +40,16 @@
             <!-- Page Footer -->
             <footer class="bg-gray-900 w-full absolute bottom-0">
                 <div class="py-4">
-                    <div class="max-w-7xl mx-auto px-4 lg:px-8">
-                        <div class="flex justify-between h-8">
+                    <div class="mx-auto px-4 lg:px-8">
+                        <div class="flex justify-between items-center h-8">
                             <div class="flex">
-                                <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                    <x-nav-link href="{{ route('categories') }}" :active="request()->routeIs('categories')">
-                                        {{ __('navigationsection.category') }}
-                                    </x-nav-link>
+                                <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex text-white text-sm">
+                                        {{ __('© 2023 Asuka Method') }}
                                 </div>
-                                <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                    <x-nav-link href="{{ route('practices') }}" :active="request()->routeIs('practices')">
-                                        {{ __('navigationsection.practice') }}
-                                    </x-nav-link>
-                                </div>
-                                <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                    <x-nav-link href="{{ route('upload') }}" :active="request()->routeIs('upload')">
-                                        {{ __('navigationsection.upload') }}
-                                    </x-nav-link>
+                                <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex text-white text-sm mx-2">
+                                    <a target="_blank" href="//asuka-developer.com">
+                                        <i class="fa-regular fa-envelope mx-2"></i>  {{ __('info@asukamethod.com') }}
+                                    </a>
                                 </div>
                             </div>
 
