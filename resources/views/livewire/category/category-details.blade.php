@@ -8,16 +8,7 @@
         @if($is_admin)
             <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class="mx-4 my-1.5">Add Practice</button>
             <button wire:click.prevent="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class="mx-4 my-1.5">{{ __('categorypage.add_user') }}</button>
-            <div class="flex flex-col">
-                @if($users)
-                    @foreach($users as $user)
-                        <div class="flex">
-                            <p class=w-full>{{ $user->name }}</p>
-                            <button wire:click.prevent="delete_user({{$user->id}})" class="border-2 my-px mx-2">{{ __('categorypage.remove') }}</button>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
+            <button wire:click.prevent="$emit('openModal', 'category.show-users', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class="mx-4 my-1.5">{{ __('categorypage.show_users') }}</button>
         @endif
     </div>
     <x-table>

@@ -10,5 +10,6 @@ return [
     'update' => 'Update',
     'close' => 'Close',
     'categorypage_title' => 'Category',
-    'remove' => 'Remove'
+    'remove' => 'Remove',
+    'show_users' => 'Show Users'
 ];
