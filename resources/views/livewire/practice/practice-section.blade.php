@@ -15,9 +15,13 @@
             @endif
         </x-table-head>
         <x-table-body>
-        @foreach ($practices as $practice)
+        @forelse ($practices as $practice)
             <livewire:practice.practice-component :practice="$practice" :is_admin="$is_admin" :key="now() . $practice->id">
-        @endforeach
+        @empty
+            <x-table-row>
+                <td colspan="4" class="px-6 py-4 text-center"><b>Not found</b></td>
+            </x-table-row>
+        @endforelse
         </x-table-body>
     </x-table>
 </div>

@@ -18,9 +18,13 @@
             @endif
         </x-table-head>
         <x-table-body>
-        @foreach ($categories as $category)
-            <livewire:category.category-component :category="$category" :is_admin="$is_admin" :key="now() . $category->id">
-        @endforeach
+            @forelse ($categories as $category)
+                <livewire:category.category-component :category="$category" :is_admin="$is_admin" :key="now() . $category->id">
+            @empty
+            <x-table-row>
+                <td colspan="4" class="px-6 py-4 text-center"><b>Not found</b></td>
+            </x-table-row>
+            @endforelse
         </x-table-body>
     </x-table>
 </div>
