@@ -4,7 +4,7 @@
         </h2>
 </x-slot>
 <div>
-    <input type="text" wire:model="search" placeholder="Search" >
+    <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
     <x-table>
         <x-table-head>
             <x-table-heading>ID</x-table-heading>
