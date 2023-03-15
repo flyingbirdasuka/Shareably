@@ -51,8 +51,10 @@ return [
     'delete_acount_last_check' => 'Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
     'on' => 'ON',
     'off' => 'OFF',
-    'settings' => 'Settings'
-
+    'settings' => 'Settings',
+    'notification_setting' => 'Notification',
+    'sound_setting' => 'Sound',
+    'language_setting' => 'Language'
 
 
 ];
