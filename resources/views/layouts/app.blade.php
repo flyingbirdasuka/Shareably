@@ -34,7 +34,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="">
+            <main class="pb-10">
                 {{ $slot }}
             </main>
             <!-- Page Footer -->
