@@ -4,15 +4,14 @@
         </h2>
 </x-slot>
 <div class="pb-10">
-    <div class="mx-4 mt-4">
+    <div class="mx-4 mt-4 pb-3">
         <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
         @if($is_admin)
-            <button wire:click="$emit('openModal', 'category.category-add')" class="ml-4">{{ __('categorypage.add_category') }}</button>
+            <button wire:click="$emit('openModal', 'category.category-add')" class="ml-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">{{ __('categorypage.add_category') }}</button>
         @endif
     </div>
     <x-table>
         <x-table-head>
-            <x-table-heading>ID</x-table-heading>
             <x-table-heading>Title</x-table-heading>
             <x-table-heading>Description</x-table-heading>
             @if($is_admin)

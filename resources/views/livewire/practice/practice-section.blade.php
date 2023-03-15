@@ -4,7 +4,7 @@
         </h2>
 </x-slot>
 <div class="pb-10">
-    <div class="mx-4 mt-4">
+    <div class="mx-4 mt-4 pb-3">
         <input type="text" wire:model.delay.500ms="search" placeholder="Search" >
     </div>
     <x-table>
