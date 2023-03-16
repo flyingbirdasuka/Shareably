@@ -4,7 +4,7 @@
         </h2>
 </x-slot>
 <div class="pb-10">
-    <div class="mt-4 pb-3 flex justify-between z-1">
+    <div class="mt-4 pb-3 flex justify-between z-1 px-2">
         <div class="relative w-1/2">
             <div class="flex absolute inset-y-0 items-center pl-3">
                 <i class="fa-solid fa-magnifying-glass" style="color:gray;"></i>

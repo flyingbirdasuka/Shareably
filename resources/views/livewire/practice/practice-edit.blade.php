@@ -4,7 +4,7 @@
         </h2>
 </x-slot>
 
-<form wire:submit.prevent="update_practice" class="flex">
+<form wire:submit.prevent="update_practice" class="flex px-4">
     <div class="flex flex-start w-1/2 flex-col">
         <div>
             @if (session()->has('message'))

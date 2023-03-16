@@ -15,7 +15,7 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="email" value="{{ __('auth.eEmail') }}" />
+                <x-label for="email" value="{{ __('auth.email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
 

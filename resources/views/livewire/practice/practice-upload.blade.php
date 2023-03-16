@@ -5,7 +5,7 @@
 </x-slot>
 
 
-<form wire:submit.prevent="add" class="flex">
+<form wire:submit.prevent="add" class="flex px-4">
     <div class="flex flex-start w-1/2 flex-col">
         <div>
             @if (session()->has('message'))
