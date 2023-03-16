@@ -21,6 +21,13 @@
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
             <textarea class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description"></textarea>
 
+        @foreach($all_categories as $category)
+            <label>
+                <input wire:model="add_categories" value="{{ $category->id }}" type="checkbox" />
+                {{$category->id}}{{ $category->title }}
+            </label>
+        @endforeach
+
         <input type="file" wire:model="file" class="my-4" />
         @error('file.*') <span class="error">{{ $message }}</span> @enderror
         <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_practice') }}</button>
