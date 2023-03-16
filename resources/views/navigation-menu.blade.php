@@ -19,11 +19,13 @@
                         {{ __('navigationsection.practice') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
+                @if(Auth::user()->is_admin)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
                         <x-nav-link href="{{ route('upload') }}" :active="request()->routeIs('upload')">
                             {{ __('navigationsection.upload') }}
                         </x-nav-link>
-                </div>
+                    </div>
+                @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
