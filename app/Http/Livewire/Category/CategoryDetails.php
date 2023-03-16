@@ -38,7 +38,7 @@ class CategoryDetails extends Component
     }
     public function edit_practice($practice_id)
     {
-        return redirect('practices/'.$practice_id);
+        return redirect('practices/'.$practice_id.'/edit');
     }
 
     public function delete_practice($practice_id)

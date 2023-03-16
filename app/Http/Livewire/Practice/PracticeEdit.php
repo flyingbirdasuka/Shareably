@@ -22,6 +22,7 @@ class PracticeEdit extends Component
     public $all_categories = [];
     public $add_categories = [];
     public $isUploaded=false;
+    public $showDropdown = false;
 
     protected $rules = [
         'add_categories' => 'requried',
@@ -40,7 +41,6 @@ class PracticeEdit extends Component
         $this->original_file_name = $this->practice->musicsheets()->get()->first()->filename;
         $this->original_file = asset('practice/' . $this->original_file_name);
         $this->all_categories = Category::orderBy('title')->get();
-        // (THIS WORKS AND DONT CHANGE THE VALUE IN THE VIEW)
         $this->add_categories = $this->practice->categories()->pluck('categories.id')->all();
        
     }

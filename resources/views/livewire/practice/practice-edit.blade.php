@@ -20,16 +20,34 @@
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
             <textarea class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description">{{ $description }}</textarea>
 
-        @foreach($all_categories as $category)
-            <label>
-                <input wire:model="add_categories" value="{{ $category->id }}" type="checkbox"/>
-                {{$category->id}}{{ $category->title }}
-            </label>
-        @endforeach
+        <div class="mt-4">
+                <button wire:click.prevent="$toggle('showDropdown')" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.category') }}</button>
+
+            @if($showDropdown)
+                <table class="w-1/2 text-sm text-left text-gray-500">
+                    <tbody>
+                        @foreach($all_categories as $category)
+                            <tr class="bg-white border-b hover:bg-gray-50 ">
+                                <td class="w-4 p-4">
+                                    <div class="flex items-center">
+                                    <input wire:model="add_categories" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" value="{{ $category->id }}" >
+                                    </div>
+                                </td>
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                    {{ $category->title }}
+                                </th>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+        </div>
+
+        <x-label for="file" value="{{ __('File') }}" class="my-4 mr-8 flex flex-col"/>
         <input type="file" wire:model="new_file">
         @error('new_file.*') <span class="error">{{ $message }}</span> @enderror
         <p class="text-sm text-gray-700 font-medium my-4">{{ __('practicepage.current_filename') }}: {{ $original_file_name }} </p>
-        <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.update_practice') }}</button>
+        <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.update_practice') }}</button>
     </div>
     @if($new_file)
         <div class="flex flex-col">
