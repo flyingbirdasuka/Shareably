@@ -17,5 +17,6 @@ return [
     'preview' => 'Preview',
     'current_filename' => 'Current File',
     'practicepage_title' => 'Practice',
-    'uploadpage_title' => 'Upload'
+    'uploadpage_title' => 'Upload',
+    'editpage_title' => 'Edit'
 ];

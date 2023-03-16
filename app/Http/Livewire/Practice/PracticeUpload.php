@@ -18,6 +18,7 @@ class PracticeUpload extends Component
     public $file;
     public $all_categories = [];
     public $add_categories = [];
+    public $showDropdown = false;
 
     // protected $rules = [
     //     'title' => 'required',
