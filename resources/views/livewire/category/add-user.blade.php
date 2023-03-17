@@ -9,11 +9,10 @@
     <p class="font-semibold text-gray-800 p-6">{{ __('categorypage.add_user') }}</p>
     <div class="flex flex-col px-6 py-5 bg-gray-50">
         <div>
-            <label class="flex-col flex w-full">
-                Email:
-                <input type="email" wire:model.delay.500ms="email"/>
-                @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
-            </label>
+            <x-label for="email" value="{{ __('Email') }}" class="my-4 mr-8 flex flex-col"/>
+                <x-input id="email" type="email" class="w-3/4" wire:model.delay.500ms="email" value="{{$email}}" />
+                <x-input-error for="email" class="mt-2" />
+
         </div>
     </div>
    <div class="flex flex-row items-center justify-between p-5 border-t border-gray-200">
