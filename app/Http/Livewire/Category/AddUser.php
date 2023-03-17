@@ -24,7 +24,7 @@ class AddUser extends ModalComponent
 
     public function add()
     {
-       
+
         // refresh the previous relationship
         foreach($this->all_users as $user){
             Category::find($this->category_id)->users()->detach($user);

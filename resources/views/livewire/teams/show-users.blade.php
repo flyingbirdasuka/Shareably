@@ -5,7 +5,7 @@
             <div class="flex px-6 py-2 bg-gray-50 justify-between border-b items-center">
                     <p class=>{{ $user->id }}</p>
                     <p class=>{{ $user->name }}</p>
-                    <!-- <button wire:click.prevent="delete_user({{$user->id}})" class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded">{{ __('categorypage.remove') }}</button> -->
+                    <button class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded"><a href="/users/{{$user->id}}">{{ __('teamspage.detail') }}</a></button>
             </div>
         @endforeach
         <button wire:click="$emit('closeModal')" class="py-4">{{ __('teamspage.close') }}</button>
