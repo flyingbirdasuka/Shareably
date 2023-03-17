@@ -8,7 +8,7 @@
     @if($is_admin)
         <div class="flex my-4 mx-4 text-sm">
             <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">Add Practice</button>
-            <button wire:click.prevent="$emit('openModal', 'category.add-user', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class="mx-4 ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_user') }}</button>
+            <button wire:click.prevent="$emit('openModal', 'category.add-user', {{ json_encode(['category_id' => $category->id ]) }})" class="mx-4 ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_user') }}</button>
             <button wire:click.prevent="$emit('openModal', 'category.show-users', {{ json_encode(['users' => $users, 'category_id' => $category->id ]) }})" class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.show_users') }}</button>
         </div>
     @endif
