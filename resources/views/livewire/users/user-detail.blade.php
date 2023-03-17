@@ -69,9 +69,11 @@
 
                     <div class="grid grid-cols-2">
                         <div>
-                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                <i class="fa-solid fa-folder"></i>
-                                <span class="tracking-wide">{{__('userdetailpage.category')}}</span>
+                            <div class="flex flex-col items-baseline md:flex-row items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                                <div>
+                                    <i class="fa-solid fa-folder"></i>
+                                    <span class="tracking-wide">{{__('userdetailpage.category')}}</span>
+                                </div>
                                 <button wire:click="$emit('openModal', 'users.add-category', {{ json_encode(['user' => $user, 'categories' => $categories ]) }})" class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_category') }}</button>
                             </div>
                             <ul class="list-inside space-y-2">
