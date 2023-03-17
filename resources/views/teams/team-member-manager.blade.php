@@ -131,7 +131,7 @@
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
-                                    <div class="ml-4"><a href="/users/{{$user->id}}">{{ $user->name }}</a></div>
+                                    <div class="ml-4">{{ $user->name }}</div>
                                 </div>
 
                                 <div class="flex items-center">

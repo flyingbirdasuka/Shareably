@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Practice;
 use App\Models\Category;
 use App\Models\UserSettings;
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -69,14 +68,14 @@ class User extends Authenticatable
     ];
 
     /**
-    * The practices that belong to the user.
+    * The practices that belong to the user. (favorites)
     */
     public function user_settings(): HasOne
     {
         return $this->hasOne(UserSettings::class,'user_id');
     }
     /**
-    * The practices that belong to the user.
+    * The practices that belong to the user. (favorites)
     */
     public function practices(): BelongsToMany
     {
@@ -84,19 +83,11 @@ class User extends Authenticatable
     }
 
     /**
-    * The categoris that belong to the user.
+    * The categoris that belong to the user. (favorites)
     */
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'user_categories');
-    }
-
-    /**
-    * The teams that belong to the user.
-    */
-    public function teams(): BelongsToMany
-    {
-        return $this->belongsToMany(Team::class, 'team_user');
     }
 
     /**
