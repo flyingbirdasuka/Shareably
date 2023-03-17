@@ -4,50 +4,37 @@ namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Category;
 use LivewireUI\Modal\ModalComponent;
 
 class AddUser extends ModalComponent
 {
-    public $email;
+
     public $user_id;
     public $category_id;
     public $users =[];
+    public $all_users = [];
 
-    protected $rules = [
-        'email' => 'required|email',
-    ];
-
-    protected $message = [
-        'email.required' => 'The email cannot be empty.',
-        'email.email' => 'The email Address format is not valid.'
-    ];
-
-    public function mount($category_id, $users)
+    public function mount($category_id)
     {
         $this->category_id = $category_id;
-        $this->users = $users;
+        $this->users = Category::find($this->category_id)->users()->get()->pluck('id');
+        $this->all_users = User::all();
     }
 
     public function add()
     {
-        $this->validate();
 
-        $user = User::where('email',$this->email)->first();
-        if(!$user){
-            session()->flash('message', 'This email does not exists as a user.');
-            return;
-        } else {
-            $user_id = $user->id;
-        }
-        foreach($this->users as $users){
-            if ($users['id'] == $user->id) {
-                session()->flash('message', 'This email already exists in this category.');
-                return;
-            }
+        // refresh the previous relationship
+        foreach($this->all_users as $user){
+            Category::find($this->category_id)->users()->detach($user);
         }
 
-        User::findOrFail($user_id)->categories()->attach($this->category_id);
-        session()->flash('message', 'User successfully added.');
+        // add the new relationship
+        foreach ($this->users as $user){
+            Category::where('id',$this->category_id)->first()->users()->attach($user);
+        }
+
         return redirect('categories/'.$this->category_id);
     }
 

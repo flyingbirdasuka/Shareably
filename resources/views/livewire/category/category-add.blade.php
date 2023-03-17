@@ -8,16 +8,13 @@
     </div>
     <p class="font-semibold text-gray-800 p-6">{{ __('categorypage.add_category') }}</p>
     <div class="flex flex-col px-6 py-5 bg-gray-50">
-        <label class="flex-col flex w-full">
-            {{ __('categorypage.title') }}:
-                <input type="text" wire:model.delay.500ms="title" />
-                @error('title') <span class="error text-red-500">{{ $message }}</span> @enderror
-        </label>
-        <label class="flex-col flex w-full">
-            {{ __('categorypage.description') }}:
-            <textarea wire:model.delay.500ms="description"></textarea>
-                @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
-        </label>
+        <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
+            <x-input id="title" type="text" class="w-3/4" wire:model.delay.500ms="title" />
+            <x-input-error for="title" class="mt-2" />
+
+        <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
+        <textarea class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description"></textarea>
+            <x-input-error for="description" class="mt-2" />
     </div>
     <div class="flex flex-row items-center justify-between p-5 border-t border-gray-200">
         <button wire:click="$emit('closeModal')" class="rounded">{{ __('categorypage.close') }}</button>
