@@ -7,6 +7,7 @@ use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
+use App\Models\User;
 
 class Team extends JetstreamTeam
 {
@@ -41,4 +42,13 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    /**
+    * The categoris that belong to the user.
+    */
+    public function user(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'team_user');
+    }
+
 }

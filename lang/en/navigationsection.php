@@ -14,5 +14,5 @@ return [
     'category' => 'Category',
     'practice' => 'Practice',
     'upload' => 'Upload',
-
+    'teams' => 'Teams'
 ];

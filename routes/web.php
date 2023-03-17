@@ -9,6 +9,7 @@ use App\Http\Livewire\Practice\PracticeDetails;
 use App\Http\Livewire\Practice\PracticeUpload;
 use App\Http\Livewire\Practice\PracticeEdit;
 use App\Http\Livewire\Users\UserDetail;
+use App\Http\Livewire\Teams\TeamsAll;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,7 @@ Route::middleware([
     Route::get('/practice-upload',PracticeUpload::class)->name('upload');
     Route::get('/practices/{id}/edit',PracticeEdit::class);
     Route::get('/users/{id}',UserDetail::class);
+    Route::get('/teams-all', TeamsAll::class)->name('teams-all');;
 });
 
 
