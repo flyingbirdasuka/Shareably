@@ -162,9 +162,14 @@
             <x-responsive-nav-link href="{{ route('practices') }}" :active="request()->routeIs('practices')">
                 {{ __('navigationsection.practice') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('upload') }}" :active="request()->routeIs('upload')">
-                {{ __('navigationsection.upload') }}
-            </x-responsive-nav-link>
+            @if(Auth::user()->is_admin)
+                <x-responsive-nav-link href="{{ route('upload') }}" :active="request()->routeIs('upload')">
+                    {{ __('navigationsection.upload') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('teams-all') }}" :active="request()->routeIs('teams-all')">
+                    {{ __('navigationsection.teams') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
