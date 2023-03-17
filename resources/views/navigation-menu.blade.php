@@ -25,6 +25,11 @@
                             {{ __('navigationsection.upload') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
+                        <x-nav-link href="{{ route('teams-all') }}" :active="request()->routeIs('teams-all')">
+                            {{ __('navigationsection.teams') }}
+                        </x-nav-link>
+                    </div>
                 @endif
             </div>
 
