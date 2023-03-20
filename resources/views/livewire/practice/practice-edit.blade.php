@@ -5,7 +5,7 @@
 </x-slot>
 
 <form wire:submit.prevent="update_practice" class="flex flex-col lg:flex-row px-4 mb-4">
-    <div class="flex flex-start flex-col w-full lg:w-1/2">
+    <div class="flex flex-start flex-col w-full lg:w-1/2 lg:mb-6">
         <div>
             @if (session()->has('message'))
                 <div class="alert alert-success">

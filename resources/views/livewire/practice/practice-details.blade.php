@@ -6,7 +6,7 @@
         <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150"><a href="/practices/{{$practice->id}}/edit">{{ __('practicepage.edit') }}</a></button>
         </div>
 </x-slot>
-<div class="flex flex-col container lg:flex-row">
+<div class="flex flex-col container lg:flex-row lg:mb-6">
     <table class="flex flex-start w-full lg:w-1/2">
         <tr>
             <x-table-data><b>{{ __('categorypage.description') }}</b> : {{ $practice->description }}</x-table-data>
