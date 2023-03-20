@@ -18,5 +18,6 @@ return [
     'current_filename' => 'Current File',
     'practicepage_title' => 'Practice',
     'uploadpage_title' => 'Upload',
-    'editpage_title' => 'Edit'
+    'editpage_title' => 'Edit',
+    'no_category' => 'No category yet'
 ];

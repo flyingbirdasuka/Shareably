@@ -7,5 +7,6 @@ return [
     'show_categories' => 'Show Categories',
     'add_categories' => 'Add Categories',
     'close' => 'Close',
-    'detail' => 'Detail'
+    'detail' => 'Detail',
+    'no_users' => 'No user yet'
 ];

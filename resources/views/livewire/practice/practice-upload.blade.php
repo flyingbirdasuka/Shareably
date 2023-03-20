@@ -5,7 +5,7 @@
 </x-slot>
 
 
-<form wire:submit.prevent="add" class="flex px-4">
+<form wire:submit.prevent="add" class="flex px-4 mb-4">
     <div class="flex flex-start w-1/2 flex-col">
         <div>
             @if (session()->has('message'))
@@ -25,22 +25,24 @@
                 <button wire:click.prevent="$toggle('showDropdown')" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_category') }}</button>
 
             @if($showDropdown)
-                <table class="w-1/2 text-sm text-left text-gray-500">
-                    <tbody>
-                        @foreach($all_categories as $category)
-                            <tr class="bg-white border-b hover:bg-gray-50 ">
-                                <td class="w-4 p-4">
-                                    <div class="flex items-center">
-                                    <input wire:model="add_categories" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" value="{{ $category->id }}" >
-                                    </div>
-                                </td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                    {{ $category->title }}
-                                </th>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="h-48 overflow-auto w-1/2">
+                    <table class="text-sm text-left text-gray-500">
+                        <tbody>
+                            @foreach($all_categories as $category)
+                                <tr class="bg-white border-b hover:bg-gray-50 ">
+                                    <td class="w-4 p-4">
+                                        <div class="flex items-center">
+                                        <input wire:model="add_categories" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" value="{{ $category->id }}" >
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        {{ $category->title }}
+                                    </th>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>  
             @endif
         </div>
 
