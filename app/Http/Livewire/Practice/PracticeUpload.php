@@ -35,6 +35,8 @@ class PracticeUpload extends Component
     public function mount()
     {
         $this->all_categories = Category::orderBy('title')->get();
+
+
     }
 
     // public function updatedFile($propertyName)
@@ -50,15 +52,18 @@ class PracticeUpload extends Component
     public function add()
     {
         // $this->validate();
+
+        // dd($this->files);
         $this->validate([
-            'title' => 'required',
-            'file' => 'required|mimes:jpg,jpeg,png,pdf,docx|max:1024',
-        ],
-        [
-            'title.required' => 'The Title cannot be empty.',
-            'file.required' => 'The file needs to be uploaded.',
-        ],    
-    );
+                'title' => 'required',
+                'file' => 'required|mimes:pdf|max:1024',
+
+            ],
+            [
+                'title.required' => 'The Title cannot be empty.',
+                'file.required' => 'The file needs to be uploaded.',
+            ],
+        );
 
         $practice = Practice::create([
             'title' => $this->title,
