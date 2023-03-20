@@ -15,11 +15,11 @@
             @endif
         </div>
         <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
-            <x-input id="title" type="text" class="w-3/4" wire:model.delay.500ms="title"  />
+            <x-input id="title" type="text" class="border-gray-300" wire:model.delay.500ms="title"  />
             <x-input-error for="title" class="mt-2" />
 
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
-            <textarea class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description"></textarea>
+            <textarea class="border-gray-300 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description"></textarea>
 
             <div class="mt-4">
                 <button wire:click.prevent="$toggle('showDropdown')" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_category') }}</button>
@@ -51,7 +51,7 @@
         <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_practice') }}</button>
     </div>
     @if($file)
-        <iframe class="flex flex-end mb-px ml-8" src="{{ $file->temporaryUrl() }}#view=Fit" width="500" style="height:70vh;"></iframe>
+        <iframe class="flex flex-end mb-px ml-8" src="{{ $file->temporaryUrl() }}#view=Fit" height="600" width="90%"></iframe>
     @else
         <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.preview') }}</p>
     @endif

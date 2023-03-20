@@ -4,8 +4,8 @@
         </h2>
 </x-slot>
 
-<form wire:submit.prevent="update_practice" class="flex px-4 mb-4">
-    <div class="flex flex-start w-1/2 flex-col">
+<form wire:submit.prevent="update_practice" class="flex flex-col lg:flex-row px-4 mb-4">
+    <div class="flex flex-start flex-col w-full lg:w-1/2">
         <div>
             @if (session()->has('message'))
                 <div class="alert alert-success">
@@ -14,11 +14,11 @@
             @endif
         </div>
         <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
-            <x-input id="title" type="text" class="w-3/4" wire:model.delay.500ms="title" value="{{$title}}" />
+            <x-input id="title" type="text" class="border-gray-300" wire:model.delay.500ms="title" value="{{$title}}" />
             <x-input-error for="title" class="mt-2" />
 
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
-            <textarea class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description">{{ $description }}</textarea>
+        <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description">{{ $description }}</textarea>
 
         <div class="mt-4">
                 <button wire:click.prevent="$toggle('showDropdown')" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.category') }}</button>
@@ -52,14 +52,14 @@
         <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.update_practice') }}</button>
     </div>
     @if($new_file)
-        <div class="flex flex-col">
+        <div class="flex flex-col container flex justify-center lg:flex-end">
             <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.new_file') }} : </p>
-            <iframe class="flex flex-end mb-px ml-8" src="{{ $new_file->temporaryUrl() }}#view=Fit" width="500" style="height:70vh;"></iframe>
+            <iframe class="flex flex-end mb-px ml-8" src="{{ $new_file->temporaryUrl() }}#view=Fit" height="100%" width="90%"></iframe>
         </div>
     @else
-        <div class="flex flex-col">
+        <div class="flex flex-col container justify-center lg:flex-end lg:items-center">
             <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.current_file') }} : </p>
-            <iframe src="{{$original_file}}#view=Fit" width="500" style="height:70vh;"></iframe>
+            <iframe src="{{$original_file}}#view=Fit" height="600" width="90%"></iframe>
         </div>
     @endif
 </form>

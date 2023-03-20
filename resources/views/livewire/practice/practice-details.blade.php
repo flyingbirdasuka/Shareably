@@ -6,8 +6,8 @@
         <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150"><a href="/practices/{{$practice->id}}/edit">{{ __('practicepage.edit') }}</a></button>
         </div>
 </x-slot>
-<div class="flex">
-    <table class="flex flex-start w-1/2">
+<div class="flex flex-col container lg:flex-row">
+    <table class="flex flex-start w-full lg:w-1/2">
         <tr>
             <x-table-data><b>{{ __('categorypage.description') }}</b> : {{ $practice->description }}</x-table-data>
         </tr>
@@ -21,10 +21,10 @@
                 </x-table-row>
             @endforeach
         @else
-            <x-table-row>
-                <x-table-data>{{__('categorypage.no_category')}}</x-table-data>
-            </x-table-row>
+            <x-table-data>{{__('categorypage.no_category')}}</x-table-data>
         @endif
     </table>
-    <iframe class="flex flex-end mb-px" src="{{ $this->pdf }}#view=Fit" width="500" style="height:70vh;" ></iframe>
+    <div class="container flex justify-center lg:flex-end mb-4">
+        <iframe src="{{ $this->pdf }}#view=Fit" height="600" width="90%"></iframe>
+    </div>
 </div>
