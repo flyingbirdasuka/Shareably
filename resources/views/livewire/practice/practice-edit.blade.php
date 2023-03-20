@@ -46,7 +46,7 @@
         </div>
 
         <x-label for="file" value="{{ __('File') }}" class="my-4 mr-8 flex flex-col"/>
-        <input type="file" wire:model="new_file">
+        <input type="file" accept="application/pdf" wire:model="new_file">
         @error('new_file.*') <span class="error">{{ $message }}</span> @enderror
         <p class="text-sm text-gray-700 font-medium my-4">{{ __('practicepage.current_filename') }}: {{ $original_file_name }} </p>
         <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.update_practice') }}</button>

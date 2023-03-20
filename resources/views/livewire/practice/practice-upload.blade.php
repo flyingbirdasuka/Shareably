@@ -46,7 +46,7 @@
             @endif
         </div>
 
-        <input type="file" accept="application/pdf"  wire:model="file" class="my-4" />
+        <input type="file" accept="application/pdf" wire:model="file" class="my-4" />
         @error('file.*') <span class="error">{{ $message }}</span> @enderror
         <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_practice') }}</button>
     </div>
