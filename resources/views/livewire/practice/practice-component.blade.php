@@ -6,7 +6,7 @@
     @if($is_admin)
         <x-table-data>
             <button wire:click.prevent="edit({{$practice->id}})" :key="now() . $category->id" class="w-8"><i class="fa-regular fa-pen-to-square"></i></button>
-            <button wire:click.prevent="delete({{$practice->id}})" class="w-8"><i class="fa-solid fa-trash"></i></button>
+            <button wire:click.prevent="$emit('openModal', 'practice.practice-remove', {{ json_encode(['practice_id' => $practice->id ]) }})" class="w-8"><i class="fa-solid fa-trash"></i></button>
         </x-table-data>
     @endif
 </x-table-row>

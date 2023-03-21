@@ -21,12 +21,6 @@ class PracticeComponent extends Component
         return redirect('practices/'.$practice_id.'/edit');
     }
 
-    public function delete($practice_id)
-    {
-        Practice::where('id', $practice_id)->delete();
-        $this->emitUp('refreshParent');
-    }
-
     public function render()
     {
         return view('livewire.practice.practice-component');

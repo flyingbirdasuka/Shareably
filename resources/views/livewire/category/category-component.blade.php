@@ -4,7 +4,7 @@
     @if($is_admin)
         <x-table-data>
             <button wire:click.prevent="$emit('openModal', 'category.category-edit',{{ json_encode(['category_id' => $category->id, 'title' => $category->title, 'description' => $category->description ]) }})" class="w-8"><i class="fa-regular fa-pen-to-square"></i></button>
-            <button wire:click.prevent="delete()" class="w-8"><i class="fa-solid fa-trash"></i></button>
+            <button wire:click.prevent="$emit('openModal', 'category.category-remove',{{ json_encode(['category_id' => $category->id])}})" class="w-8"><i class="fa-solid fa-trash"></i></button>
         </x-table-data>
     @endif
 </x-table-row>

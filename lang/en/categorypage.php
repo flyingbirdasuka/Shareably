@@ -13,5 +13,7 @@ return [
     'remove' => 'Remove',
     'show_users' => 'Show Users',
     'no_category' => 'Not added in any categories yet',
-    'no_users' => 'No user yet'
+    'no_users' => 'No user yet',
+    'remove_confirmation_message' => 'Are you sure you would like to remove this category?',
+
 ];
