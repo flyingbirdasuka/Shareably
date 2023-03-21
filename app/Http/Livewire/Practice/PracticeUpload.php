@@ -36,18 +36,18 @@ class PracticeUpload extends Component
     {
         $this->all_categories = Category::orderBy('title')->get();
 
-
     }
 
-    // public function updatedFile($propertyName)
-    // {
-    //     $test = $this->validateOnly($propertyName, [
-    //         'file' => 'file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
-    //     ]);
-    //     dd($test);
+    /*
+     *  Real time validation of the chosen file to be uploaded, users don't have to click submit.
+     */
+    public function updatedFile()
+    {
 
-        
-    // }
+        $this->validate([
+            'file' => 'file|mimes:pdf|max:1024',
+        ]);
+    }
 
     public function add()
     {
