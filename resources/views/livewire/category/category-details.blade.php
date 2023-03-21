@@ -33,7 +33,7 @@
                     @if($is_admin)
                         <x-table-data>
                             <button wire:click.prevent="edit_practice({{$practice->id}})" class="w-8" :key="now() . $practice->id"><i class="fa-regular fa-pen-to-square"></i></button>
-                            <button wire:click.prevent="delete_practice({{$practice->id}})"  class="w-8"><i class="fa-solid fa-trash"></i></button>
+                            <button wire:click.prevent="$emit('openModal', 'category.remove-practice',{{ json_encode(['practice_id' => $practice->id, 'category_id' => $category->id])}})" class="w-8"><i class="fa-solid fa-trash"></i></button>
                         </x-table-data>
                     @else
                         @if(in_array($practice->id, $user_practices))

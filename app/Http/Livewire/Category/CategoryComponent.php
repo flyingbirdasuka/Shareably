@@ -21,10 +21,4 @@ class CategoryComponent extends Component
         return view('livewire.category.category-component');
     }
 
-    public function delete()
-    {
-        Category::where('id', $this->category->id)->delete();
-        $this->emitUp('refreshParent');
-    }
-
 }

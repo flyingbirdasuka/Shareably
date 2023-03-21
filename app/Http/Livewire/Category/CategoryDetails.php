@@ -41,12 +41,6 @@ class CategoryDetails extends Component
         return redirect('practices/'.$practice_id.'/edit');
     }
 
-    public function delete_practice($practice_id)
-    {
-        Category::where('id',$this->category->id)->first()->practices()->detach($practice_id);
-        return redirect('categories/'.$this->category->id);
-    }
-
     public function render()
     {
         return view('livewire.category.category-details');

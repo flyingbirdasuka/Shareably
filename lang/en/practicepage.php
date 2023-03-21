@@ -19,5 +19,6 @@ return [
     'practicepage_title' => 'Practice',
     'uploadpage_title' => 'Upload',
     'editpage_title' => 'Edit',
-    'no_category' => 'No category yet'
+    'no_category' => 'No category yet',
+    'remove_confirmation_message' => 'Are you sure you would like to remove this practice?',
 ];
