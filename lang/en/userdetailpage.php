@@ -2,15 +2,15 @@
 
 return [
 
-    'description' => 'description',
-    'status' => 'Status',
-    'active' => 'Active',
-    'member_since' => 'Member Since',
-    'teams' => "Teams",
     'about' => 'About',
-    'name' => 'Name',
-    'email' => 'Email',
+    'active' => 'Active',
     'category' => 'Category',
-    'favorite' => 'Favorite'
+    'description' => 'description',
+    'email' => 'Email',
+    'favorite' => 'Favorite',
+    'member_since' => 'Member Since',
+    'name' => 'Name',
+    'status' => 'Status',
+    'teams' => "Teams",
 
 ];

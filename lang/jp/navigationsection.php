@@ -2,22 +2,22 @@
 
 return [
 
-
-    'manage_team' => 'Manage Team',
-    'team_settings' => 'Team Settings',
-    'create_new_team' => 'Create New Team',
-    'switch_teams' => 'Switch Teams',
-    'manage_account' => 'Manage Account',
-    'profile' => 'Profile',
+    'all_teams' => 'All Teams',
+    'all_users' => 'All Users',
     'api_tokens' => 'API Tokens',
-    'log_out' => 'Log Out',
     'category' => 'Category',
-    'practice' => 'Practice',
-    'upload' => 'Upload',
-    'teams' => 'Teams',
-    'all_teams' => '全てのチーム',
-    'all_users' => '全てのユーザー',
-    'language' => 'Language',
+    'create_new_team' => 'Create New Team',
     'english' => 'English',
-    'japanese' => 'Japanese'
+    'japanese' => 'Japanese',
+    'language' => 'Language',
+    'log_out' => 'Log Out',
+    'manage_account' => 'Manage Account',
+    'manage_team' => 'Manage Team',
+    'practice' => 'Practice',
+    'profile' => 'Profile',
+    'switch_teams' => 'Switch Teams',
+    'teams' => 'Teams',
+    'team_settings' => 'Team Settings',
+    'upload' => 'Upload',
+
 ];
