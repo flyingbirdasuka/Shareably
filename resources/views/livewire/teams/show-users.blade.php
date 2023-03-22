@@ -5,7 +5,7 @@
         @if(count($users) > 0)
         @foreach($users as $user)
                 <tr class="bg-white border-b">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex justify-between">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex justify-between items-center">
                         <p><a href="/users/{{$user->id}}">{{ $user->id }}</a></p>
                         <p><a href="/users/{{$user->id}}">{{ $user->name }}</a></p>
                         <button class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded"><a href="/users/{{$user->id}}">{{ __('teamspage.detail') }}</a></button>

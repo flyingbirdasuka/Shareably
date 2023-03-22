@@ -13,6 +13,7 @@ class ShowUsers extends ModalComponent
     public $category_id;
     public $category;
     public $users;
+    public $user_id;
 
     public function mount($category_id)
     {
@@ -21,8 +22,9 @@ class ShowUsers extends ModalComponent
         $this->users = $this->category->users()->orderBy('name')->get();
     }
    
-    public function delete_user($user_id)
+    public function delete($user_id)
     {
+        dd('test');
         Category::where('id',$this->category->id)->first()->users()->detach($user_id);
         return redirect('categories/'.$this->category->id);
     }
