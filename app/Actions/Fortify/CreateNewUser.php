@@ -108,6 +108,5 @@ class CreateNewUser implements CreatesNewUsers
             'notification_setting' => 1,
             'sound_setting' => 1,
         ]);
-        $user->user_settings()->where('id', $user_settings->id)->first()->language()->attach(1);
     }
 }
