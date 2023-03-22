@@ -14,6 +14,7 @@ class ShowUsers extends ModalComponent
     public $category;
     public $users;
     public $user_id;
+    public $delete_id;
 
     public function mount($category_id)
     {
@@ -21,16 +22,16 @@ class ShowUsers extends ModalComponent
         $this->category = Category::find($category_id);
         $this->users = $this->category->users()->orderBy('name')->get();
     }
-   
-    public function delete($user_id)
+
+    public function updatedUserId()
     {
-        dd('test');
-        Category::where('id',$this->category->id)->first()->users()->detach($user_id);
+        Category::where('id',$this->category->id)->first()->users()->detach($this->user_id);
         return redirect('categories/'.$this->category->id);
     }
-    
+
     public function render()
     {
         return view('livewire.category.show-users');
     }
+
 }
