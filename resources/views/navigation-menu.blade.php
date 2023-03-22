@@ -19,18 +19,6 @@
                         {{ __('navigationsection.practice') }}
                     </x-nav-link>
                 </div>
-                @if(Auth::user()->is_admin)
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
-                        <x-nav-link href="{{ route('upload') }}" :active="request()->routeIs('upload')">
-                            {{ __('navigationsection.upload') }}
-                        </x-nav-link>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
-                        <x-nav-link href="{{ route('teams-all') }}" :active="request()->routeIs('teams-all')">
-                            {{ __('navigationsection.teams') }}
-                        </x-nav-link>
-                    </div>
-                @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -53,6 +41,15 @@
 
                             <x-slot name="content">
                                 <div class="w-60">
+                                    @if(Auth::user()->is_admin)
+                                        <!-- All Teams -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            {{ __('navigationsection.all_teams') }}
+                                        </div>
+                                        <x-dropdown-link href="{{ route('teams-all') }}">
+                                            {{ __('navigationsection.all_teams') }}
+                                        </x-dropdown-link>
+                                    @endif
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
                                         {{ __('navigationsection.manage_team') }}
@@ -162,14 +159,6 @@
             <x-responsive-nav-link href="{{ route('practices') }}" :active="request()->routeIs('practices')">
                 {{ __('navigationsection.practice') }}
             </x-responsive-nav-link>
-            @if(Auth::user()->is_admin)
-                <x-responsive-nav-link href="{{ route('upload') }}" :active="request()->routeIs('upload')">
-                    {{ __('navigationsection.upload') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('teams-all') }}" :active="request()->routeIs('teams-all')">
-                    {{ __('navigationsection.teams') }}
-                </x-responsive-nav-link>
-            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -208,6 +197,16 @@
                         {{ __('navigationsection.log_out') }}
                     </x-responsive-nav-link>
                 </form>
+                <!-- All Teams -->
+                <div class="border-t border-gray-200"></div>
+                <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('navigationsection.all_teams') }}
+                    </div>
+
+                    <!-- Team Settings -->
+                    <x-responsive-nav-link href="{{ route('teams-all') }}">
+                        {{ __('navigationsection.all_teams') }}
+                    </x-responsive-nav-link>
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
