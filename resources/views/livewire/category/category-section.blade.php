@@ -28,7 +28,7 @@
                 <livewire:category.category-component :category="$category" :is_admin="$is_admin" :key="now() . $category->id">
             @empty
             <x-table-row>
-                <td colspan="4" class="px-6 py-4 text-center"><b>Not found</b></td>
+                <td colspan="4" class="px-6 py-4 text-center"><b>{{ __('categorypage.no_category') }}</b></td>
             </x-table-row>
             @endforelse
         </x-table-body>

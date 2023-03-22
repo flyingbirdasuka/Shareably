@@ -12,7 +12,8 @@ return [
     'categorypage_title' => 'Category',
     'remove' => 'Remove',
     'show_users' => 'Show Users',
-    'no_category' => 'Not added in any categories yet',
+    'no_category' => 'No categories yet',
+    'no_practice' => 'No Practices added in this category yet',
     'no_users' => 'No user yet',
     'remove_confirmation_message' => 'Are you sure you would like to remove this category?',
 

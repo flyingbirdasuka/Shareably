@@ -26,7 +26,7 @@
             <livewire:practice.practice-component :practice="$practice" :is_admin="$is_admin" :key="now() . $practice->id">
         @empty
             <x-table-row>
-                <td colspan="4" class="px-6 py-4 text-center"><b>Not found</b></td>
+                <td colspan="4" class="px-6 py-4 text-center"><b>{{ __('practicepage.no_practice') }}</b></td>
             </x-table-row>
         @endforelse
         </x-table-body>

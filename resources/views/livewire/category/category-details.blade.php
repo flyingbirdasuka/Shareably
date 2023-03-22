@@ -4,7 +4,7 @@
         </h2>
         <p class="mt-4">{{ $category->description }}</p>
 </x-slot>
-<div>
+<div class="mt-4">
     @if($is_admin)
         <div class="flex my-4 mx-4 text-sm">
             <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">Add Practice</button>
@@ -24,8 +24,7 @@
             @endif
         </x-table-head>
         <x-table-body>
-            @if($practices)
-                @foreach($practices as $practice)
+                @forelse($practices as $practice)
                 <x-table-row>
                     <x-table-data>{{ $practice->id }}</x-table-data>
                     <x-table-data><b><a href="/practices/{{$practice->id}}">{{ $practice->title }}</a></b></x-table-data>
@@ -49,8 +48,11 @@
                         @endif
                     @endif
                 </x-table-row>
-                @endforeach
-            @endif
+                @empty
+                <x-table-row>
+                    <td colspan="4" class="px-6 py-4 text-center"><b>{{ __('categorypage.no_practice') }}</b></td>
+                </x-table-row>
+                @endforelse
         </x-table-body>
     </x-table>
 </div>

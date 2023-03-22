@@ -20,5 +20,6 @@ return [
     'uploadpage_title' => 'Upload',
     'editpage_title' => 'Edit',
     'no_category' => 'No category yet',
+    'no_practice' => 'No practice yet',
     'remove_confirmation_message' => 'Are you sure you would like to remove this practice?',
 ];
