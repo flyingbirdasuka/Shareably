@@ -18,8 +18,23 @@ class CategoryRemove extends ModalComponent
 
     public function delete()
     {
+        $category = Category::where('id', $this->category_id);
+
+        // remove the practice_category relationship
+        $practices = $category->first()->practices()->get();
+        foreach($practices as $practice){
+            $category->first()->practices()->detach($practice);
+        }
         
-        Category::where('id', $this->category_id)->delete();
+        // remove the user_category relationship
+        $users = $category->first()->users()->get();
+        foreach($users as $user){
+            $category->first()->users()->detach($user);
+        }
+
+        // remove the category
+        $category->delete();
+
         return redirect()->to('/categories');
     }
 
