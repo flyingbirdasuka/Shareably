@@ -33,6 +33,12 @@ use App\Http\Livewire\Users\UsersAll;
 //     return view('welcome');
 // });
 
+Route::get('language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

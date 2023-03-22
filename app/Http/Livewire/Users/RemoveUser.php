@@ -31,10 +31,6 @@ class RemoveUser extends ModalComponent
             $user->first()->practices()->detach($practice);
         }
 
-        // remove user_settings_language relationship
-        $user_setting = $user->first()->user_settings()->first();
-        DB::table('user_settings_language')->where('user_settings_id', $user_setting->id)->delete();
-
         // remove user_settings
         $user_setting->delete();
 
@@ -43,13 +39,13 @@ class RemoveUser extends ModalComponent
         foreach($teams as $team){
             $user->first()->teams()->detach($team);
         }
-        
+
         // remove user
         $user->delete();
 
         return redirect()->to('/users-all');
-
     }
+
     public function render()
     {
         return view('livewire.users.remove-user');

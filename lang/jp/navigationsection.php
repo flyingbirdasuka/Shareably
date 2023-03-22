@@ -15,8 +15,8 @@ return [
     'practice' => 'Practice',
     'upload' => 'Upload',
     'teams' => 'Teams',
-    'all_teams' => 'All Teams',
-    'all_users' => 'All Users',
+    'all_teams' => '全てのチーム',
+    'all_users' => '全てのユーザー',
     'language' => 'Language',
     'english' => 'English',
     'japanese' => 'Japanese'

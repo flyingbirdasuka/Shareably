@@ -32,13 +32,6 @@
             </label>
         </div>
 
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="password_confirmation" value="{{ __('profilepage.confirm_password') }}" />
-            @foreach($language_options as $option)
-                <input wire:model="languages" value="{{ $option->language_code }}" type="checkbox" class="mx-1"/>
-                {{ $option->language }}
-            @endforeach
-        </div>
     </x-slot>
 
     <x-slot name="actions">
