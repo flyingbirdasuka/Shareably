@@ -42,6 +42,17 @@
                             <x-slot name="content">
                                 <div class="w-60">
                                     @if(Auth::user()->is_admin)
+
+                                        <!-- All Users -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            {{ __('navigationsection.all_users') }}
+                                        </div>
+                                        <x-dropdown-link href="{{ route('users-all') }}">
+                                            {{ __('navigationsection.all_users') }}
+                                        </x-dropdown-link>
+
+                                        <div class="border-t border-gray-200"></div>
+                                        
                                         <!-- All Teams -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('navigationsection.all_teams') }}
@@ -50,6 +61,8 @@
                                             {{ __('navigationsection.all_teams') }}
                                         </x-dropdown-link>
                                     @endif
+                                    <div class="border-t border-gray-200"></div>
+
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
                                         {{ __('navigationsection.manage_team') }}
@@ -197,16 +210,27 @@
                         {{ __('navigationsection.log_out') }}
                     </x-responsive-nav-link>
                 </form>
-                <!-- All Teams -->
-                <div class="border-t border-gray-200"></div>
-                <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('navigationsection.all_teams') }}
+                @if(Auth::user()->is_admin)
+                    <!-- All Users -->
+                    <div class="border-t border-gray-200"></div>
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('navigationsection.all_users') }}
                     </div>
 
-                    <!-- Team Settings -->
+                    <x-responsive-nav-link href="{{ route('users-all') }}">
+                        {{ __('navigationsection.all_users') }}
+                    </x-responsive-nav-link>
+
+                    <!-- All Teams -->
+                    <div class="border-t border-gray-200"></div>
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('navigationsection.all_teams') }}
+                    </div>
+
                     <x-responsive-nav-link href="{{ route('teams-all') }}">
                         {{ __('navigationsection.all_teams') }}
                     </x-responsive-nav-link>
+                @endif
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())

@@ -15,5 +15,6 @@ return [
     'practice' => 'Practice',
     'upload' => 'Upload',
     'teams' => 'Teams',
-    'all_teams' => 'All Teams'
+    'all_teams' => 'All Teams',
+    'all_users' => 'All Users'
 ];
