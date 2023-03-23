@@ -14,6 +14,7 @@
     </div>
     <x-table>
         <x-table-head>
+            <x-table-heading></x-table-heading>
             <x-table-heading>Name</x-table-heading>
             <x-table-heading>Email</x-table-heading>
             <x-table-heading></x-table-heading>
@@ -22,12 +23,13 @@
         
         @forelse ($users as $user)
         <x-table-row>
+            <x-table-data>
+                <img class="h-10 w-10 rounded-full object-cover" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
+            </x-table-data>
             <x-table-data><b><a href="users/{{$user->id}}">{{ $user->name }}</a></b></x-table-data>
             <x-table-data><b><a href="users/{{$user->id}}"> {{ $user->email }}</a></b></x-table-data>
             <x-table-data>
-                <!-- <form wire:submit.prevent="delete({{ $user->id }})"> -->
-                    <button wire:click.prevent="$emit('openModal', 'users.remove-user', {{ json_encode(['user_id' => $user->id ]) }})" class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded">{{ __('userspage.remove') }}</button>
-                <!-- </form> -->
+                <button wire:click.prevent="$emit('openModal', 'users.remove-user', {{ json_encode(['user_id' => $user->id ]) }})" class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded">{{ __('userspage.remove') }}</button>
             </x-table-data>
         </x-table-row>    
         @empty

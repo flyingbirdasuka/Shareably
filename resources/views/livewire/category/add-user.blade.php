@@ -17,7 +17,8 @@
                             <input wire:model="users" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" value="{{ $user->id }}" >
                             </div>
                         </td>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                        <th scope="row" class="px-6 py-4 flex items-center font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            <img class="h-10 w-10 rounded-full object-cover mr-4" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
                             {{ $user->name }}
                         </th>
                     </tr>

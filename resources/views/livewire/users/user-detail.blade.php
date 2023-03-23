@@ -4,8 +4,10 @@
             <div class="w-full lg:w-3/12 md:mx-2">
 
                 <div class="bg-white p-3 border-t-4 border-green-400">
+                    <img class="h-10 w-10 rounded-full object-cover" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
                     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ $user->name }}</h1>
                     <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">{{__('userdetailpage.description')}}</p>
+                    
                     <ul
                         class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
                         <li class="flex items-center py-3">
