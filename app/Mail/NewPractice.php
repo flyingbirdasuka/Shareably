@@ -15,15 +15,17 @@ class NewPractice extends Mailable
     use Queueable, SerializesModels;
     protected $practice;
     protected $url;
+    protected $name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($practice, $url)
+    public function __construct($practice, $url, $name)
     {
         $this->practice = $practice;
         $this->url = $url;
+        $this->name = $name;
     }
 
     /**
@@ -51,6 +53,7 @@ class NewPractice extends Mailable
             with: [
                 'title' => $this->practice->title,
                 'url' => $this->url,
+                'name' => $this->name,
             ]    
         );
     }

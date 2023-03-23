@@ -1,6 +1,8 @@
 <x-mail::message>
 # New Practice :)
 
+Hi, {{$name}},
+
 The new practice "{{ $title }}"" is uploaded.
 
 <x-mail::button :url="$url">

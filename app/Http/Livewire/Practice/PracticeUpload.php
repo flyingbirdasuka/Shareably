@@ -67,12 +67,19 @@ class PracticeUpload extends Component
 
         $url = url("/practices/{$practice->id}");
 
+        $all_users = [];
         foreach ($this->add_categories as $category_id){
             $users = Category::find($category_id)->users()->get();
             foreach($users as $user){
-                !$user->is_admin && Mail::to($user->email)->send(new NewPractice($practice, $url));
+                !$user->is_admin && array_push($all_users,['email'=> $user->email,'name' => $user->name]);
             }
         }
+        $unique_users = array_map("unserialize",array_unique(array_map("serialize", $all_users)));
+        foreach(array_unique($unique_users) as $user){
+            $name = $user['name'];
+            Mail::to($user['email'])->send(new NewPractice($practice, $url, $name));
+        }
+
 
         session()->flash('message', 'Practice successfully added.');
         return redirect()->to('/practices');
