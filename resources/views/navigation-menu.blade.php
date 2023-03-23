@@ -44,6 +44,9 @@
                             <x-dropdown-link href="/language/jp">
                             {{ __('navigationsection.japanese') }}
                             </x-dropdown-link>
+                            <x-dropdown-link href="/language/nl">
+                            {{ __('navigationsection.dutch') }}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

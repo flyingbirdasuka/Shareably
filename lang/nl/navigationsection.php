@@ -2,7 +2,7 @@
 
 return [
 
-    'all_teams' => 'All Teams',
+    'all_teams' => 'Alle Groupen',
     'all_users' => 'All Users',
     'api_tokens' => 'API Tokens',
     'category' => 'Category',

@@ -2,11 +2,12 @@
 
 return [
 
-    'all_teams' => 'All Teams',
+    'all_teams' => '全てのチーム',
     'all_users' => 'All Users',
     'api_tokens' => 'API Tokens',
     'category' => 'Category',
     'create_new_team' => 'Create New Team',
+    'dutch' => 'Dutch',
     'english' => 'English',
     'japanese' => 'Japanese',
     'language' => 'Language',

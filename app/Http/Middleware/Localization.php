@@ -19,16 +19,17 @@ class Localization
     public function handle(Request $request, Closure $next)
     {
         if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
+            $locale = Session::get('locale');
         } else {
             $browserLanguage = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2); //read browser language
             if(in_array($browserLanguage, config('app.available_locales'))){
-                App::setLocale('locale', $browserLanguage);
+                $locale = $browserLanguage;
             } else {
-                App::setLocale('locale', 'en');
+                $locale = 'en';
             }
         }
-
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
         return $next($request);
     }
 }
