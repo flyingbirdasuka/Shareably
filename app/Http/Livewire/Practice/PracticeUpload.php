@@ -20,22 +20,9 @@ class PracticeUpload extends Component
     public $add_categories = [];
     public $showDropdown = false;
 
-    // protected $rules = [
-    //     'title' => 'required',
-    //     'file' => 'required'
-    // ];
-
-    // protected $message = [
-    //     'title.required' => 'The Title cannot be empty.',
-    //     'file.required' => 'The file needs to be uploaded', 
-    //     'file.mimes' => 'This file type is not supported',
-    //     'file.max' => 'This file is too big'
-    // ];
-
     public function mount()
     {
         $this->all_categories = Category::orderBy('title')->get();
-
     }
 
     /*
@@ -51,17 +38,15 @@ class PracticeUpload extends Component
 
     public function add()
     {
-        // $this->validate();
-
-        // dd($this->files);
         $this->validate([
                 'title' => 'required',
+                'add_categories' => 'required',
                 'file' => 'required|mimes:pdf|max:1024',
 
             ],
             [
                 'title.required' => 'The Title cannot be empty.',
-                'file.required' => 'The file needs to be uploaded.',
+                'file.required' => 'The file needs to be uploaded. Only PDFs smaller than 1mb can be uploaded.',
             ],
         );
 

@@ -42,13 +42,13 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>  
+                </div>
             @endif
+            <x-input-error for="add_categories" class="mt-2" />
         </div>
 
-        @error('file') <span class="error">{{ $message . " Only PDFs smaller than 1mb can be uploaded."}}</span> @enderror
         <input type="file" accept="application/pdf" wire:model="file" class="my-4" />
-
+        <x-input-error for="file" class="mt-2" />
         <button type="submit" class="w-1/3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_practice') }}</button>
     </div>
     @if($file)
