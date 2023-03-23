@@ -8,6 +8,8 @@ use App\Models\Practice;
 use App\Models\Category;
 use App\Models\MusicSheet;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewPractice;
 
 class PracticeUpload extends Component
 {
@@ -42,7 +44,6 @@ class PracticeUpload extends Component
                 'title' => 'required',
                 'add_categories' => 'required',
                 'file' => 'required|mimes:pdf|max:1024',
-
             ],
             [
                 'title.required' => 'The Title cannot be empty.',
@@ -61,13 +62,18 @@ class PracticeUpload extends Component
             'title' => $this->title,
             'filename' => $unique_name
         ]);
-        
+
         $this->file->storeAs('/', $unique_name, $disk = 'practice');
 
+        $url = url("/practices/{$practice->id}");
+
         foreach ($this->add_categories as $category_id){
-            $practice->categories()->attach($category_id);
+            $users = Category::find($category_id)->users()->get();
+            foreach($users as $user){
+                !$user->is_admin && Mail::to($user->email)->send(new NewPractice($practice, $url));
+            }
         }
-        
+
         session()->flash('message', 'Practice successfully added.');
         return redirect()->to('/practices');
     }
