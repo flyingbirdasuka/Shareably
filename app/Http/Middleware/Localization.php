@@ -20,7 +20,15 @@ class Localization
     {
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
+        } else {
+            $browserLanguage = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2); //read browser language
+            if(in_array($browserLanguage, config('app.available_locales'))){
+                App::setLocale('locale', $browserLanguage);
+            } else {
+                App::setLocale('locale', 'en');
+            }
         }
+
         return $next($request);
     }
 }
