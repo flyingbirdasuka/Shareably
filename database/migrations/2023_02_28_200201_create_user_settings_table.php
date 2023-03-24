@@ -23,16 +23,16 @@ return new class extends Migration
         });
 
         // Add default values
-        // DB::table('user_settings')->insert(
-        //     array(
-        //         'user_id' => 1,
-        //         'notification_setting' => 1,
-        //         'sound_setting' => 1,
-        //         'email_subscription' => 1,
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     )
-        // );
+        DB::table('user_settings')->insert(
+            array(
+                'user_id' => 1,
+                'notification_setting' => 1,
+                'sound_setting' => 1,
+                'email_subscription' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            )
+        );
     }
 
     /**

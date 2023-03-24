@@ -28,7 +28,7 @@ return new class extends Migration
 
         DB::table('users')->insert(
             array(
-                'name' => 'Tommu Desu',
+                'name' => 'Asuka Method',
                 'email' => 'admin@admin.com',
                 'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
                 // vLe064h$0PdN
@@ -36,6 +36,7 @@ return new class extends Migration
                 'current_team_id' => 1 // default all user team
             )
         );
+
     }
 
     /**
