@@ -12,6 +12,7 @@ class PracticeSection extends Component
     public $user;
     public $is_admin;
     public $search;
+    public $user_practices = [];
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -20,8 +21,9 @@ class PracticeSection extends Component
     public function mount()
     {
         $this->user = auth()->user();
-        $this->practices = $this->user->is_admin ? Practice::orderBy('title')->get() : User::find($this->user)->first()->practices()->orderBy('title')->get();
+        $this->practices = $this->user->is_admin ? Practice::orderBy('title')->get() : $this->user->practices()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin;
+        $this->user_practices = $this->user->practices()->pluck('practices.id')->all();
     }
 
     public function updatedSearch()
@@ -41,10 +43,10 @@ class PracticeSection extends Component
                 $this->practices->sortBy('title');
 
             } else {
-                $this->practices = User::find($this->user)->first()->practices()->orderBy('title')->get();
+                $this->practices = $this->user->practices()->orderBy('title')->get();
             }
         }
-  }
+    }
 
     public function render()
     {

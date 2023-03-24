@@ -21,11 +21,13 @@
             <x-table-heading>Description</x-table-heading>
             @if($is_admin)
                 <x-table-heading>Edit</x-table-heading>
+            @else
+                <x-table-heading></x-table-heading>
             @endif
         </x-table-head>
         <x-table-body>
         @forelse ($practices as $practice)
-            <livewire:practice.practice-component :practice="$practice" :is_admin="$is_admin" :key="now() . $practice->id">
+            <livewire:practice.practice-component :practice="$practice" :user_practices="$user_practices" :is_admin="$is_admin" :key="now() . $practice->id">
         @empty
             <x-table-row>
                 <td colspan="4" class="px-6 py-4 text-center"><b>{{ __('practicepage.no_practice') }}</b></td>

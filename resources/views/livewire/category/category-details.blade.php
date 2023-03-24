@@ -34,15 +34,19 @@
                         </x-table-data>
                     @else
                         @if(in_array($practice->id, $user_practices))
+                        <x-table-data>
                             <label>
                                 <input wire:model="user_practices" value="{{ $practice->id }}" type="checkbox" style="display:none;"/>
                                 <i class="fa-solid fa-heart" style="color:red;"></i>
                             </label>
+                        </x-table-data>
                         @else
+                        <x-table-data>
                             <label>
                                 <input wire:model="user_practices" value="{{ $practice->id }}" type="checkbox" style="display:none;"/>
                                 <i class="fa-regular fa-heart"></i>
                             </label>
+                        </x-table-data>
                         @endif
                     @endif
                 </x-table-row>
