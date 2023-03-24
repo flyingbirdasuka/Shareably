@@ -11,4 +11,6 @@ Try new practice
 
 Hope you enjoy it!<br>
 {{ config('app.name') }}
+
+<a href="{{ $unsubscribe }}">unsubscribe</a>
 </x-mail::message>

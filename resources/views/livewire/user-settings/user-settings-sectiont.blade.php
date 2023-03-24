@@ -32,6 +32,18 @@
             </label>
         </div>
 
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="email_subscription" value="{{ __('profilepage.email_subscription') }}" />
+            <label class="mx-1">
+                <input type="radio" wire:model="email_subscription" value="0">
+                {{ __('profilepage.off') }}
+            </label>
+            <label class="mx-1">
+                <input type="radio" wire:model="email_subscription" value="1">
+                {{ __('profilepage.on') }}
+            </label>
+        </div>
+
     </x-slot>
 
     <x-slot name="actions">

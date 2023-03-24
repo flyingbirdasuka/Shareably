@@ -32,7 +32,7 @@ class RemoveUser extends ModalComponent
         }
 
         // remove user_settings
-        $user_setting->delete();
+        $user->first()->user_settings()->delete();
 
         // remove from teams
         $teams = $user->first()->teams()->get();
