@@ -33,7 +33,7 @@
                     {{ __('teamsettingspage.cancel') }}
                 </x-secondary-button>
 
-                <x-danger-button class="ml-3" wire:click="deleteTeam" wire:loading.attr="disabled">
+                <x-danger-button class="ml-3" wire:click="deleteTeam()" wire:loading.attr="disabled">
                     {{ __('teamsettingspage.delete_team') }}
                 </x-danger-button>
             </x-slot>
