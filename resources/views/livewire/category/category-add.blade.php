@@ -18,7 +18,7 @@
     </div>
     <div class="flex flex-row items-center justify-between p-5 border-t border-gray-200">
         <button wire:click="$emit('closeModal')" class="rounded">{{ __('categorypage.close') }}</button>
-        <button type="submit" class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded">{{ __('categorypage.add_category') }}
+        <button type="submit" class="px-4 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">{{ __('categorypage.add_category') }}
         </button>
     </div>
 </form>
