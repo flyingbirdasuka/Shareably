@@ -14,14 +14,12 @@
     </div>
 <x-table>
     <x-table-head>
-        <x-table-heading>ID</x-table-heading>
         <x-table-heading>Name</x-table-heading>
         <x-table-heading>Users</x-table-heading>
     </x-table-head>
     <x-table-body>
         @foreach($teams as $team)
             <x-table-row>
-                <x-table-data>{{ $team->id }}</x-table-data>
                 <x-table-data><a href="/teams/{{ $team->id }}">{{ $team->name }}</a></x-table-data>
                 <x-table-data><button wire:click.prevent="$emit('openModal', 'teams.show-users', {{ json_encode(['team_id' => $team->id ]) }})" class="px-4 py-2 text-white font-semibold bg-indigo-500 rounded">{{ __('teamspage.show_users')}}</button></x-table-data>
             </x-table-row>

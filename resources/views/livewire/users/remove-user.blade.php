@@ -1,5 +1,5 @@
 <form wire:submit.prevent="delete">
-    <p class="font-semibold text-gray-800 p-6">{{ __('userpage.remove') }}</p>
+    <p class="font-semibold text-gray-800 p-6">{{ __('userspage.remove') }}</p>
     <div class="flex flex-col px-6 py-5 bg-gray-50">
         {{ __('userspage.remove_confirmation_message') }}
     </div>

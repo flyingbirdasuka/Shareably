@@ -17,7 +17,6 @@
     </div>
     <x-table>
         <x-table-head>
-            <x-table-heading>ID</x-table-heading>
             <x-table-heading>Title</x-table-heading>
             <x-table-heading>Description</x-table-heading>
             @if($is_admin)

@@ -14,7 +14,6 @@
     @endif
     <x-table>
         <x-table-head>
-            <x-table-heading>ID</x-table-heading>
             <x-table-heading>Title</x-table-heading>
             <x-table-heading>Description</x-table-heading>
             @if($is_admin)
@@ -26,7 +25,6 @@
         <x-table-body>
                 @forelse($practices as $practice)
                 <x-table-row>
-                    <x-table-data>{{ $practice->id }}</x-table-data>
                     <x-table-data><b><a href="/practices/{{$practice->id}}">{{ $practice->title }}</a></b></x-table-data>
                     <x-table-data><a href="/practices/{{$practice->id}}">{{ $practice->description }}</a></x-table-data>
                     @if($is_admin)
