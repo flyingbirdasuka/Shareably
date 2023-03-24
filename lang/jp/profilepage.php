@@ -16,6 +16,7 @@ return [
     'disable' => 'Disable',
     'done' => 'Done',
     'email' => 'Email',
+    'email_subscription' => 'Email Subscription',
     'email_unverified' => 'Your email address is unverified.',
     'enable' => 'Enable',
     'enter_password_log_out' => 'Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.',

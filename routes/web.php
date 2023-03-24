@@ -11,6 +11,7 @@ use App\Http\Livewire\Practice\PracticeEdit;
 use App\Http\Livewire\Users\UserDetail;
 use App\Http\Livewire\Teams\TeamsAll;
 use App\Http\Livewire\Users\UsersAll;
+use App\Http\Livewire\UserSettings\UserSettingsSection;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,16 +23,6 @@ use App\Http\Livewire\Users\UsersAll;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// language
-// Route::get('/{language}', function($language){
-//     App::setLocale($language);
-//     return view('welcome');
-// });
 
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
@@ -57,6 +48,7 @@ Route::middleware([
     Route::get('/users/{id}',UserDetail::class);
     Route::get('/teams-all', TeamsAll::class)->name('teams-all');
     Route::get('/users-all', UsersAll::class)->name('users-all');
+    Route::get('/email-setting/{id}', [UserSettingsSection::class, 'email_unsubscribe']);
 });
 
 

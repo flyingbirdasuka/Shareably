@@ -16,16 +16,18 @@ class NewPractice extends Mailable
     protected $practice;
     protected $url;
     protected $name;
+    protected $unsubscribe;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($practice, $url, $name)
+    public function __construct($practice, $url, $name,  $unsubscribe)
     {
         $this->practice = $practice;
         $this->url = $url;
         $this->name = $name;
+        $this->unsubscribe = $unsubscribe;
     }
 
     /**
@@ -54,6 +56,7 @@ class NewPractice extends Mailable
                 'title' => $this->practice->title,
                 'url' => $this->url,
                 'name' => $this->name,
+                'unsubscribe'=>  $this->unsubscribe
             ]    
         );
     }

@@ -14,6 +14,7 @@ class UserSettingsSection extends Component
     public $user_settings;
     public $notification_setting;
     public $sound_setting;
+    public $email_subscription;
 
     public function mount()
     {
@@ -22,6 +23,7 @@ class UserSettingsSection extends Component
         $this->fill([
             'notification_setting' => $this->user_settings->notification_setting, 
             'sound_setting' => $this->user_settings->sound_setting, 
+            'email_subscription' => $this->user_settings->email_subscription,
         ]);
     }
 
@@ -30,7 +32,8 @@ class UserSettingsSection extends Component
         return view('livewire.user-settings.user-settings-sectiont', [
             'user', $this->user, 
             'notification_setting', $this->notification_setting,
-            'sound_setting',$this->sound_setting
+            'sound_setting',$this->sound_setting,
+            'email_subscription', $this->email_subscription
         ]);
     }
 
@@ -40,8 +43,15 @@ class UserSettingsSection extends Component
         $user = UserSettings::where('user_id', $this->user->id)->update([ 
             'notification_setting' => $this->notification_setting,
             'sound_setting' => $this->sound_setting,
+            'email_subscription' => $this->email_subscription
         ]); 
-        // return redirect()->route('profile.show', $user); 
+    }
 
+    public function email_unsubscribe($user_id)
+    {
+        $user = UserSettings::where('user_id', $user_id)->update([
+            'email_subscription' => 0
+        ]); 
+        return redirect()->route('profile.show', $user);
     }
 }
