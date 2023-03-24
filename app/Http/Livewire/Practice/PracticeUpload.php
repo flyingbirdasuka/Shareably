@@ -71,7 +71,7 @@ class PracticeUpload extends Component
         foreach ($this->add_categories as $category_id){
             $users = Category::find($category_id)->users()->get();
             foreach($users as $user){
-                !$user->is_admin && array_push($all_users,['id'=> $user->id, 'email'=> $user->email,'name' => $user->name]);
+                (!$user->is_admin && $user->user_settings->email_subscription) && array_push($all_users,['id'=> $user->id, 'email'=> $user->email,'name' => $user->name]);
             }
         }
         $unique_users = array_map("unserialize",array_unique(array_map("serialize", $all_users)));
