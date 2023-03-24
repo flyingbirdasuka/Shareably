@@ -21,11 +21,10 @@ class PracticeEdit extends Component
     public $new_file;
     public $all_categories = [];
     public $add_categories = [];
-    public $isUploaded=false;
     public $showDropdown = false;
 
     protected $rules = [
-        'title' => 'required|unique:practices',
+        'title' => 'required',
         'add_categories' => 'required',
     ];
 
@@ -46,17 +45,27 @@ class PracticeEdit extends Component
        
     }
 
+    /*
+     *  Real time validation of the chosen file to be uploaded, users don't have to click submit.
+     */
     public function updatedNewFile($value)
     {
-        $this->isUploaded = true;
         $this->validate([
-            'new_file' => 'file|mimes:jpg,jpeg,png,pdf,docx|max:1024',
+            'new_file' => 'file|mimes:pdf|max:1024',
         ]);
     }
 
+    /*
+     *  Real time validation of the chosen title to check if it is unique, users don't have to click submit.
+     */
+    public function updatedTitle($value)
+    {
+        $this->validate([
+            'title' => 'unique:practices',
+        ]);
+    }
     public function update_practice()
     {
-        // !!! check validation later
 
         $this->validate();
 

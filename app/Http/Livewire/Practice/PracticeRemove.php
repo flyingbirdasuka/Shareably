@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Practice;
 
+use Storage;
 use Livewire\Component;
 use App\Models\Practice;
 use LivewireUI\Modal\ModalComponent;
@@ -31,6 +32,7 @@ class PracticeRemove extends ModalComponent
         $musicsheets = $practice->first()->musicsheets()->get();
         foreach($musicsheets as $musicsheet){
             $practice->first()->musicsheets()->detach($musicsheet);
+            Storage::delete('/practice/'.$musicsheet->filename); // delete the file
             $musicsheet->delete();
         }
 
@@ -40,11 +42,11 @@ class PracticeRemove extends ModalComponent
             $practice->first()->categories()->detach($category);
         }
 
-        // remove the user_practice (favorite) relationship (many)
-        $users = $category->first()->users()->get();
-        foreach($users as $user){
-            $category->first()->users()->detach($user);
-        }
+         // remove the user_practice (favorite) relationship (many)
+         $users = $practice->first()->users()->get();
+         foreach($users as $user){
+             $practice->first()->users()->detach($user);
+         }
 
         // remove the practice
         $practice->delete();

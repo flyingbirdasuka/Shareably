@@ -69,6 +69,7 @@ class PracticeUpload extends Component
 
         $all_users = [];
         foreach ($this->add_categories as $category_id){
+            $practice->categories()->attach($category_id); // practice_categories relationship
             $users = Category::find($category_id)->users()->get();
             foreach($users as $user){
                 (!$user->is_admin && $user->user_settings->email_subscription) && array_push($all_users,['id'=> $user->id, 'email'=> $user->email,'name' => $user->name]);
