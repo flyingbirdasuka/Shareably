@@ -42,7 +42,6 @@ class CategoryEdit extends ModalComponent
         ]);
 
         $this->closeModal();
-        // $this->emitUp('refreshParent');
         return redirect()->to('/categories');
     }
 }
