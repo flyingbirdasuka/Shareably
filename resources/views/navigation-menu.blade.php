@@ -52,7 +52,7 @@
                 </div>
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    @if (Auth::user()->is_admin)
+
                     <div class="ml-3 relative">
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -80,7 +80,7 @@
                                         </x-dropdown-link>
 
                                         <div class="border-t border-gray-200"></div>
-                                        
+
                                         <!-- All Teams -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('navigationsection.all_teams') }}
@@ -88,7 +88,7 @@
                                         <x-dropdown-link href="{{ route('teams-all') }}">
                                             {{ __('navigationsection.all_teams') }}
                                         </x-dropdown-link>
-                                    @endif
+
                                     <div class="border-t border-gray-200"></div>
 
                                     <!-- Team Management -->
@@ -106,7 +106,7 @@
                                             {{ __('navigationsection.create_new_team') }}
                                         </x-dropdown-link>
                                     @endcan
-
+                                    @endif
                                     <div class="border-t border-gray-200"></div>
 
                                     <!-- Team Switcher -->
@@ -122,7 +122,7 @@
                         </x-dropdown>
                     </div>
                     @endif
-                @endif
+
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -262,6 +262,7 @@
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                    @if(Auth::user()->is_admin)
                     <div class="border-t border-gray-200"></div>
 
                     <div class="block px-4 py-2 text-xs text-gray-400">
@@ -280,7 +281,7 @@
                     @endcan
 
                     <div class="border-t border-gray-200"></div>
-
+                    @endif
                     <!-- Team Switcher -->
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         {{ __('navigationsection.switch_teams') }}
