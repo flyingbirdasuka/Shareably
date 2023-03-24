@@ -12,7 +12,7 @@
             <input wire:model.delay.500ms="search" type="search" class="p-4 pl-10 w-full text-sm bg-gray-50 rounded-lg  border-gray-300 focus:border-indigo-500" placeholder="Search">
         </div>
         @if($is_admin)
-            <button wire:click="$emit('openModal', 'category.category-add')" class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_category') }}</button>
+            <button wire:click="$emit('openModal', 'category.category-add')" class="ml-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_category') }}</button>
         @endif
     </div>
     <x-table>
