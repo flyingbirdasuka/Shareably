@@ -12,7 +12,7 @@ class CategoryAdd extends ModalComponent
     public $description = '';
 
     protected $rules = [
-        'title' => 'required',
+        'title' => 'required|unique:categories',
     ];
 
     protected $message = [

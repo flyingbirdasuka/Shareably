@@ -25,7 +25,8 @@ class PracticeEdit extends Component
     public $showDropdown = false;
 
     protected $rules = [
-        'add_categories' => 'requried',
+        'title' => 'required|unique:practices',
+        'add_categories' => 'required',
     ];
 
     protected $message = [
@@ -57,7 +58,7 @@ class PracticeEdit extends Component
     {
         // !!! check validation later
 
-        // $this->validate();
+        $this->validate();
 
         Practice::where('id', $this->practice->id)->update([
             'title' => $this->title,

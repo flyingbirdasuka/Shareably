@@ -41,7 +41,7 @@ class PracticeUpload extends Component
     public function add()
     {
         $this->validate([
-                'title' => 'required',
+                'title' => 'required|unique:practices',
                 'add_categories' => 'required',
                 'file' => 'required|mimes:pdf|max:1024',
             ],
