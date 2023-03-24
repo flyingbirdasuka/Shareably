@@ -23,7 +23,6 @@ class AddCategory extends ModalComponent
     public function update_categories()
     {
         // refresh the previous relationship
-        // dd($this->categories);
         foreach($this->all_categories as $category){
             User::find($this->user_id)->categories()->detach($category);
         }

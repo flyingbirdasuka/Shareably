@@ -29,7 +29,6 @@ class CategoryAdd extends ModalComponent
         ]);
         session()->flash('message', 'Category successfully added.');
         $this->closeModal();
-        // $this->emitUp('refreshParent');
         return redirect()->to('/categories');
     }
 

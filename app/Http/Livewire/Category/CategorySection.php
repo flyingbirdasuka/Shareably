@@ -20,7 +20,7 @@ class CategorySection extends Component
     public function mount()
     {
         $this->user = auth()->user();
-        $this->categories = $this->user->is_admin ? Category::orderBy('title')->get() : User::find($this->user)->first()->categories()->orderBy('title')->get();
+        $this->categories = $this->user->is_admin ? Category::orderBy('title')->get() : $this->user->categories()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin && true;
     }
 
@@ -41,7 +41,7 @@ class CategorySection extends Component
                 $this->categories->sortBy('title');
 
             } else {
-                $this->categories = User::find($this->user)->first()->categories()->orderBy('title')->get();
+                $this->categories = $this->user->categories()->orderBy('title')->get();
             }
         }
     }
