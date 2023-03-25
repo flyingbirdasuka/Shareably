@@ -25,9 +25,14 @@
                 <x-table-data>{{__('categorypage.no_category')}}</x-table-data>
             @endif
         </table>
-        <div class="embed-container mb-4">
-            <iframe class="mt-6" src="https://www.youtube.com/embed/{{$video_id}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
+        @if($video_id)
+            <div class="embed-container mb-4">
+                <iframe class="mt-6" src="https://www.youtube.com/embed/{{$video_id}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        @endif
+        @if($music)
+            <audio controls controlslist="nodownload" src="{{$music}}"></audio>
+        @endif
     </div>
     <div class="container flex justify-center lg:flex-end mb-4">
         <iframe src="{{ $pdf }}#view=Fit" height="600" width="90%"></iframe>
