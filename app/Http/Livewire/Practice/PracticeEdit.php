@@ -20,6 +20,8 @@ class PracticeEdit extends Component
     public $original_file;
     public $original_file_name;
     public $new_file;
+    public $music;
+    public $new_music;
     public $all_categories = [];
     public $add_categories = [];
     public $showDropdown = false;
@@ -40,8 +42,10 @@ class PracticeEdit extends Component
         $this->title = $this->practice->title;
         $this->description = $this->practice->description;
         $this->video_id = $this->practice->video_id;
-        $this->original_file_name = $this->practice->musicsheets()->get()->first()->filename;
+        $this->original_file_name = $this->practice->musicsheets()->first()->filename;
         $this->original_file = asset('practice/' . $this->original_file_name);
+        $this->original_music_name = $this->practice->musics()->first()->filename;
+        $this->original_music = asset('practice/' . $this->original_music_name);
         $this->all_categories = Category::orderBy('title')->get();
         $this->add_categories = $this->practice->categories()->pluck('categories.id')->all();
        
@@ -77,6 +81,7 @@ class PracticeEdit extends Component
             'video_id' => $this->video_id
         ]);
 
+        // where a new PDF is uploaded
         if($this->new_file){
             Storage::delete('/practice/'.$this->original_file_name); // delete the file
             $this->practice->musicsheets()->delete(); // delete the previous musicsheet in DB
@@ -84,11 +89,28 @@ class PracticeEdit extends Component
 
             // add the new file
             $new_filename = $this->new_file->getClientOriginalName();
+            $new_unique_name = uniqid().'-'.$new_filename;
             $this->practice->musicsheets()->create([
                 'title' => $this->title,
-                'filename' => $new_filename,
+                'filename' =>$new_unique_name,
             ]);
-            $this->new_file->storeAs('/', $new_filename, $disk = 'practice');
+            $this->new_file->storeAs('/', $new_unique_name, $disk = 'practice');
+        }
+
+        // where a new music is uploaded
+        if($this->new_music){
+            Storage::delete('/practice/'.$this->original_music_name); // delete the file
+            $this->practice->musics()->delete(); // delete the previous musicsheet in DB
+            $this->practice->musics()->detach(); // detach the relationship
+
+            // add the new file
+            $new_music_filename = $this->new_music->getClientOriginalName();
+            $new_music_unique_name = uniqid().'-'.$new_music_filename;
+            $this->practice->musics()->create([
+                'title' => $this->title,
+                'filename' => $new_music_filename,
+            ]);
+            $this->new_music->storeAs('/', $new_music_unique_name, $disk = 'practice');
         }
     
 

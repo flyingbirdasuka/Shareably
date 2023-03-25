@@ -19,6 +19,7 @@ class PracticeUpload extends Component
     public $description;
     public $video_id;
     public $file;
+    public $music;
     public $all_categories = [];
     public $add_categories = [];
     public $showDropdown = false;
@@ -58,6 +59,7 @@ class PracticeUpload extends Component
             'video_id' => $this->video_id
         ]);
 
+        // PDF file
         $filename = $this->file->getClientOriginalName();
         $unique_name = uniqid().'-'.$filename;
         $practice->musicsheets()->create([
@@ -67,9 +69,21 @@ class PracticeUpload extends Component
 
         $this->file->storeAs('/', $unique_name, $disk = 'practice');
 
+        // music file
+        $music_file = $this->music->getClientOriginalName();
+        $music_unique_name = uniqid().'-'.$music_file;
+        $practice->musics()->create([
+            'title' => $this->title,
+            'filename' => $music_unique_name
+        ]);
+
+        $this->file->storeAs('/', $music_unique_name, $disk = 'practice');
+
+
+        // to attach to the new practice upload notification email
         $url = url("/practices/{$practice->id}");
 
-        $all_users = [];
+        $all_users = []; // get all the users which are subscribed to the attatched categories
         foreach ($this->add_categories as $category_id){
             $practice->categories()->attach($category_id); // practice_categories relationship
             $users = Category::find($category_id)->users()->get();
@@ -77,6 +91,8 @@ class PracticeUpload extends Component
                 (!$user->is_admin && $user->user_settings->email_subscription) && array_push($all_users,['id'=> $user->id, 'email'=> $user->email,'name' => $user->name]);
             }
         }
+
+        // to avoid sending multiple times to the same user (when user are subscribed to the multiple categories)
         $unique_users = array_map("unserialize",array_unique(array_map("serialize", $all_users)));
         foreach(array_unique($unique_users) as $user){
             $name = $user['name'];

@@ -49,9 +49,16 @@
                 </div>
             @endif
             <x-input-error for="add_categories" class="mt-2" />
-        </div>
 
-        <input type="file" accept="application/pdf" wire:model="file" class="my-4" />
+            <x-label for="music" value="{{ __('Music') }}" class="my-4 mr-8 flex flex-col"/>
+                <input id="music" type="file" accept="audio/*" wire:model="music"/>
+                <x-input-error for="music" class="mt-2" />
+            @if($music)
+                <audio controls controlslist="nodownload" src="{{ $music->temporaryUrl() }}" class="mt-4"></audio>
+            @endif
+        </div>
+        <x-label for="file" value="{{ __('PDF file') }}" class="my-2 mr-8 flex flex-col"/>
+        <input type="file" accept="application/pdf" wire:model="file" class="" />
         <x-input-error for="file" class="mt-2" />
         <button type="submit" class="w-1/3 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_practice') }}</button>
         <div wire:loading>

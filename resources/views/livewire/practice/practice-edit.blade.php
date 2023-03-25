@@ -47,7 +47,19 @@
                     </table>
                 </div>
             @endif
+
+            <x-input-error for="add_categories" class="mt-2" />
+
+            <x-label for="new_music" value="{{ __('Music') }}" class="my-4 mr-8 flex flex-col"/>
+                <input id="new_music" type="file" accept="audio/*" wire:model="new_music"/>
+                <x-input-error for="new_music" class="mt-2" />
+            @if($new_music)
+                <audio controls controlslist="nodownload" src="{{ $new_music->temporaryUrl() }}" class="mt-4"></audio>
+            @else
+            <audio controls controlslist="nodownload" src="{{ $original_music }}" class="mt-4"></audio>
+            @endif
         </div>
+
 
         <x-label for="file" value="{{ __('File') }}" class="my-4 mr-8 flex flex-col"/>
         <input type="file" accept="application/pdf" wire:model="new_file">

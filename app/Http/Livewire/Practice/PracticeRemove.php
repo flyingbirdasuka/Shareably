@@ -22,11 +22,12 @@ class PracticeRemove extends ModalComponent
         $practice = Practice::where('id', $this->practice_id);
 
         // remove the music_practice relationship and remove the music
-        // $musics = $practice->first()->musics()->get();
-        // foreach($musics as $music){
-        //     $practice->first()->musics()->detach($music);
-        //      $music->delete();
-        // }
+        $musics = $practice->first()->musics()->get();
+        foreach($musics as $music){
+            $practice->first()->musics()->detach($music);
+            Storage::delete('/practice/'.$music->filename); // delete the file
+            $music->delete();
+        }
 
         // remove the musicsheet_practice relationship and remove the musicsheet
         $musicsheets = $practice->first()->musicsheets()->get();
