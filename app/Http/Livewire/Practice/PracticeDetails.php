@@ -13,6 +13,7 @@ class PracticeDetails extends Component
     public $practice_file;
     public $categories;
     public $pdf;
+    public $video_id;
 
     public function mount($id)
     {
@@ -20,6 +21,7 @@ class PracticeDetails extends Component
         $this->practice_file = $this->practice->musicsheets()->get()->first()->filename;
         $this->pdf = asset('practice/' . $this->practice_file);
         $this->categories = $this->practice->categories()->orderBy('title')->get();
+        $this->video_id = $this->practice->video_id;
     }
 
     public function render()
