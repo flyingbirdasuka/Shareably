@@ -105,7 +105,6 @@ class CreateNewUser implements CreatesNewUsers
     protected function addDefaultUserSetting(User $user)
     {
         $user_settings = $user->user_settings()->create([
-            'notification_setting' => 1,
             'sound_setting' => 1,
             'email_subscription' => 1
         ]);
