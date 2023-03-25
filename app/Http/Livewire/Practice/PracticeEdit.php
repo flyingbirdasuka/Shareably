@@ -16,6 +16,7 @@ class PracticeEdit extends Component
     public $practice;
     public $title;
     public $description;
+    public $video_id;
     public $original_file;
     public $original_file_name;
     public $new_file;
@@ -38,6 +39,7 @@ class PracticeEdit extends Component
         $this->practice = Practice::find($id);
         $this->title = $this->practice->title;
         $this->description = $this->practice->description;
+        $this->video_id = $this->practice->video_id;
         $this->original_file_name = $this->practice->musicsheets()->get()->first()->filename;
         $this->original_file = asset('practice/' . $this->original_file_name);
         $this->all_categories = Category::orderBy('title')->get();
@@ -72,6 +74,7 @@ class PracticeEdit extends Component
         Practice::where('id', $this->practice->id)->update([
             'title' => $this->title,
             'description' => $this->description,
+            'video_id' => $this->video_id
         ]);
 
         if($this->new_file){

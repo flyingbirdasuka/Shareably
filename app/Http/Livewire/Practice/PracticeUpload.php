@@ -17,6 +17,7 @@ class PracticeUpload extends Component
 
     public $title;
     public $description;
+    public $video_id;
     public $file;
     public $all_categories = [];
     public $add_categories = [];
@@ -54,6 +55,7 @@ class PracticeUpload extends Component
         $practice = Practice::create([
             'title' => $this->title,
             'description' => $this->description,
+            'video_id' => $this->video_id
         ]);
 
         $filename = $this->file->getClientOriginalName();
