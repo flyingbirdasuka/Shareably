@@ -20,8 +20,9 @@ class PracticeEdit extends Component
     public $original_file;
     public $original_file_name;
     public $new_file;
-    public $music;
     public $new_music;
+    public $original_music;
+    public $original_music_name;
     public $all_categories = [];
     public $add_categories = [];
     public $showDropdown = false;
@@ -44,8 +45,10 @@ class PracticeEdit extends Component
         $this->video_id = $this->practice->video_id;
         $this->original_file_name = $this->practice->musicsheets()->first()->filename;
         $this->original_file = asset('practice/' . $this->original_file_name);
-        $this->original_music_name = $this->practice->musics()->first()->filename;
-        $this->original_music = asset('practice/' . $this->original_music_name);
+        if($this->practice->musics()->first() != null) {
+            $this->original_music_name = $this->practice->musics()->first()->filename;
+            $this->original_music = asset('practice/' . $this->original_music_name);
+        }
         $this->all_categories = Category::orderBy('title')->get();
         $this->add_categories = $this->practice->categories()->pluck('categories.id')->all();
        

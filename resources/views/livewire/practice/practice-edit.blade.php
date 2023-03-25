@@ -55,8 +55,9 @@
                 <x-input-error for="new_music" class="mt-2" />
             @if($new_music)
                 <audio controls controlslist="nodownload" src="{{ $new_music->temporaryUrl() }}" class="mt-4"></audio>
-            @else
-            <audio controls controlslist="nodownload" src="{{ $original_music }}" class="mt-4"></audio>
+            @elseif($original_music)
+                <audio controls controlslist="nodownload" src="{{ $original_music }}" class="mt-4"></audio>
+                <p class="text-sm text-gray-700 font-medium my-4">{{ __('practicepage.current_filename') }}: {{ $original_music_name }} </p>
             @endif
         </div>
 

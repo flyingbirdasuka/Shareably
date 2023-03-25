@@ -70,14 +70,16 @@ class PracticeUpload extends Component
         $this->file->storeAs('/', $unique_name, $disk = 'practice');
 
         // music file
-        $music_file = $this->music->getClientOriginalName();
-        $music_unique_name = uniqid().'-'.$music_file;
-        $practice->musics()->create([
-            'title' => $this->title,
-            'filename' => $music_unique_name
-        ]);
+        if($this->music){
+            $music_file = $this->music->getClientOriginalName();
+            $music_unique_name = uniqid().'-'.$music_file;
+            $practice->musics()->create([
+                'title' => $this->title,
+                'filename' => $music_unique_name
+            ]);
 
-        $this->file->storeAs('/', $music_unique_name, $disk = 'practice');
+            $this->file->storeAs('/', $music_unique_name, $disk = 'practice');
+        }
 
 
         // to attach to the new practice upload notification email
