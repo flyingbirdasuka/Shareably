@@ -38,25 +38,17 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
     Route::get('/categories',CategorySection::class)->name('categories');
     Route::get('/categories/{id}',CategoryDetails::class);
     Route::get('/practices',PracticeSection::class)->name('practices');
     Route::get('/practices/{id}',PracticeDetails::class);
-    Route::get('/practice-upload',PracticeUpload::class)->name('upload');
-    Route::get('/practices/{id}/edit',PracticeEdit::class);
-    Route::get('/users/{id}',UserDetail::class);
-    Route::get('/teams-all', TeamsAll::class)->name('teams-all');
-    Route::get('/users-all', UsersAll::class)->name('users-all');
     Route::get('/email-setting/{id}', [UserSettingsSection::class, 'email_unsubscribe']);
+})->group(function(){ // Only Admins
+        Route::middleware('admins')->group(function () {
+            Route::get('/teams-all', TeamsAll::class)->name('teams-all');
+            Route::get('/users-all', UsersAll::class)->name('users-all');
+            Route::get('/practice-upload',PracticeUpload::class)->name('upload');
+            Route::get('/practices/{id}/edit',PracticeEdit::class);
+            Route::get('/users/{id}',UserDetail::class);
+        });
 });
-
-
-
-// Only Admins
-
-// Route::group(['middleware'=>'admins'],function(){
-//     Route::get('/', function () {
-//         return view('welcome');  
-//     });
-// });
