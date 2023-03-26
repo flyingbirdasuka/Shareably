@@ -25,7 +25,6 @@ class PracticeDetails extends Component
         $this->video_id = $this->practice->video_id;
 
         if($this->practice->musics()->first() != null){
-            // $this->music = asset('practice/641eea60cf72b-tv5mE42plkcOmYC93CU9HkjLH0tFzc-metaRmxvd2VyeSBib3VuY2UubXAz-.mp3');
             $this->music = asset('practice/'.$this->practice->musics()->first()->filename);
         }
     }

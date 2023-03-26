@@ -111,7 +111,7 @@ class PracticeEdit extends Component
             $new_music_unique_name = uniqid().'-'.$new_music_filename;
             $this->practice->musics()->create([
                 'title' => $this->title,
-                'filename' => $new_music_filename,
+                'filename' => $new_music_unique_name,
             ]);
             $this->new_music->storeAs('/', $new_music_unique_name, $disk = 'practice');
         }
