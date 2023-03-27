@@ -9,18 +9,6 @@
 
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="password" value="{{ __('profilepage.sound_setting') }}" />
-            <label class="mx-1">
-                <input type="radio" wire:model="sound_setting" value="0">
-                {{ __('profilepage.off') }}
-            </label>
-            <label class="mx-1">
-                <input type="radio" wire:model="sound_setting" value="1">
-                {{ __('profilepage.on') }}
-            </label>
-        </div>
-
-        <div class="col-span-6 sm:col-span-4">
             <x-label for="email_subscription" value="{{ __('profilepage.email_subscription') }}" />
             <label class="mx-1">
                 <input type="radio" wire:model="email_subscription" value="0">

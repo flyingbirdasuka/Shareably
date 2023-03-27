@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('user_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->boolean('sound_setting')->default(0);
             $table->boolean('email_subscription')->default(1);
             $table->timestamps();
         });
@@ -25,7 +24,6 @@ return new class extends Migration
         DB::table('user_settings')->insert(
             array(
                 'user_id' => 1,
-                'sound_setting' => 1,
                 'email_subscription' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),

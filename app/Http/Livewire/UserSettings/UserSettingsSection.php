@@ -12,7 +12,6 @@ class UserSettingsSection extends Component
 {
     public $user;
     public $user_settings;
-    public $sound_setting;
     public $email_subscription;
 
     public function mount()
@@ -20,7 +19,6 @@ class UserSettingsSection extends Component
         $this->user = auth()->user();
         $this->user_settings = UserSettings::where('user_id', $this->user->id)->first();
         $this->fill([
-            'sound_setting' => $this->user_settings->sound_setting, 
             'email_subscription' => $this->user_settings->email_subscription,
         ]);
     }
@@ -29,7 +27,6 @@ class UserSettingsSection extends Component
     {
         return view('livewire.user-settings.user-settings-sectiont', [
             'user', $this->user, 
-            'sound_setting',$this->sound_setting,
             'email_subscription', $this->email_subscription
         ]);
     }
@@ -38,7 +35,6 @@ class UserSettingsSection extends Component
     {
         // update the user settings table
         $user = UserSettings::where('user_id', $this->user->id)->update([ 
-            'sound_setting' => $this->sound_setting,
             'email_subscription' => $this->email_subscription
         ]); 
     }
