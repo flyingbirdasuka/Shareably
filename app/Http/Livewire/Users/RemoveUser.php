@@ -6,6 +6,7 @@ use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
 use DB;
+use Storage;
 
 class RemoveUser extends ModalComponent
 {
@@ -39,6 +40,9 @@ class RemoveUser extends ModalComponent
         foreach($teams as $team){
             $user->first()->teams()->detach($team);
         }
+
+        // remove the profile picture
+        Storage::delete('public/'.$user->first()->profile_photo_path);
 
         // remove user
         $user->delete();
