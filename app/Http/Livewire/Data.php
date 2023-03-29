@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\Session;
 
 class Data extends Component
 {
-    public $user_count;
-    public $user_signup_this_week;
-    public $user_signup_this_month;
-    public $email_subscription_rate;
-    public $category_count;
-    public $category_this_week;
-    public $category_this_month;
-    public $practice_count;
-    public $practice_this_week;
-    public $practice_this_month;
-    public $practice_favorited;
     public $practice_most_favorited;
     public $pages;
     public $searches;
@@ -34,7 +23,6 @@ class Data extends Component
     public $email_data;
     public $practice_labels;
     public $practice_data;
-    public $user_range;
 
     public function mount()
     {
@@ -52,13 +40,13 @@ class Data extends Component
             'added this week',
             'added this month',
         ];
-        $this->user_count = User::count();
-        $this->user_signup_this_week = User::where('created_at','>=',Carbon::today()->subDays(7))->count();
-        $this->user_signup_this_month = User::where('created_at','>=',Carbon::today()->subDays($this_month_days))->count();
+        $user_count = User::where('is_admin','!=' ,1)->count();
+        $user_signup_this_week = User::where('is_admin','!=',1)->where('created_at','>=',Carbon::today()->subDays(7))->count();
+        $user_signup_this_month = User::where('is_admin','!=',1)->where('created_at','>=',Carbon::today()->subDays($this_month_days))->count();
         $this->user_data = [
-            $this->user_count,
-            $this->user_signup_this_month,
-            $this->user_signup_this_month,
+            $user_count,
+            $user_signup_this_month,
+            $user_signup_this_month,
         ];
 
         // email subscription rate
@@ -67,15 +55,17 @@ class Data extends Component
             'this week',
             'this month'
         ];
-        $this->email_subscription_rate = UserSettings::where('email_subscription', 1)->count() / $this->user_count * 100;
+        $email_subscription_rate = UserSettings::where('email_subscription', 1)->get()->where('user.is_admin','!=', 1)->count()/$user_count * 100;
+        $email_this_week = UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays(7))->get()->where('user.is_admin','!=', 1)->count() / $user_count * 100;
+        $email_this_month = UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays($this_month_days))->get()->where('user.is_admin','!=', 1)->count() / $user_count * 100;
 
-        $this->email_data = [$this->email_subscription_rate, $this->email_subscription_rate, $this->email_subscription_rate];
+        $this->email_data = [$email_subscription_rate, $email_this_week, $email_this_month];
 
 
         // category
-        $this->category_count = Category::count();
-        $this->category_this_week = Category::where('created_at','>=',Carbon::today()->subDays(7))->count();
-        $this->category_this_month = Category::where('created_at','>=',Carbon::today()->subDays($this_month_days))->count();
+        $category_count = Category::count();
+        $category_this_week = Category::where('created_at','>=',Carbon::today()->subDays(7))->count();
+        $category_this_month = Category::where('created_at','>=',Carbon::today()->subDays($this_month_days))->count();
 
 
         $this->category_labels = [
@@ -84,27 +74,28 @@ class Data extends Component
             'this month',
         ];
 
-        $this->category_data = [$this->category_count, $this->category_this_week, $this->category_this_month];
+        $this->category_data = [$category_count, $category_this_week, $category_this_month];
 
 
         // practice
-        $this->practice_count = Practice::count();
-        $this->practice_this_week = Practice::where('created_at','>=',Carbon::today()->subDays(7))->count();
-        $this->practice_this_month = Practice::where('created_at','>=',Carbon::today()->subDays($this_month_days))->count();
-        $this->practice_favorited = DB::table('favorites')->distinct()->get(['practice_id'])->count();
+        $practice_count = Practice::count();
+        $practice_this_week = Practice::where('created_at','>=',Carbon::today()->subDays(7))->count();
+        $practice_this_month = Practice::where('created_at','>=',Carbon::today()->subDays($this_month_days))->count();
+        
+        // add this somewhere else!!!
+        $practice_favorited = DB::table('favorites')->distinct()->get(['practice_id'])->count();
 
         $this->practice_labels = [
             'all practices',
             'this week',
             'this month',
-            'favorited_practice'
         ];
 
-        $this->practice_data = [$this->practice_count, $this->practice_this_week, $this->practice_this_month, $this->practice_favorited];
+        $this->practice_data = [$practice_count, $practice_this_week, $practice_this_month];
 
         // get the most favorited practice
         $most_favorited_id = DB::table('favorites')->groupBy('practice_id')->orderByRaw('count(*) DESC')->value('practice_id');
-        $this->practice_most_favorited = Practice::find($most_favorited_id)->title;
+        $practice_most_favorited = Practice::find($most_favorited_id)->title;
 
 
         // data from session
@@ -134,21 +125,24 @@ class Data extends Component
 
     // get the desired date range from date range picker
     protected $listeners = [
-        'getDateRange',
+        'getDateRange'
     ];
 
+    /**
+     * when the date range picker is used this function is called
+     * then get the value between the selected date range and pass to the chart-update function of the javascript front end
+     */
     public function getDateRange($value)
     {
         if(!is_null($value)){
             $date_range = $value;
             if($date_range){
-                $user_range = User::whereBetween('created_at',[$date_range[0],$date_range[1]])->count();
-                // $this->email_range = User::whereBetween('created_at',[$date_range[0],$date_range[1]])->count();
+                $user_range = User::where('is_admin','!=',1)->whereBetween('created_at',[$date_range[0],$date_range[1]])->count();
+                $email_range = UserSettings::where('email_subscription', 1)->whereBetween('updated_at',[$date_range[0],$date_range[1]])->get()->where('user.is_admin','!=', 1)->count() / $user_range * 100;
                 $category_range = Category::whereBetween('created_at',[$date_range[0],$date_range[1]])->count();
                 $practice_range = Practice::whereBetween('created_at',[$date_range[0],$date_range[1]])->count();
-                $this->dispatchBrowserEvent('chart-update', ['selected date range',$user_range, $category_range, $practice_range ]);
+                $this->dispatchBrowserEvent('chart-update', ['selected date range',$user_range, $email_range, $category_range, $practice_range ]);
             }
         }
-
     }
 }
