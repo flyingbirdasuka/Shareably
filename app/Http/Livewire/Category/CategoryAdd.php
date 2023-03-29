@@ -23,7 +23,7 @@ class CategoryAdd extends ModalComponent
     {
         $this->validate();
 
-        Category::insert([
+        Category::create([
             'title' => $this->title,
             'description' => $this->description,
         ]);
