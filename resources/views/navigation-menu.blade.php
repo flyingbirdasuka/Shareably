@@ -10,12 +10,12 @@
                     </a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
-                        <x-nav-link href="{{ route('categories') }}" :active="request()->routeIs('categories')">
+                        <x-nav-link href="{{ route('categories') }}" :active="request()->is('categories*') ? 'active' : '' ">
                             {{ __('navigationsection.category') }}
                         </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
-                    <x-nav-link href="{{ route('practices') }}" :active="request()->routeIs('practices')">
+                    <x-nav-link href="{{ route('practices') }}" :active="request()->is('practices*') ? 'active' : '' ">
                         {{ __('navigationsection.practice') }}
                     </x-nav-link>
                 </div>
@@ -38,13 +38,13 @@
 
                         <x-slot name="content">
                             <!-- Language -->
-                            <x-dropdown-link href="/language/en">
+                            <x-dropdown-link href="/language/en" :active="Session::get('locale') == 'en' && 'active' ">
                                 {{ __('navigationsection.english') }}
                             </x-dropdown-link>
-                            <x-dropdown-link href="/language/jp">
+                            <x-dropdown-link href="/language/jp" :active="Session::get('locale') == 'jp' && 'active' ">
                             {{ __('navigationsection.japanese') }}
                             </x-dropdown-link>
-                            <x-dropdown-link href="/language/nl">
+                            <x-dropdown-link href="/language/nl" :active="Session::get('locale') == 'nl' && 'active' ">
                             {{ __('navigationsection.dutch') }}
                             </x-dropdown-link>
                         </x-slot>
@@ -75,7 +75,7 @@
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('navigationsection.all_users') }}
                                         </div>
-                                        <x-dropdown-link href="{{ route('users-all') }}">
+                                        <x-dropdown-link href="{{ route('users-all') }}" :active="request()->is('users-all') ? 'active' : '' ">
                                             {{ __('navigationsection.all_users') }}
                                         </x-dropdown-link>
 
@@ -85,7 +85,7 @@
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ __('navigationsection.all_teams') }}
                                         </div>
-                                        <x-dropdown-link href="{{ route('teams-all') }}">
+                                        <x-dropdown-link href="{{ route('teams-all') }}" :active="request()->is('teams-all') ? 'active' : '' ">
                                             {{ __('navigationsection.all_teams') }}
                                         </x-dropdown-link>
 
@@ -97,12 +97,12 @@
                                     </div>
 
                                     <!-- Team Settings -->
-                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')" >
                                         {{ __('navigationsection.team_settings') }}
                                     </x-dropdown-link>
 
                                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-dropdown-link href="{{ route('teams.create') }}">
+                                        <x-dropdown-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')" >
                                             {{ __('navigationsection.create_new_team') }}
                                         </x-dropdown-link>
                                     @endcan
@@ -192,10 +192,10 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('categories') }}" :active="request()->routeIs('categories')">
+            <x-responsive-nav-link href="{{ route('categories') }}" :active="request()->is('categories*') ? 'active' : '' ">
                 {{ __('navigationsection.category') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('practices') }}" :active="request()->routeIs('practices')">
+            <x-responsive-nav-link href="{{ route('practices') }}" :active="request()->is('practices*') ? 'active' : '' ">
                 {{ __('navigationsection.practice') }}
             </x-responsive-nav-link>
         </div>
@@ -236,6 +236,20 @@
                         {{ __('navigationsection.log_out') }}
                     </x-responsive-nav-link>
                 </form>
+                <!-- Language -->
+                <div class="border-t border-gray-200"></div>
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('navigationsection.language') }}
+                    </div>
+                    <x-responsive-nav-link href="/language/en" :active="Session::get('locale') == 'en' && 'active' ">
+                    {{ __('navigationsection.english') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="/language/jp" :active="Session::get('locale') == 'jp' && 'active' ">
+                    {{ __('navigationsection.japanese') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="/language/nl" :active="Session::get('locale') == 'nl' && 'active' ">
+                    {{ __('navigationsection.dutch') }}
+                    </x-responsive-nav-link>
                 @if(Auth::user()->is_admin)
                     <!-- All Users -->
                     <div class="border-t border-gray-200"></div>
@@ -243,7 +257,7 @@
                             {{ __('navigationsection.all_users') }}
                     </div>
 
-                    <x-responsive-nav-link href="{{ route('users-all') }}">
+                    <x-responsive-nav-link href="{{ route('users-all') }}" :active="request()->is('users-all') ? 'active' : '' ">
                         {{ __('navigationsection.all_users') }}
                     </x-responsive-nav-link>
 
@@ -253,7 +267,7 @@
                             {{ __('navigationsection.all_teams') }}
                     </div>
 
-                    <x-responsive-nav-link href="{{ route('teams-all') }}">
+                    <x-responsive-nav-link href="{{ route('teams-all') }}" :active="request()->is('teams-all') ? 'active' : '' ">
                         {{ __('navigationsection.all_teams') }}
                     </x-responsive-nav-link>
                 @endif
