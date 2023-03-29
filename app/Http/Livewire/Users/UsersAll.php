@@ -12,6 +12,7 @@ class UsersAll extends Component
     public function mount()
     {
         $this->users = User::all();
+        session()->push('data.page', 'user_all');
     }
 
     public function render()

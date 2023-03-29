@@ -27,6 +27,7 @@ class Localization
             } else {
                 $locale = 'en';
             }
+            session()->push('data.locale', $locale);
         }
         app()->setLocale($locale);
         session()->put('locale', $locale);

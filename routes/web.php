@@ -12,6 +12,7 @@ use App\Http\Livewire\Users\UserDetail;
 use App\Http\Livewire\Teams\TeamsAll;
 use App\Http\Livewire\Users\UsersAll;
 use App\Http\Livewire\UserSettings\UserSettingsSection;
+use App\Http\Livewire\Data;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ use App\Http\Livewire\UserSettings\UserSettingsSection;
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
+    session()->push('data.locale', $locale);
     return redirect()->back();
 });
 
@@ -50,5 +52,6 @@ Route::middleware([
             Route::get('/practice-upload',PracticeUpload::class)->name('upload');
             Route::get('/practices/{id}/edit',PracticeEdit::class);
             Route::get('/users/{id}',UserDetail::class);
+            Route::get('/analytics-dashboard',Data::class);
         });
 });

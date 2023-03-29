@@ -24,6 +24,7 @@ class PracticeSection extends Component
         $this->practices = $this->user->is_admin ? Practice::orderBy('title')->get() : $this->user->practices()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin;
         $this->user_practices = $this->user->practices()->pluck('practices.id')->all();
+        session()->push('data.page', 'practice');
     }
 
     public function updatedSearch()
@@ -45,6 +46,7 @@ class PracticeSection extends Component
             } else {
                 $this->practices = $this->user->practices()->orderBy('title')->get();
             }
+            session()->push('data.search', 'practice_'.$this->search);
         }
     }
 

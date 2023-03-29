@@ -27,6 +27,7 @@ class PracticeDetails extends Component
         if($this->practice->musics()->first() != null){
             $this->music = asset('practice/'.$this->practice->musics()->first()->filename);
         }
+        session()->push('data.page', 'practice_'.$id);
     }
 
     public function render()
