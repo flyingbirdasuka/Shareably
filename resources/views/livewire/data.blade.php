@@ -1,12 +1,14 @@
-<h2>User information  practice most favorited : {{ $practice_most_favorited }} <br></h2> 
+<h2>practice favorited : {{ $practice_favorited }} <br></h2> 
+<h2>practice most favorited : {{ $practice_most_favorited }} <br></h2> 
 <input type="text" name="daterange" value="01/01/2023 - 12/31/2023" />
 <canvas id="userChart" height="40px"></canvas>
 <canvas id="emailChart" height="40px"></canvas>
 <canvas id="categoryChart" height="40px"></canvas>
 <canvas id="practiceChart" height="40px"></canvas>
-
+<!-- chart.js libraries -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<!-- date range picker libraries -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -14,45 +16,29 @@
 <script type="text/javascript">
 
   const all_element = ['user', 'email', 'category', 'practice'];
-  const all_data = [{
-    "labels" :  @js($user_labels),
-    "data" :  @js($user_data)
-  },{
-    "labels" :  @js($email_labels),
-    "data" :  @js($email_data)
-  },{
-    "labels" :  @js($category_labels),
-    "data" : @js($category_data)
-  },{
-    "labels" :  @js($practice_labels),
-    "data" :  @js($practice_data)
-  }];
+  const all_data = [ @js($user_data), @js($email_data), @js($category_data),@js($practice_data)];
+
 
   var dataSet = [];
   all_element.forEach((element, index) => {
-    dataSet[index] = makeGraph(all_element[index], all_data[index].labels, all_data[index].data);
+    dataSet[index] = makeGraph(all_element[index], all_data[index]);
   });
 
-
-  function makeGraph($element, $labels, $data){
+  // create the graphs by using chart.js
+  function makeGraph($element, $data){
     const ctx = document.getElementById(`${$element}Chart`);
     const chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: $labels,
+        labels: ['all',
+            'this week',
+            'this month',],
         datasets: [{
           label: $element,
           backgroundColor: '#6366F1',
           data: $data,
           borderWidth: 1
         }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
       }
     });
     return chart;
