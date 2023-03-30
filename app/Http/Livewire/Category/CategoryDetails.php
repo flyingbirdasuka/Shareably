@@ -23,6 +23,7 @@ class CategoryDetails extends Component
         $this->users = $this->category->users()->orderBy('name')->get();
         $this->is_admin = auth()->user()->is_admin;
         $this->user_practices = auth()->user()->practices()->pluck('practices.id')->all();
+        session()->push('data.page', 'category_'.$id);
     }
 
     public function updatedUserPractices(){

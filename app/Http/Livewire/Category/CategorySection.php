@@ -22,6 +22,7 @@ class CategorySection extends Component
         $this->user = auth()->user();
         $this->categories = $this->user->is_admin ? Category::orderBy('title')->get() : $this->user->categories()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin && true;
+        session()->push('data.page', 'category');
     }
 
     public function updatedSearch()
@@ -43,6 +44,7 @@ class CategorySection extends Component
             } else {
                 $this->categories = $this->user->categories()->orderBy('title')->get();
             }
+            session()->push('data.search', 'category_'.$this->search);
         }
     }
 
