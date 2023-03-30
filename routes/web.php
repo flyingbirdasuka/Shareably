@@ -11,8 +11,11 @@ use App\Http\Livewire\Practice\PracticeEdit;
 use App\Http\Livewire\Users\UserDetail;
 use App\Http\Livewire\Teams\TeamsAll;
 use App\Http\Livewire\Users\UsersAll;
+use App\Http\Livewire\Users\UserLogout;
 use App\Http\Livewire\UserSettings\UserSettingsSection;
 use App\Http\Livewire\Data;
+
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +48,8 @@ Route::middleware([
     Route::get('/practices',PracticeSection::class)->name('practices');
     Route::get('/practices/{id}',PracticeDetails::class);
     Route::get('/email-setting/{id}', [UserSettingsSection::class, 'email_unsubscribe']);
+
+    //
 })->group(function(){ // Only Admins
         Route::middleware('admins')->group(function () {
             Route::get('/teams-all', TeamsAll::class)->name('teams-all');
@@ -55,3 +60,6 @@ Route::middleware([
             Route::get('/analytics-dashboard',Data::class);
         });
 });
+
+Route::post('/logout', [UserLogout::class, 'destroy'])
+        ->name('logout');
