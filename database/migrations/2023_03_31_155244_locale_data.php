@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('session_data', function (Blueprint $table) {
+        Schema::create('locale_data', function (Blueprint $table) {
             $table->id();
-            $table->string('start');
-            $table->string('end');
-            $table->string('session_time');
+            $table->string('locale');
+            $table->boolean('browser');
             $table->integer('user_id');
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('session_data');
+        Schema::dropIfExists('locale_data');
     }
 };

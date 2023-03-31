@@ -13,11 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('session_data', function (Blueprint $table) {
+
+        /*
+            SELECT page_name,COUNT(*) as count 
+            FROM page_view_data 
+            GROUP BY page_name 
+            ORDER BY count DESC;
+        */
+        Schema::create('page_view_data', function (Blueprint $table) {
             $table->id();
-            $table->string('start');
-            $table->string('end');
-            $table->string('session_time');
+            $table->string('page_name');
             $table->integer('user_id');
             $table->timestamps();
         });
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('session_data');
+        Schema::dropIfExists('page_view_data');
     }
 };

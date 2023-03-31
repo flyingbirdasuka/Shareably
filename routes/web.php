@@ -11,11 +11,12 @@ use App\Http\Livewire\Practice\PracticeEdit;
 use App\Http\Livewire\Users\UserDetail;
 use App\Http\Livewire\Teams\TeamsAll;
 use App\Http\Livewire\Users\UsersAll;
+use App\Http\Livewire\Users\UserLogin;
 use App\Http\Livewire\Users\UserLogout;
 use App\Http\Livewire\UserSettings\UserSettingsSection;
 use App\Http\Livewire\Data;
+use Carbon\Carbon;
 
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,28 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
-    session()->push('data.locale', $locale);
+    if(!Auth::user()->is_admin){
+        DB::table('locale_data')->insert([
+            'user_id' => auth()->user()->id,
+            'locale' => $locale,
+            'browser' => 0,
+            "created_at" =>  Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+    }
     return redirect()->back();
+});
+
+Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
+
+    $limiter = config('fortify.limiters.login');
+
+    Route::post('/login', [UserLogin::class, 'store'])
+        ->middleware(array_filter([
+            'guest:'.config('fortify.guard'),
+            $limiter ? 'throttle:'.$limiter : null,
+        ]));
+    Route::post('/logout', [UserLogout::class, 'destroy'])->name('logout');
 });
 
 Route::middleware([
@@ -48,8 +69,6 @@ Route::middleware([
     Route::get('/practices',PracticeSection::class)->name('practices');
     Route::get('/practices/{id}',PracticeDetails::class);
     Route::get('/email-setting/{id}', [UserSettingsSection::class, 'email_unsubscribe']);
-
-    //
 })->group(function(){ // Only Admins
         Route::middleware('admins')->group(function () {
             Route::get('/teams-all', TeamsAll::class)->name('teams-all');
@@ -60,6 +79,3 @@ Route::middleware([
             Route::get('/analytics-dashboard',Data::class);
         });
 });
-
-Route::post('/logout', [UserLogout::class, 'destroy'])
-        ->name('logout');

@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Practice;
 use Livewire\Component;
 use App\Models\Practice;
 use App\Models\User;
+use DB;
+use Carbon\Carbon;
 
 class PracticeSection extends Component
 {
@@ -24,7 +26,14 @@ class PracticeSection extends Component
         $this->practices = $this->user->is_admin ? Practice::orderBy('title')->get() : $this->user->practices()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin;
         $this->user_practices = $this->user->practices()->pluck('practices.id')->all();
-        session()->push('data.page', 'practice');
+        if(!$this->is_admin){
+            DB::table('page_view_data')->insert([
+                'user_id' => $this->user->id,
+                'page_name' => 'practice',
+                "created_at" =>  Carbon::now(),
+                "updated_at" => Carbon::now(),
+            ]);
+        }
     }
 
     public function updatedSearch()
@@ -42,11 +51,17 @@ class PracticeSection extends Component
 
                 // Arrange the final results by alphabetical order
                 $this->practices->sortBy('title');
+                dd($this->search);
+                DB::table('search_words_data')->insert([
+                    'user_id' => $this->user->id,
+                    'search_word' => 'practice_'.$this->search,
+                    "created_at" =>  Carbon::now(),
+                    "updated_at" => Carbon::now(),
+                ]);
 
             } else {
                 $this->practices = $this->user->practices()->orderBy('title')->get();
             }
-            session()->push('data.search', 'practice_'.$this->search);
         }
     }
 
