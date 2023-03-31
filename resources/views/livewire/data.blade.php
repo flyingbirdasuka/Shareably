@@ -1,5 +1,11 @@
 <h2>practice favorited : {{ $practice_favorited }} <br></h2> 
 <h2>practice most favorited : {{ $practice_most_favorited }} <br></h2> 
+most viewed page :  {{ $most_viewed_page }} ({{ $most_viewd_page_count }} times)<br>
+most used language : {{ $most_used_language }} ({{ $most_used_language_count }} times)<br>
+most used user {{ $most_used_session_user}} ({{  $most_used_session_time  }} minutes)<br>
+average session time : {{ $average_settion_time}} minutes<br>
+
+
 <input type="text" name="daterange" value="01/01/2023 - 12/31/2023" />
 <canvas id="userChart" height="40px"></canvas>
 <canvas id="emailChart" height="40px"></canvas>

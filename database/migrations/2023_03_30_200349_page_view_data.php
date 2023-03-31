@@ -14,12 +14,6 @@ return new class extends Migration
     public function up()
     {
 
-        /*
-            SELECT page_name,COUNT(*) as count 
-            FROM page_view_data 
-            GROUP BY page_name 
-            ORDER BY count DESC;
-        */
         Schema::create('page_view_data', function (Blueprint $table) {
             $table->id();
             $table->string('page_name');

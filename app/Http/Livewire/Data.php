@@ -21,6 +21,13 @@ class Data extends Component
     public $practice_data;
     public $practice_favorited;
     public $practice_most_favorited;
+    public $most_viewed_page;
+    public $most_viewd_page_count;
+    public $most_used_language;
+    public $most_used_language_count;
+    public $most_used_session_time;
+    public $most_used_session_user;
+    public $average_settion_time;
 
     public function mount()
     {
@@ -73,14 +80,27 @@ class Data extends Component
         $this->practice_favorited = DB::table('favorites')->distinct()->get(['practice_id'])->count();
 
         // get the most favorited practice
-        $most_favorited_id = DB::table('favorites')->groupBy('practice_id')->orderByRaw('count(*) DESC')->value('practice_id');
-        $this->practice_most_favorited = Practice::find($most_favorited_id)->title;
+        $most_favorited_id = DB::table('favorites')->count() > 0 && DB::table('favorites')->groupBy('practice_id')->orderByRaw('count(*) DESC')->value('practice_id');
+
+        $this->practice_most_favorited = $most_favorited_id && Practice::find($most_favorited_id)->title;
 
 
-        // data from session
-        $this->pages = Session::get('data.page'); // count per page
-        $this->searches = Session::get('data.search');
-        $this->locales = Session::get('data.locale'); // grab it only unique value
+        // visited page
+        $this->most_viewed_page = DB::table('page_view_data')->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name');
+
+        $this->most_viewd_page_count = DB::table('page_view_data')->where('page_name',$this->most_viewed_page)->count();
+
+        // locale data
+        $this->most_used_language = DB::table('locale_data')->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale');
+
+        $this->most_used_language_count = DB::table('locale_data')->where('locale',$this->most_used_language)->count();
+
+        // session data
+        $this->most_used_session_time = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
+
+        $this->most_used_session_user = User::where('id', DB::table('session_data')->select('user_id')->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name;
+
+        $this->average_settion_time = round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->first()->session) /60,2);
 
     }
     public function render()
