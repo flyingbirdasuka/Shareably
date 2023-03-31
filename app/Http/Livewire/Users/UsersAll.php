@@ -8,11 +8,16 @@ use App\Models\User;
 class UsersAll extends Component
 {
     public $users;
+    public $search;
 
     public function mount()
     {
         $this->users = User::all();
-        session()->push('data.page', 'user_all');
+    }
+
+    public function updatedSearch()
+    {
+        $this->users = User::search('name', $this->search)->orderBy('name')->get();
     }
 
     public function render()

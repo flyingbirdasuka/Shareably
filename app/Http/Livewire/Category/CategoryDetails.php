@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Models\Practice;
 use App\Models\User;
+use DB;
+use Carbon\Carbon;
 
 class CategoryDetails extends Component
 {
@@ -23,7 +25,14 @@ class CategoryDetails extends Component
         $this->users = $this->category->users()->orderBy('name')->get();
         $this->is_admin = auth()->user()->is_admin;
         $this->user_practices = auth()->user()->practices()->pluck('practices.id')->all();
-        session()->push('data.page', 'category_'.$id);
+        if(!$this->is_admin){
+            DB::table('page_view_data')->insert([
+                'user_id' => auth()->user()->id,
+                'page_name' => 'category_'.$id,
+                "created_at" =>  Carbon::now(),
+                "updated_at" => Carbon::now(),
+            ]);
+        }
     }
 
     public function updatedUserPractices(){

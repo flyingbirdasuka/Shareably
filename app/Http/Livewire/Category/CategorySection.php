@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Category;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\User;
+use DB;
+use Carbon\Carbon;
 
 class CategorySection extends Component
 {
@@ -22,7 +24,14 @@ class CategorySection extends Component
         $this->user = auth()->user();
         $this->categories = $this->user->is_admin ? Category::orderBy('title')->get() : $this->user->categories()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin && true;
-        session()->push('data.page', 'category');
+        if(!$this->is_admin){
+            DB::table('page_view_data')->insert([
+                'user_id' => $this->user->id,
+                'page_name' => 'category',
+                "created_at" =>  Carbon::now(),
+                "updated_at" => Carbon::now(),
+            ]);
+        }
     }
 
     public function updatedSearch()
@@ -40,11 +49,16 @@ class CategorySection extends Component
 
                 // Arrange the final results by alphabetical order
                 $this->categories->sortBy('title');
+                DB::table('search_words_data')->insert([
+                    'user_id' => $this->user->id,
+                    'search_word' => 'category_'.$this->search,
+                    "created_at" =>  Carbon::now(),
+                    "updated_at" => Carbon::now(),
+                ]);
 
             } else {
                 $this->categories = $this->user->categories()->orderBy('title')->get();
             }
-            session()->push('data.search', 'category_'.$this->search);
         }
     }
 

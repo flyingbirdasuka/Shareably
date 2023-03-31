@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use DB;
+use Illuminate\Support\Facades\Session;
 
 class RouteServiceProvider extends ServiceProvider
 {

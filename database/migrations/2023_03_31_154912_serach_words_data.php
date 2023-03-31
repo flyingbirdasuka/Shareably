@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('session_data', function (Blueprint $table) {
+        Schema::create('search_words_data', function (Blueprint $table) {
             $table->id();
-            $table->string('start');
-            $table->string('end');
-            $table->string('session_time');
+            $table->string('search_word');
             $table->integer('user_id');
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('session_data');
+        Schema::dropIfExists('search_words_data');
     }
 };
