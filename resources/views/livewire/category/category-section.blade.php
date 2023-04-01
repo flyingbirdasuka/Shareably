@@ -24,13 +24,16 @@
             @endif
         </x-table-head>
         <x-table-body>
-            @forelse ($categories as $category)
+            @forelse ($categories_list as $category)
                 <livewire:category.category-component :category="$category" :is_admin="$is_admin" :key="now() . $category->id">
             @empty
             <x-table-row>
                 <td colspan="4" class="px-6 py-4 text-center"><b>{{ __('categorypage.no_category') }}</b></td>
             </x-table-row>
             @endforelse
+            <div class="pb-3 pt-3">
+                {{ $categories_list->links() }}
+            </div>
         </x-table-body>
     </x-table>
 </div>
