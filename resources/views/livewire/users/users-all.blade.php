@@ -21,7 +21,7 @@
         </x-table-head>
         <x-table-body>
         
-        @forelse ($users as $user)
+        @forelse ($users_list as $user)
         <x-table-row>
             <x-table-data>
                 <img class="h-10 w-10 rounded-full object-cover" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
@@ -37,6 +37,9 @@
                 <td colspan="4" class="px-6 py-4 text-center"><b>{{ __('userspage.no_user') }}</b></td>
             </x-table-row>
         @endforelse
+        <div class="pb-3 pt-3">
+            {{ $users_list->links() }}
+        </div>
         </x-table-body>
     </x-table>
 </div>

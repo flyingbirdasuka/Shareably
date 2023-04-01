@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Practice;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Practice;
 use App\Models\User;
 use DB;
@@ -10,10 +11,12 @@ use Carbon\Carbon;
 
 class PracticeSection extends Component
 {
+    use WithPagination;
+
     public $practices=[];
     public $user;
     public $is_admin;
-    public $search;
+    public $search = '';
     public $user_practices = [];
 
     protected $listeners = [
@@ -65,8 +68,18 @@ class PracticeSection extends Component
         }
     }
 
+    // Reset the pagination after search is run
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
+        return view('livewire.practice.practice-section', [
+            'practices_list' => Practice::where('title', 'like', '%'.$this->search.'%')->paginate(10),
+        ]);
+
         return view('livewire.practice.practice-section');
     }
 }
