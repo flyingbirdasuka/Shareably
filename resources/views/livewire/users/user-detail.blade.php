@@ -73,7 +73,7 @@
                         <div>
                             <div class="flex flex-col items-baseline md:flex-row items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                 <div>
-                                    <span class="text-slate-500"><i class="fa-solid fa-folder"></i></span>
+                                    <span class="text-slate-500"><i class="fa-regular fa-folder"></i></span>
                                     <span class="tracking-wide">{{__('userdetailpage.category')}}</span>
                                 </div>
                                 <button wire:click="$emit('openModal', 'users.add-category', {{ json_encode(['user_id' => $user->id]) }})" class="bg-indigo-500 hover:bg-indigo-700 text-white text-sm py-1 px-2 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_category') }}</button>
@@ -88,7 +88,7 @@
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                <span class="text-red-500"><i class="fa-solid fa-heart"></i></span>
+                                <span class="text-red-500"><i class="fa-regular fa-heart" style="color: #ff0000;"></i></span>
                                 <span class="tracking-wide">{{__('userdetailpage.favorite')}}</span>
                             </div>
                             <ul class="list-inside space-y-2">
