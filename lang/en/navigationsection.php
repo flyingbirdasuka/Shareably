@@ -2,6 +2,7 @@
 
 return [
 
+    'analytics' => 'Analytics',
     'all_teams' => 'All Teams',
     'all_users' => 'All Users',
     'api_tokens' => 'API Tokens',

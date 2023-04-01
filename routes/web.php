@@ -76,6 +76,6 @@ Route::middleware([
             Route::get('/practice-upload',PracticeUpload::class)->name('upload');
             Route::get('/practices/{id}/edit',PracticeEdit::class);
             Route::get('/users/{id}',UserDetail::class);
-            Route::get('/analytics-dashboard',Data::class);
+            Route::get('/analytics-dashboard',Data::class)->name('analytics-dashboard');
         });
 });

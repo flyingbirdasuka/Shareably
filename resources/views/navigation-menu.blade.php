@@ -19,6 +19,11 @@
                         {{ __('navigationsection.practice') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
+                    <x-nav-link href="{{ route('analytics-dashboard') }}" :active="request()->is('analytics-dashboard') ? 'active' : '' ">
+                        {{ __('navigationsection.analytics') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -197,6 +202,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('practices') }}" :active="request()->is('practices*') ? 'active' : '' ">
                 {{ __('navigationsection.practice') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('analytics-dashboard') }}" ::active="request()->is('analytics-dashboard') ? 'active' : '' ">
+                {{ __('navigationsection.analytics') }}
             </x-responsive-nav-link>
         </div>
 
