@@ -13,7 +13,8 @@ class PracticeSection extends Component
 {
     use WithPagination;
 
-    public $practices=[];
+    // public $practices=[];
+
     public $user;
     public $is_admin;
     public $search = '';
@@ -26,13 +27,19 @@ class PracticeSection extends Component
     public function mount()
     {
         $this->user = auth()->user();
+
+        /*
         $this->practices = $this->user->is_admin ? Practice::orderBy('title')->get() : $this->user->practices()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin;
         $this->user_practices = $this->user->practices()->pluck('practices.id')->all();
+        */
+
+        // Capture the page view data for analytics
+        $this->is_admin = $this->user->is_admin && true;
         if(!$this->is_admin){
             DB::table('page_view_data')->insert([
                 'user_id' => $this->user->id,
-                'page_name' => 'practice',
+                'page_name' => 'category',
                 "created_at" =>  Carbon::now(),
                 "updated_at" => Carbon::now(),
             ]);
@@ -41,6 +48,7 @@ class PracticeSection extends Component
 
     public function updatedSearch()
     {
+        /* Descoped
         if($this->is_admin){
             $this->practices = Practice::search('title', $this->search)->orderBy('title')->get();
         } else {
@@ -66,6 +74,7 @@ class PracticeSection extends Component
                 $this->practices = $this->user->practices()->orderBy('title')->get();
             }
         }
+        */
     }
 
     // Reset the pagination after search is run
@@ -76,8 +85,30 @@ class PracticeSection extends Component
 
     public function render()
     {
+        // Capture the search query for analytics
+        DB::table('search_words_data')->insert([
+            'user_id' => $this->user->id,
+            'search_word' => 'category_'.$this->search,
+            "created_at" =>  Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+
+
+        // Admin practice list - list everything
+        if ($this->user->is_admin) {
+            return view('livewire.practice.practice-section', [
+                'practices_list' => Practice::where('title', 'like', '%'.$this->search.'%')->paginate(10),
+            ]);
+        }
+
+        // Return favorited practices only - for non admins
         return view('livewire.practice.practice-section', [
-            'practices_list' => Practice::where('title', 'like', '%'.$this->search.'%')->paginate(10),
+            'practices_list' => 
+                Practice::join('favorites', 'practices.id', '=', 'favorites.practice_id')
+                ->where('practices.title', 'like', '%'.$this->search.'%')
+                ->where('user_id', '=' , $this->user->id)
+                ->orderBy('title')
+                ->paginate(10),
         ]);
 
         return view('livewire.practice.practice-section');
