@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Category;
 use App\Models\User;
 use DB;
@@ -10,10 +11,12 @@ use Carbon\Carbon;
 
 class CategorySection extends Component
 {
+    use WithPagination;
+
     public $categories;
     public $user;
     public $is_admin = false;
-    public $search;
+    public $search = '';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -60,11 +63,21 @@ class CategorySection extends Component
                 $this->categories = $this->user->categories()->orderBy('title')->get();
             }
         }
+
     }
+
+    // Reset the pagination after search is run
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
 
     public function render()
     {
-        return view('livewire.category.category-section');
+        return view('livewire.category.category-section', [
+            'categories_list' => Category::where('title', 'like', '%'.$this->search.'%')->paginate(10),
+        ]);
     }
 
 
