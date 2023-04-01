@@ -44,6 +44,12 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 });
 
+// Redirect home page to login page
+Route::get('/', function () {
+    return redirect('/login');
+});
+
+
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
 
     $limiter = config('fortify.limiters.login');
