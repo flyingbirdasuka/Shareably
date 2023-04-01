@@ -31,6 +31,7 @@ return new class extends Migration
             array(
                 'name' => 'Asuka Method',
                 'email' => 'admin@admin.com',
+                'email_verified_at' => Carbon::now(),
                 'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
                 // vLe064h$0PdN
                 'is_admin' => 1,
