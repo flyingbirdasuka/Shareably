@@ -13,6 +13,12 @@ most used language this month: {{ $most_used_language_this_month}} ({{ $most_use
 most used user this week: {{ $most_used_session_user_this_week}} ({{ $most_used_session_time_this_week}} minutes)<br>
 most used user this month: {{ $most_used_session_user_this_month}} ({{ $most_used_session_time_this_month}} minutes)<br>
 
+range viewed: <p class="range_data"></p> : <p class="range_data"></p>  times <br>
+range language: <p class="range_data"></p> : <p class="range_data"></p> times <br>
+range session: <p class="range_data"></p>  : <p class="range_data"></p>  minutes <br>
+
+average session time: <p class="range_data"></p>  minutes
+
 
 <input type="text" name="daterange" value="01/01/2023 - 12/31/2023" />
 <canvas id="userChart" height="40px"></canvas>
@@ -69,7 +75,7 @@ most used user this month: {{ $most_used_session_user_this_month}} ({{ $most_use
     });
   });
 
-  // adding and updating the table after selecting on the date picker
+  // adding and updating the chart after selecting on the date picker
   window.addEventListener('chart-update', event => {
     for (let i=0; i< dataSet.length; i++){ // when it is already range data, refresh
       if(dataSet[i].data['labels'].length > 3 ){
@@ -81,6 +87,12 @@ most used user this month: {{ $most_used_session_user_this_month}} ({{ $most_use
       dataSet[i].update();
       }
 
+  });
+  // adding and updating the tiles after selecting on the date picker
+  window.addEventListener('tiles-update', event => {
+    document.querySelectorAll('p.range_data').forEach((element, index)=>{
+      element.innerText = event.detail[index];
+    })
   });
 
 </script>
