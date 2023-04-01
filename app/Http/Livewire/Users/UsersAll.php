@@ -11,7 +11,7 @@ class UsersAll extends Component
     use WithPagination;
 
     public $users;
-    public $search;
+    public $search = '';
 
     public function mount()
     {
