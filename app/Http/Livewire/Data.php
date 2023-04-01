@@ -25,9 +25,23 @@ class Data extends Component
     public $most_viewd_page_count;
     public $most_used_language;
     public $most_used_language_count;
+    public $most_used_language_this_week;
+    public $most_used_language_this_week_count;
+    public $most_used_language_this_month;
+    public $most_used_language_this_month_count;
     public $most_used_session_time;
     public $most_used_session_user;
+    public $most_used_session_time_this_week;
+    public $most_used_session_user_this_week;
+    public $most_used_session_time_this_month;
+    public $most_used_session_user_this_month;
     public $average_settion_time;
+    public $average_settion_time_this_week;
+    public $average_settion_time_this_month;
+    public $most_viewed_page_this_week;
+    public $most_viewed_page_this_week_count;
+    public $most_viewed_page_this_month;
+    public $most_viewed_page_this_month_count;
 
     public function mount()
     {
@@ -76,7 +90,7 @@ class Data extends Component
 
         $this->practice_data = [$practice_count, $practice_this_week, $practice_this_month];
 
-        // practice favroited
+        // practice favorited
         $this->practice_favorited = DB::table('favorites')->distinct()->get(['practice_id'])->count();
 
         // get the most favorited practice
@@ -90,17 +104,47 @@ class Data extends Component
 
         $this->most_viewd_page_count = DB::table('page_view_data')->where('page_name',$this->most_viewed_page)->count();
 
+        $this->most_viewed_page_this_week = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name');
+
+        $this->most_viewed_page_this_week_count = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->where('page_name',$this->most_viewed_page_this_week)->count();
+
+        $this->most_viewed_page_this_month = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name');
+
+        $this->most_viewed_page_this_month_count = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->where('page_name',$this->most_viewed_page_this_month)->count();
+
+
         // locale data
         $this->most_used_language = DB::table('locale_data')->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale');
 
         $this->most_used_language_count = DB::table('locale_data')->where('locale',$this->most_used_language)->count();
+
+        $this->most_used_language_this_week = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale');
+
+        $this->most_used_language_this_week_count = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->where('locale',$this->most_used_language_this_week)->count();
+
+        $this->most_used_language_this_month = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale');
+
+        $this->most_used_language_this_month_count = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->where('locale',$this->most_used_language_this_month)->count();
+
 
         // session data
         $this->most_used_session_time = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
 
         $this->most_used_session_user = User::where('id', DB::table('session_data')->select('user_id')->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name;
 
+        $this->most_used_session_time_this_week = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
+
+        $this->most_used_session_user_this_week = User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name;
+
+        $this->most_used_session_time_this_month = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
+
+        $this->most_used_session_user_this_month = User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name;
+
         $this->average_settion_time = round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->first()->session) /60,2);
+
+        $this->average_settion_time_this_week = round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays(7))->first()->session) /60,2);
+
+        $this->average_settion_time_this_month = round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays($this_month_days))->first()->session) /60,2);
 
     }
     public function render()

@@ -4,6 +4,14 @@ most viewed page :  {{ $most_viewed_page }} ({{ $most_viewd_page_count }} times)
 most used language : {{ $most_used_language }} ({{ $most_used_language_count }} times)<br>
 most used user {{ $most_used_session_user}} ({{  $most_used_session_time  }} minutes)<br>
 average session time : {{ $average_settion_time}} minutes<br>
+average session time this week: {{ $average_settion_time_this_week }} minutes<br>
+average session time this month: {{ $average_settion_time_this_month }} minutes<br>
+most viewed page this week: {{ $most_viewed_page_this_week}} ({{ $most_viewed_page_this_week_count}} times)<br>
+most viewed page this month: {{ $most_viewed_page_this_month}} ({{ $most_viewed_page_this_month_count}} times)<br>
+most used language this week: {{ $most_used_language_this_week}} ({{ $most_used_language_this_week_count}} times)<br>
+most used language this month: {{ $most_used_language_this_month}} ({{ $most_used_language_this_month_count}} times)<br>
+most used user this week: {{ $most_used_session_user_this_week}} ({{ $most_used_session_time_this_week}} minutes)<br>
+most used user this month: {{ $most_used_session_user_this_month}} ({{ $most_used_session_time_this_month}} minutes)<br>
 
 
 <input type="text" name="daterange" value="01/01/2023 - 12/31/2023" />
