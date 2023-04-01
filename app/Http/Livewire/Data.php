@@ -19,8 +19,8 @@ class Data extends Component
     public $user_data;
     public $email_data;
     public $practice_data;
-    public $practice_favorited;
     public $practice_most_favorited;
+    public $practice_most_favorited_count;
     public $most_viewed_page;
     public $most_viewd_page_count;
     public $most_used_language;
@@ -42,6 +42,10 @@ class Data extends Component
     public $most_viewed_page_this_week_count;
     public $most_viewed_page_this_month;
     public $most_viewed_page_this_month_count;
+    public $practice_most_favorited_this_week;
+    public $practice_most_favorited_this_week_count;
+    public $practice_most_favorited_this_month;
+    public $practice_most_favorited_this_month_count;
 
     public function mount()
     {
@@ -97,11 +101,25 @@ class Data extends Component
         // get the most favorited practice
         $most_favorited_id = DB::table('favorites')->groupBy('practice_id')->orderByRaw('count(*) DESC')->value('practice_id');
 
-        $this->practice_most_favorited = $most_favorited_id ? Practice::find($most_favorited_id)->title : 'no result for this time period';
+        $this->practice_most_favorited = $most_favorited_id ? Practice::find($most_favorited_id)->title : '';
+
+        $this->practice_most_favorited_count = DB::table('favorites')->distinct()->get(['practice_id'])->count();
+
+        // this week
+        $most_favorited_id_this_week = DB::table('favorites')->where('created_at','>=',Carbon::today()->subDays(7))->count() > 0 ? DB::table('favorites')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('practice_id')->orderByRaw('count(*) DESC')->value('practice_id') : '';
+        $this->practice_most_favorited_this_week = $most_favorited_id_this_week ? Practice::find($most_favorited_id_this_week)->title : '';
+        $this->practice_most_favorited_this_week_count = DB::table('favorites')->where('created_at','>=',Carbon::today()->subDays(7))->distinct()->get(['practice_id'])->count();
+
+        // this month
+        $most_favorited_id_this_month = DB::table('favorites')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->count() > 0 ? DB::table('favorites')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('practice_id')->orderByRaw('count(*) DESC')->value('practice_id') : '';
+
+        $this->practice_most_favorited_this_month = $most_favorited_id_this_month ? Practice::find($most_favorited_id_this_month)->title : '';
+
+        $this->practice_most_favorited_this_month_count = DB::table('favorites')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->distinct()->get(['practice_id'])->count() ;
 
 
         // visited page
-        $this->most_viewed_page = DB::table('page_view_data')->count() > 0 ? DB::table('page_view_data')->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result for this time period';
+        $this->most_viewed_page = DB::table('page_view_data')->count() > 0 ? DB::table('page_view_data')->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result';
 
         $this->most_viewd_page_count = DB::table('page_view_data')->where('page_name',$this->most_viewed_page)->count();
 
@@ -109,21 +127,21 @@ class Data extends Component
 
         $this->most_viewed_page_this_week_count = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->count() > 0 ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->where('page_name',$this->most_viewed_page_this_week)->count() : DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days));
 
-        $this->most_viewed_page_this_month = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->count() > 0 ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result for this time period';
+        $this->most_viewed_page_this_month = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->count() > 0 ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result';
 
-        $this->most_viewed_page_this_month_count = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->count() > 0 ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->where('page_name',$this->most_viewed_page_this_month)->count() : 'no result for this time period';
+        $this->most_viewed_page_this_month_count = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->count() > 0 ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->where('page_name',$this->most_viewed_page_this_month)->count() : 'no result';
 
 
         // locale data
-        $this->most_used_language = DB::table('locale_data')->count() > 0 ? DB::table('locale_data')->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale'): 'no result for this time period';
+        $this->most_used_language = DB::table('locale_data')->count() > 0 ? DB::table('locale_data')->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale'): 'no result';
 
         $this->most_used_language_count = DB::table('locale_data')->where('locale',$this->most_used_language)->count();
 
-        $this->most_used_language_this_week = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->count() > 0 ? DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale') : 'no result for this time period';
+        $this->most_used_language_this_week = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->count() > 0 ? DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale') : 'no result';
 
         $this->most_used_language_this_week_count = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->where('locale',$this->most_used_language_this_week)->count();
 
-        $this->most_used_language_this_month = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->count() > 0 ? DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale') : 'no result for this time period';
+        $this->most_used_language_this_month = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->count() > 0 ? DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale') : 'no result';
 
         $this->most_used_language_this_month_count = DB::table('locale_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->where('locale',$this->most_used_language_this_month)->count();
 
@@ -174,7 +192,7 @@ class Data extends Component
 
     /**
      * when the date range picker is used this function is called
-     * then get the value between the selected date range and pass to the chart-update function of the javascript front end
+     * then get the value between the selected date range and pass to the chart-update function and tiles-update function of the javascript front end
      */
     public function getDateRange($value)
     {
@@ -194,27 +212,37 @@ class Data extends Component
                 // practice
                 $practice_range = Practice::whereBetween('created_at',[$date_range[0],$date_range[1]])->count();
 
+                // call the chart-function
                 $this->dispatchBrowserEvent('chart-update', [$date_range[0] .' to ' .$date_range[1], $user_range, $email_range, $category_range, $practice_range ]);
 
 
+                // favorite
+
+                $most_favorited_id_range = DB::table('favorites')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? DB::table('favorites')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('practice_id')->orderByRaw('count(*) DESC')->value('practice_id') : '';
+
+                $practice_most_favorited_range = $most_favorited_id_range ? Practice::find($most_favorited_id_range)->title : 'no result';
+
+                $practice_favorited_range_count = DB::table('favorites')->whereBetween('created_at',[$date_range[0],$date_range[1]])->distinct()->get(['practice_id'])->count() ;
+
                 // page view
-                $most_viewed_page_range = DB::table('page_view_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ?DB::table('page_view_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result for this time period';
+                $most_viewed_page_range = DB::table('page_view_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ?DB::table('page_view_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result';
 
                 $most_viewed_page_range_count = DB::table('page_view_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->where('page_name',$most_viewed_page_range)->count();
 
                 // langugage
-                $most_used_language_range = DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale') : 'no result for this time period';
+                $most_used_language_range = DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('locale')->orderByRaw('count(*) DESC')->value('locale') : 'no result';
 
-                $most_used_language_range_count = DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->where('locale',$most_used_language_range)->count() : 'no result for this time period';
+                $most_used_language_range_count = DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? DB::table('locale_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->where('locale',$most_used_language_range)->count() : 0;
 
                 // session time
-                $most_used_session_time_range = DB::table('session_data')->count() > 0 ? round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 'no result for this time period';
+                $most_used_session_time_range = DB::table('session_data')->count() > 0 ? round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 'no result';
 
-                $most_used_session_user_range = $most_used_session_time_range > 0? User::where('id', DB::table('session_data')->select('user_id')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result for this time period';
+                $most_used_session_user_range = $most_used_session_time_range > 0? User::where('id', DB::table('session_data')->select('user_id')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
-                $average_settion_time_range = DB::table('session_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->first()->session) /60, 2) : 'no result for this time period';
+                $average_settion_time_range = DB::table('session_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->first()->session) /60, 2) : 0;
 
-                $this->dispatchBrowserEvent('tiles-update', [$most_viewed_page_range, $most_viewed_page_range_count, $most_used_language_range,$most_used_language_range_count, $most_used_session_user_range, $most_used_session_time_range, $average_settion_time_range]);
+                // call the tiles-update function
+                $this->dispatchBrowserEvent('tiles-update', [$date_range[0] .' to ' .$date_range[1], $practice_most_favorited_range, $practice_favorited_range_count, $most_used_session_user_range, $most_used_session_time_range, $average_settion_time_range, $most_viewed_page_range, $most_viewed_page_range_count, $most_used_language_range,$most_used_language_range_count]);
             }
         }
     }
