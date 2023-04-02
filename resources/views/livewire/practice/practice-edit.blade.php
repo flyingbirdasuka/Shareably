@@ -14,14 +14,14 @@
             @endif
         </div>
         <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
-            <x-input id="title" type="text" class="border-gray-300" wire:model.delay.500ms="title" value="{{$title}}" />
+            <x-input id="title" type="text" class="border-gray-300" wire:model.defer="title" value="{{$title}}" />
             <x-input-error for="title" class="mt-2" />
 
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
-        <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description">{{ $description }}</textarea>
+        <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.defer="description">{{ $description }}</textarea>
 
         <x-label for="video_id" value="{{ __('Video ID') }}" class="my-4 mr-8 flex flex-col"/>
-            <x-input id="video_id" type="text" class="border-gray-300" wire:model.delay.500ms="video_id"  />
+            <x-input id="video_id" type="text" class="border-gray-300" wire:model.defer="video_id"  />
             <x-input-error for="video_id" class="mt-2" />
 
         <div class="mt-4">
@@ -35,7 +35,7 @@
                                 <tr class="bg-white border-b hover:bg-gray-50 ">
                                     <td class="w-4 p-4">
                                         <div class="flex items-center">
-                                        <input wire:model="add_categories" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" value="{{ $category->id }}" >
+                                        <input wire:model.defer="add_categories" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" value="{{ $category->id }}" >
                                         </div>
                                     </td>
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
@@ -51,7 +51,7 @@
             <x-input-error for="add_categories" class="mt-2" />
 
             <x-label for="new_music" value="{{ __('Music') }}" class="my-4 mr-8 flex flex-col"/>
-                <input id="new_music" type="file" accept="audio/*" wire:model="new_music"/>
+                <input id="new_music" type="file" accept="audio/*" wire:model.defer="new_music"/>
                 <x-input-error for="new_music" class="mt-2" />
             @if($new_music)
                 <audio controls controlslist="nodownload" src="{{ $new_music->temporaryUrl() }}" class="mt-4"></audio>
@@ -63,7 +63,7 @@
 
 
         <x-label for="file" value="{{ __('File') }}" class="my-4 mr-8 flex flex-col"/>
-        <input type="file" accept="application/pdf" wire:model="new_file">
+        <input type="file" accept="application/pdf" wire:model.defer="new_file">
         @error('new_file.*') <span class="error">{{ $message }}</span> @enderror
         <p class="text-sm text-gray-700 font-medium my-4">{{ __('practicepage.current_filename') }}: {{ $original_file_name }} </p>
         <button type="submit" class="w-1/3 bg-indigo-500 hover:bgindigo-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.update_practice') }}</button>
