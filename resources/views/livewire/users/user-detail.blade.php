@@ -57,7 +57,7 @@
                             <div class="flex flex-row mx-4">
                                 <div class="px-4 py-2 font-semibold">{{__('userdetailpage.email')}}</div>
                                 <div class="px-4 py-2">
-                                    <a class="text-indigo-600" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                                    <a class="text-gray-700 hover:text-indigo-500" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                             <ul class="list-inside space-y-2">
                                 @foreach($categories as $category)
                                 <li>
-                                    <div class="text-gray-700"><a href="/categories/{{$category->id}}">{{ $category->title }}</a></div>
+                                    <div class="text-gray-700 hover:text-indigo-500"><a href="/categories/{{$category->id}}">{{ $category->title }}</a></div>
                                 </li>
                                 @endforeach
                             </ul>
@@ -94,7 +94,7 @@
                             <ul class="list-inside space-y-2">
                                 @foreach($practices as $practice)
                                 <li>
-                                    <div class="text-teal-600"><a href="/practices/{{$practice->id}}">{{ $practice->title}}</a></div>
+                                    <div class="text-gray-700 hover:text-indigo-500"><a href="/practices/{{$practice->id}}">{{ $practice->title}}</a></div>
                                 </li>
                                 @endforeach
                             </ul>
