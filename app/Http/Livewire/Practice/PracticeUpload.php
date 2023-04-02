@@ -34,9 +34,18 @@ class PracticeUpload extends Component
      */
     public function updatedFile()
     {
-
         $this->validate([
             'file' => 'file|mimes:pdf|max:1024',
+        ]);
+    }
+
+    /*
+     *  Real time validation of the chosen music file to be uploaded, users don't have to click submit.
+     */
+    public function updatedMusic()
+    {
+        $this->validate([
+            'music' => 'max:10000',
         ]);
     }
 

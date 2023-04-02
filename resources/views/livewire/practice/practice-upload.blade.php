@@ -4,7 +4,6 @@
         </h2>
 </x-slot>
 
-
 <form wire:submit.prevent="add" class="flex flex-col lg:flex-row px-4 mb-4">
     <div class="flex flex-start w-full lg:w-1/2 flex-col lg:mb-6">
         <div>
