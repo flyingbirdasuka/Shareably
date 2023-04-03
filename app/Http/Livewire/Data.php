@@ -67,7 +67,7 @@ class Data extends Component
         $this->user_data = [$user_count, $user_signup_this_month,$user_signup_this_month];
 
         // email subscription rate
-        $email_subscription_rate = UserSettings::where('email_subscription', 1)->count() >0 ?UserSettings::where('email_subscription', 1)->get()->where('user.is_admin','!=', 1)->count()/$user_count * 100 : 0;
+        $email_subscription_rate = UserSettings::where('email_subscription', 1)->get()->where('user.is_admin','!=', 1)->count() >0 ? UserSettings::where('email_subscription', 1)->get()->where('user.is_admin','!=', 1)->count()/$user_count * 100 : 0;
 
         $email_this_week = UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays(7))->count() > 0 ? UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays(7))->get()->where('user.is_admin','!=', 1)->count() / $user_count * 100 : 0;
 
