@@ -69,9 +69,9 @@ class Data extends Component
         // email subscription rate
         $email_subscription_rate = UserSettings::where('email_subscription', 1)->get()->where('user.is_admin','!=', 1)->count() >0 ? UserSettings::where('email_subscription', 1)->get()->where('user.is_admin','!=', 1)->count()/$user_count * 100 : 0;
 
-        $email_this_week = UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays(7))->count() > 0 ? UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays(7))->get()->where('user.is_admin','!=', 1)->count() / $user_count * 100 : 0;
+        $email_this_week = UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays(7))->get()->where('user.is_admin','!=', 1)->count()? UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays(7))->get()->where('user.is_admin','!=', 1)->count() / $user_count * 100 : 0;
 
-        $email_this_month = UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays($this_month_days))->count() > 0 ? UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays($this_month_days))->get()->where('user.is_admin','!=', 1)->count() / $user_count * 100 : 0;
+        $email_this_month = UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays($this_month_days))->get()->where('user.is_admin','!=', 1)->count() > 0 ? UserSettings::where('email_subscription', 1)->where('updated_at','>=',Carbon::today()->subDays($this_month_days))->get()->where('user.is_admin','!=', 1)->count() / $user_count * 100 : 0;
 
         $this->email_data = [$email_subscription_rate, $email_this_week, $email_this_month];
 
@@ -119,13 +119,13 @@ class Data extends Component
 
 
         // visited page
-        $this->most_viewed_page = DB::table('page_view_data')->count() > 0 ? DB::table('page_view_data')->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result';
+        $this->most_viewed_page = DB::table('page_view_data')->count() != null ? DB::table('page_view_data')->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result';
 
-        $this->most_viewd_page_count = DB::table('page_view_data')->where('page_name',$this->most_viewed_page)->count();
+        $this->most_viewd_page_count = DB::table('page_view_data')->count() != null ? DB::table('page_view_data')->where('page_name',$this->most_viewed_page)->count() : 0;
 
-        $this->most_viewed_page_this_week = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name');
+        $this->most_viewed_page_this_week = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7)) != null ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result';
 
-        $this->most_viewed_page_this_week_count = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->count() > 0 ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->where('page_name',$this->most_viewed_page_this_week)->count() : DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days));
+        $this->most_viewed_page_this_week_count = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->count() != null ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays(7))->where('page_name',$this->most_viewed_page_this_week)->count() : 0;
 
         $this->most_viewed_page_this_month = DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->count() > 0 ? DB::table('page_view_data')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('page_name')->orderByRaw('count(*) DESC')->value('page_name') : 'no result';
 
@@ -147,17 +147,17 @@ class Data extends Component
 
 
         // session data
-        $this->most_used_session_time = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
+        $this->most_used_session_time = DB::table('session_data')->count() > 0 ? round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 0;
 
-        $this->most_used_session_user = User::where('id', DB::table('session_data')->select('user_id')->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name;
+        $this->most_used_session_user = DB::table('session_data')->count() > 0 && User::where('id', DB::table('session_data')->select('user_id'))->count() > 0? User::where('id', DB::table('session_data')->select('user_id')->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
         $this->most_used_session_time_this_week = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
 
-        $this->most_used_session_user_this_week = User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name;
+        $this->most_used_session_user_this_week = DB::table('session_data')->count() > 0 && User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays(7)))->count > 0 ?User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
         $this->most_used_session_time_this_month = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
 
-        $this->most_used_session_user_this_month = User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name;
+        $this->most_used_session_user_this_month = DB::table('session_data')->count() > 0 && User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays($this_month_days)))->count > 0 ? User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
         $this->average_settion_time = round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->first()->session) /60,2);
 

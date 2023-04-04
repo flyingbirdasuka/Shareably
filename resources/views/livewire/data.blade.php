@@ -275,7 +275,6 @@
       opens: 'left'
     }, function(start, end, label) { // send the selected date range to livewire
       Livewire.emit('getDateRange', [start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')]);
-      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
   });
 

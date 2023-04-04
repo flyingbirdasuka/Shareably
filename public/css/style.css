@@ -17,5 +17,14 @@
 }
 
 .range_tiles {
-    display: none;;
+    display: none;
+}
+
+input[name="daterange"] {
+    width: 240px;
+    cursor: pointer;
+}
+
+input[type='checkbox'], input[type='radio']{
+    color: rgb(99 102 241);
 }
