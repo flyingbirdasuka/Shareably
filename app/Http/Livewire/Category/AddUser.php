@@ -19,7 +19,7 @@ class AddUser extends ModalComponent
     {
         $this->category_id = $category_id;
         $this->users = Category::find($this->category_id)->users()->get()->pluck('id');
-        $this->all_users = User::all()->sortBy('name');
+        $this->all_users = User::all()->where('is_admin', 0)->sortBy('name');
     }
 
     public function add()
