@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
+
 
 class Localization
 {
@@ -28,6 +30,7 @@ class Localization
                 $locale = 'en';
             }
             session()->push('data.locale', $locale);
+            session()->push('data.start', Carbon::now());
 
         }
         app()->setLocale($locale);

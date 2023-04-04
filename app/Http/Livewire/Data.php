@@ -149,15 +149,15 @@ class Data extends Component
         // session data
         $this->most_used_session_time = DB::table('session_data')->count() > 0 ? round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 0;
 
-        $this->most_used_session_user = DB::table('session_data')->count() > 0 && User::where('id', DB::table('session_data')->select('user_id'))->count() > 0? User::where('id', DB::table('session_data')->select('user_id')->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
+        $this->most_used_session_user = DB::table('session_data')->count() > 0 ? User::where('id', DB::table('session_data')->select('user_id')->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
         $this->most_used_session_time_this_week = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
 
-        $this->most_used_session_user_this_week = DB::table('session_data')->count() > 0 && User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays(7)))->count > 0 ?User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
+        $this->most_used_session_user_this_week = DB::table('session_data')->count() > 0 ? User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
         $this->most_used_session_time_this_month = round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2);
 
-        $this->most_used_session_user_this_month = DB::table('session_data')->count() > 0 && User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays($this_month_days)))->count > 0 ? User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
+        $this->most_used_session_user_this_month = DB::table('session_data')->count() > 0 ? User::where('id', DB::table('session_data')->select('user_id')->where('created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
         $this->average_settion_time = round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->first()->session) /60,2);
 
@@ -237,7 +237,8 @@ class Data extends Component
                 // session time
                 $most_used_session_time_range = DB::table('session_data')->count() > 0 ? round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 'no result';
 
-                $most_used_session_user_range = $most_used_session_time_range > 0? User::where('id', DB::table('session_data')->select('user_id')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
+                dd(gettype($most_used_session_time_range) == 'integer');
+                $most_used_session_user_range = gettype($most_used_session_time_range) == 'integer' ? User::where('id', DB::table('session_data')->select('user_id')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
                 $average_settion_time_range = DB::table('session_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->first()->session) /60, 2) : 0;
 
