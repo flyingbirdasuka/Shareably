@@ -237,7 +237,6 @@ class Data extends Component
                 // session time
                 $most_used_session_time_range = DB::table('session_data')->count() > 0 ? round((DB::table('session_data')->select(DB::raw('SUM(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 'no result';
 
-                dd(gettype($most_used_session_time_range) == 'integer');
                 $most_used_session_user_range = gettype($most_used_session_time_range) == 'integer' ? User::where('id', DB::table('session_data')->select('user_id')->whereBetween('created_at',[$date_range[0],$date_range[1]])->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('user_id'))->first()->name : 'no result';
 
                 $average_settion_time_range = DB::table('session_data')->whereBetween('created_at',[$date_range[0],$date_range[1]])->count() > 0 ? round((DB::table('session_data')->select(DB::raw( 'AVG(session_time) AS session'))->whereBetween('created_at',[$date_range[0],$date_range[1]])->first()->session) /60, 2) : 0;
