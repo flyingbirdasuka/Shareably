@@ -207,7 +207,7 @@
             </x-responsive-nav-link>
 
             @if(Auth::user()->is_admin)
-                <x-responsive-nav-link href="{{ route('analytics-dashboard') }}" ::active="request()->is('analytics-dashboard') ? 'active' : '' ">
+                <x-responsive-nav-link href="{{ route('analytics-dashboard') }}" :active="request()->is('analytics-dashboard') ? 'active' : '' ">
                     {{ __('navigationsection.analytics') }}
                 </x-responsive-nav-link>
             @endif
