@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Jetstream\Http\Livewire\UpdateTeamNameForm;
 use Livewire\Livewire;
 use Tests\TestCase;
+use Carbon\Carbon;
 
 class UpdateTeamNameTest extends TestCase
 {
@@ -14,8 +15,10 @@ class UpdateTeamNameTest extends TestCase
 
     public function test_team_names_can_be_updated(): void
     {
-        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $user = User::where('id', 1)->first();
 
+        $this->actingAs($user);
+        // $this->actingAs($user = User::factory()->withPersonalTeam()->create());
         Livewire::test(UpdateTeamNameForm::class, ['team' => $user->currentTeam])
                     ->set(['state' => ['name' => 'Test Team']])
                     ->call('updateTeamName');
