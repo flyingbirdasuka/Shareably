@@ -35,6 +35,7 @@ class CreateTeamTest extends TestCase
         $this->assertCount(1, $user->fresh()->ownedTeams);
         $this->assertEquals('Test Team', $user->fresh()->ownedTeams()->latest('id')->first()->name);
     }
+
     public function test_teams_can_be_created_by_non_admin(): void
     {
         $user = User::create([
