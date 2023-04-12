@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewPractice;
 use Illuminate\Http\UploadedFile;
+use Storage;
 
 class PracticeTest extends TestCase
 {
@@ -92,5 +93,86 @@ class PracticeTest extends TestCase
         $this->assertCount(1, $practices);
         $this->assertEquals('Test Title', $practices->first()->title);
         
+    }
+
+    public function test_edit_practice()
+    {
+        $user = User::create([
+            'name' => 'Asuka Method2',
+            'email' => 'admin2@admin2.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
+            // vLe064h$0PdN
+            'is_admin' => 1,
+            'current_team_id' => 1, // default all user team
+        ]);
+
+        $this->actingAs($user);
+
+        $practice  = Practice::create([
+            'title' => 'Test Title',
+            'description'  => 'Test Description',
+            'video_id' => 'ABCDEFG12345',
+        ]);
+
+        // PDF file
+        $file = UploadedFile::fake()->create('file.pdf');
+        $filename = $file->getClientOriginalName();
+        $unique_name = uniqid().'-'.$filename;
+        $practice->musicsheets()->create([
+            'title' => 'Test Title',
+            'filename' => $unique_name
+        ]);
+
+        $file->storeAs('/', $unique_name, $disk = 'practice');
+    
+        $new_practice = Practice::first();
+
+        $new_practice->update([
+            'title' => 'Updated Title',
+        ]);
+
+        $new_practice = Practice::first();
+        // where a new PDF is uploaded
+        Storage::delete('/practice/'.$unique_name); // delete the file
+        $new_practice->musicsheets()->detach(); // detach the relationship
+        $new_practice->musicsheets()->delete(); // delete the previous musicsheet in DB
+
+        // add the new file
+        $new_file = UploadedFile::fake()->create('new_file.pdf');
+        $new_filename = $new_file->getClientOriginalName();
+        $new_unique_name = uniqid().'-'.$new_filename;
+        $new_practice->musicsheets()->create([
+            'title' => 'Update Title',
+            'filename' =>$new_unique_name,
+        ]);
+        $new_file->storeAs('/', $new_unique_name, $disk = 'practice');
+
+
+        // update the attatched categories
+        // remove the original category for this practice (THIS WORKS)
+        foreach($new_practice->categories()->get() as $original_category){
+            $new_practice->categories()->detach($original_category);
+        }
+        $category_1  = Category::create([
+            'title' => 'Category 1',
+            'description' => 'Category Description',
+        ]);
+
+        $category_2  = Category::create([
+            'title' => 'Category 2',
+            'description' => 'Category Description',
+        ]);
+
+        // add the new categories into this practice (THIS WORKS)
+        foreach ([$category_1->id, $category_2->id] as $category_id){
+            $new_practice->categories()->attach($category_id);
+        }
+
+
+        $practices = Practice::all();
+        $this->assertCount(1, $practices);
+        $this->assertEquals(2, $new_practice->categories()->count());
+        $this->assertEquals('Updated Title', $new_practice->title);
     }
 }
