@@ -10,12 +10,36 @@ use Laravel\Jetstream\Http\Livewire\TeamMemberManager;
 use Laravel\Jetstream\Mail\TeamInvitation;
 use Livewire\Livewire;
 use Tests\TestCase;
+use Carbon\Carbon;
 
 class InviteTeamMemberTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_team_members_can_be_invited_to_team(): void
+    // public function test_team_members_can_be_invited_to_team(): void
+    // {
+    //     if (! Features::sendsTeamInvitations()) {
+    //         $this->markTestSkipped('Team invitations not enabled.');
+
+    //         return;
+    //     }
+
+    //     Mail::fake();
+
+    //     $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+
+    //     $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
+    //                     ->set('addTeamMemberForm', [
+    //                         'email' => 'test@example.com',
+    //                         'role' => 'admin',
+    //                     ])->call('addTeamMember');
+
+    //     Mail::assertSent(TeamInvitation::class);
+
+    //     $this->assertCount(1, $user->currentTeam->fresh()->teamInvitations);
+    // }
+
+    public function test_members_can_be_invited_to_team_by_admin(): void
     {
         if (! Features::sendsTeamInvitations()) {
             $this->markTestSkipped('Team invitations not enabled.');
@@ -25,7 +49,18 @@ class InviteTeamMemberTest extends TestCase
 
         Mail::fake();
 
-        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $user = User::create([
+            'name' => 'Asuka Method2',
+            'email' => 'admin2@admin2.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
+            // vLe064h$0PdN
+            'is_admin' => 1,
+            'current_team_id' => 1, // default all user team
+            "created_at" =>  Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+        $this->actingAs($user);
 
         $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
                         ->set('addTeamMemberForm', [
@@ -38,6 +73,43 @@ class InviteTeamMemberTest extends TestCase
         $this->assertCount(1, $user->currentTeam->fresh()->teamInvitations);
     }
 
+    public function test_members_can_be_invited_to_team_by_non_admin(): void
+    {
+
+        if (! Features::sendsTeamInvitations()) {
+            $this->markTestSkipped('Team invitations not enabled.');
+
+            return;
+        }
+
+        Mail::fake();
+
+        $user = User::create([
+            'name' => 'Asuka Method Non Admin',
+            'email' => 'non_admin@non_admin.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
+            // vLe064h$0PdN
+            'is_admin' => 0,
+            'current_team_id' => 1, // default all user team
+            "created_at" =>  Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+
+        $this->actingAs($user);
+
+        $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])
+                        ->set('addTeamMemberForm', [
+                            'email' => 'test@example.com',
+                            'role' => 'reader',
+                        ])->call('addTeamMember');
+
+
+        Mail::assertNotSent(TeamInvitation::class);
+
+        $this->assertCount(0, $user->currentTeam->fresh()->teamInvitations);
+    }
+
     public function test_team_member_invitations_can_be_cancelled(): void
     {
         if (! Features::sendsTeamInvitations()) {
@@ -48,7 +120,19 @@ class InviteTeamMemberTest extends TestCase
 
         Mail::fake();
 
-        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $user = User::create([
+            'name' => 'Asuka Method2',
+            'email' => 'admin2@admin2.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
+            // vLe064h$0PdN
+            'is_admin' => 1,
+            'current_team_id' => 1, // default all user team
+            "created_at" =>  Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+        $this->actingAs($user);
+        // $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         // Add the team member...
         $component = Livewire::test(TeamMemberManager::class, ['team' => $user->currentTeam])

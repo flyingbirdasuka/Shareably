@@ -4,16 +4,19 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Http\Livewire\CreateTeamForm;
+// use Illuminate\Support\Facades\Mail;
+use Laravel\Jetstream\Features;
+use Laravel\Jetstream\Http\Livewire\TeamMemberManager;
+use Laravel\Jetstream\Mail\TeamInvitation;
 use Livewire\Livewire;
 use Tests\TestCase;
 use Carbon\Carbon;
 
-class CreateTeamTest extends TestCase
+class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_teams_can_be_created_by_admin(): void
+    public function test_login_as_admin()
     {
         $user = User::create([
             'name' => 'Asuka Method2',
@@ -27,16 +30,14 @@ class CreateTeamTest extends TestCase
             "updated_at" => Carbon::now(),
         ]);
 
-        $this->actingAs($user);
-        // $this->actingAs($user = User::factory()->withPersonalTeam()->create());
-        Livewire::test(CreateTeamForm::class)
-                    ->set(['state' => ['name' => 'Test Team']])
-                    ->call('createTeam');
-        $this->assertCount(1, $user->fresh()->ownedTeams);
-        $this->assertEquals('Test Team', $user->fresh()->ownedTeams()->latest('id')->first()->name);
+        $hasUser = $user ? true : false;
+        $this->assertTrue($hasUser);
+
+        $response = $this->actingAs($user)->get('/login');
+        $response->assertRedirect('/dashboard');
     }
 
-    public function test_teams_can_be_created_by_non_admin(): void
+    public function test_login_as_non_admin()
     {
         $user = User::create([
             'name' => 'Asuka Method Non Admin',
@@ -50,10 +51,10 @@ class CreateTeamTest extends TestCase
             "updated_at" => Carbon::now(),
         ]);
 
-        $this->actingAs($user);
-        Livewire::test(CreateTeamForm::class)
-                    ->set(['state' => ['name' => 'Test Team']])
-                    ->call('createTeam');
-        $this->assertCount(0, $user->fresh()->ownedTeams);
+        $hasUser = $user ? true : false;
+        $this->assertTrue($hasUser);
+        $response = $this->actingAs($user)->get('/login');
+
+        $response->assertRedirect('/dashboard');
     }
 }
