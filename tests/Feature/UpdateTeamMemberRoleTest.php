@@ -14,7 +14,10 @@ class UpdateTeamMemberRoleTest extends TestCase
 
     public function test_team_member_roles_can_be_updated(): void
     {
-        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $user = User::where('id', 1)->first();
+
+        $this->actingAs($user);
+        // $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $user->currentTeam->users()->attach(
             $otherUser = User::factory()->create(), ['role' => 'admin']
