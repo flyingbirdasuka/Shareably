@@ -1,18 +1,60 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Support\Facades\Mail;
+use Laravel\Jetstream\Features;
+use Laravel\Jetstream\Http\Livewire\TeamMemberManager;
+use Laravel\Jetstream\Mail\TeamInvitation;
+use Livewire\Livewire;
+use Tests\TestCase;
+use Carbon\Carbon;
 
 class LoginTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    use RefreshDatabase;
+
+    public function test_login_as_admin()
     {
-        $this->assertTrue(true);
+        $user = User::create([
+            'name' => 'Asuka Method2',
+            'email' => 'admin2@admin2.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
+            // vLe064h$0PdN
+            'is_admin' => 1,
+            'current_team_id' => 1, // default all user team
+            "created_at" =>  Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+
+        $hasUser = $user ? true : false;
+        $this->assertTrue($hasUser);
+
+        $response = $this->actingAs($user)->get('/login');
+        $response->assertRedirect('/dashboard');
+    }
+
+    public function test_login_as_non_admin()
+    {
+        $user = User::create([
+            'name' => 'Asuka Method Non Admin',
+            'email' => 'non_admin@non_admin.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => '$2y$10$3jAFcCj6Gkeigpf.UCEzUuA.xXhIIrrxjYK7xtciBI4bXCAp.cI4.',
+            // vLe064h$0PdN
+            'is_admin' => 0,
+            'current_team_id' => 1, // default all user team
+            "created_at" =>  Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+
+        $hasUser = $user ? true : false;
+        $this->assertTrue($hasUser);
+        $response = $this->actingAs($user)->get('/login');
+
+        $response->assertRedirect('/dashboard');
     }
 }
