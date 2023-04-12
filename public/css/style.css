@@ -28,3 +28,7 @@ input[name="daterange"] {
 input[type='checkbox'], input[type='radio']{
     color: rgb(99 102 241);
 }
+
+div#modal-container {
+    margin: auto;
+}
