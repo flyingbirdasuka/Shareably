@@ -51,14 +51,6 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
-
-    $limiter = config('fortify.limiters.login');
-
-    Route::post('/login', [UserLogin::class, 'store'])
-        ->middleware(array_filter([
-            'guest:'.config('fortify.guard'),
-            $limiter ? 'throttle:'.$limiter : null,
-        ]));
     Route::post('/logout', [UserLogout::class, 'destroy'])->name('logout');
 });
 
