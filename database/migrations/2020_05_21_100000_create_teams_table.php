@@ -31,15 +31,6 @@ return new class extends Migration
             )
         );
 
-        // Create the personal team for the admin
-        DB::table('teams')->insert(
-            array(
-                'user_id' => '1',
-                'name' => 'Personal team',
-                'personal_team' => 1
-            )
-        );
-
     }
 
     /**
