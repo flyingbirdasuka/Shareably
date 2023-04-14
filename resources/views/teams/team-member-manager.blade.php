@@ -146,12 +146,13 @@
                                         </div>
                                     @endif
 
-
+                                    @if (Laravel\Jetstream\Jetstream::hasRoles() &&
+                                    Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name != 'Administrator')
                                     <!-- Remove Team Member -->
                                         <button class="cursor-pointer ml-6 text-sm text-red-500" wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
                                             {{ __('teamsettingspage.remove') }}
                                         </button>
-                             
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
