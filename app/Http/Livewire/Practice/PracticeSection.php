@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Practice;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Practice;
+use App\Models\Category;
 use App\Models\User;
 use DB;
 use Carbon\Carbon;
@@ -18,6 +19,7 @@ class PracticeSection extends Component
     public $user;
     public $is_admin;
     public $search = '';
+    public $categories;
     public $user_practices = [];
 
     protected $listeners = [
@@ -27,7 +29,7 @@ class PracticeSection extends Component
     public function mount()
     {
         $this->user = auth()->user();
-
+        $this->categories = Category::all()->count();
         /*
         $this->practices = $this->user->is_admin ? Practice::orderBy('title')->get() : $this->user->practices()->orderBy('title')->get();
         $this->is_admin = $this->user->is_admin;
