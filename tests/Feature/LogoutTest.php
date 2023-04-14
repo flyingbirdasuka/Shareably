@@ -9,13 +9,14 @@ use Laravel\Jetstream\Http\Livewire\TeamMemberManager;
 use Laravel\Jetstream\Mail\TeamInvitation;
 use Livewire\Livewire;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
-class LoginTest extends TestCase
+class LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_login_as_admin()
+    public function test_logout_as_admin()
     {
         $user = User::create([
             'name' => 'Asuka Method2',
@@ -32,11 +33,11 @@ class LoginTest extends TestCase
         $hasUser = $user ? true : false;
         $this->assertTrue($hasUser);
 
-        $response = $this->actingAs($user)->get('/login');
-        $response->assertRedirect('/dashboard');
+        $response = $this->actingAs($user)->get('/logout');
+
     }
 
-    public function test_login_as_non_admin()
+    public function test_logout_as_non_admin()
     {
         $user = User::create([
             'name' => 'Asuka Method Non Admin',
@@ -52,8 +53,8 @@ class LoginTest extends TestCase
 
         $hasUser = $user ? true : false;
         $this->assertTrue($hasUser);
-        $response = $this->actingAs($user)->get('/login');
-
-        $response->assertRedirect('/dashboard');
+        $this->actingAs($user)->get('/login');
+        $response = $this->get('/logout');
+        $this->assertNotEmpty(Session::get('data')); // check the session data 
     }
 }
