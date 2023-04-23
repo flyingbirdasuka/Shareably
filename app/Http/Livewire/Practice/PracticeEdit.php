@@ -70,9 +70,7 @@ class PracticeEdit extends Component
      */
     public function updatedTitle($value)
     {
-        // dd($this->value);
         $this->validate([
-            // 'title' => 'unique:practices',
             'title' => ['required', Rule::unique('practices')->ignore($value)],
         ]);
     }
