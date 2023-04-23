@@ -8,6 +8,7 @@ use App\Models\Practice;
 use App\Models\Category;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 
 class PracticeEdit extends Component
 {
@@ -70,7 +71,7 @@ class PracticeEdit extends Component
     public function updatedTitle($value)
     {
         $this->validate([
-            'title' => 'unique:practices',
+            'title' => ['required', Rule::unique('practices')->ignore($value)],
         ]);
     }
     public function update_practice()
