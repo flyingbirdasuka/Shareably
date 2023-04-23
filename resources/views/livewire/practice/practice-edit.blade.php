@@ -14,7 +14,7 @@
             @endif
         </div>
         <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
-            <x-input id="title" type="text" class="border-gray-300" wire:model.defer="title" value="{{$title}}" />
+            <x-input id="title" type="text" class="border-gray-300" wire:model="title" value="{{$title}}" />
             <x-input-error for="title" class="mt-2" />
 
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
