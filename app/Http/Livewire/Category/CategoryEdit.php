@@ -13,7 +13,7 @@ class CategoryEdit extends ModalComponent
     public $description;
 
     protected $rules = [
-        'title' => 'required|unique:categories',
+        'title' => 'required',
     ];
 
     protected $message = [
@@ -25,6 +25,16 @@ class CategoryEdit extends ModalComponent
 
         $this->title = $title;
         $this->description = $description;
+    }
+
+    /*
+     *  Real time validation of the chosen title to check if it is unique, users don't have to click submit.
+     */
+    public function updatedTitle($value)
+    {
+        $this->validate([
+            'title' => ['required', Rule::unique('practices')->ignore($value)],
+        ]);
     }
 
     public function render()

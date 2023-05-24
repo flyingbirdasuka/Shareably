@@ -11,6 +11,10 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://kit.fontawesome.com/241b76aa5f.css" crossorigin="anonymous">
+
+        <!-- TinyMCE -->
+        <script src="https://cdn.tiny.cloud/1/game44tc1m9zkz8bq19ypgre0aibtoxeu7jjkbar3vq32or7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

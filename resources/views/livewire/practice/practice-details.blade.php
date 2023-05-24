@@ -10,7 +10,7 @@
     <div class="flex flex-start flex-col w-full lg:w-1/2">
         <table>
             <tr>
-                <x-table-data><b>{{ __('categorypage.description') }}</b> : {{ $practice->description }}</x-table-data>
+                <x-table-data><b>{{ __('categorypage.description') }}</b> : {!! html_entity_decode($practice->description) !!}</x-table-data>
             </tr>
             <tr>
                 <x-table-data><b>{{ __('categorypage.categorypage_title') }}</b> : </x-table-data>

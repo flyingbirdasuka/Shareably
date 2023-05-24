@@ -2,7 +2,9 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $category->title }}
         </h2>
-        <p class="mt-4">{{ $category->description }}</p>
+        {!! html_entity_decode($category->description) !!}
+        <div>
+
 </x-slot>
 <div class="mt-4">
     @if($is_admin)
