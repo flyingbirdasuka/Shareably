@@ -16,9 +16,10 @@ class RemoveUser extends ModalComponent
     {
         $this->user_id = $user_id; 
     }
-    public function delete()
+
+    static function delete($user_id)
     {
-        $user = User::where('id', $this->user_id);
+        $user = User::where('id', $user_id);
 
         // remove the user_category relationship
         $categories = $user->first()->categories()->get();
