@@ -18,7 +18,9 @@
             <x-input-error for="title" class="mt-2" />
 
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
-        <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.defer="description">{{ $description }}</textarea>
+        <div wire:ignore>
+            <textarea id="description" class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.defer="description">{{ $description }}</textarea>
+        </div>
 
         <x-label for="video_id" value="{{ __('Video ID') }}" class="my-4 mr-8 flex flex-col"/>
             <x-input id="video_id" type="text" class="border-gray-300" wire:model.defer="video_id"  />
@@ -80,3 +82,13 @@
         </div>
     @endif
 </form>
+<script>
+    tinymce.init({
+        selector: '#description',
+        setup: function (editor) {
+            editor.on('change', function (e) {
+                @this.set('description', editor.getContent());
+            });
+        }
+    });
+</script>

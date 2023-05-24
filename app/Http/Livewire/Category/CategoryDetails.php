@@ -46,6 +46,7 @@ class CategoryDetails extends Component
             auth()->user()->practices()->attach($practice_id);
         }
     }
+
     public function edit_practice($practice_id)
     {
         return redirect('practices/'.$practice_id.'/edit');

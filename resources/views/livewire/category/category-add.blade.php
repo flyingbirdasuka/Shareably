@@ -9,11 +9,14 @@
     <p class="font-semibold text-gray-800 p-6">{{ __('categorypage.add_category') }}</p>
     <div class="flex flex-col px-6 py-5 bg-gray-50">
         <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
-            <x-input id="title" type="text" class="w-3/4" wire:model.delay.500ms="title" />
+            <x-input id="title" type="text" class="w-3/4" wire:model.defer="title" />
             <x-input-error for="title" class="mt-2" />
 
         <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
-        <textarea class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.delay.500ms="description"></textarea>
+        <div wire:ignore>
+            <textarea id="description" class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.defer="description">
+            </textarea>
+        </div>
             <x-input-error for="description" class="mt-2" />
     </div>
     <div class="flex flex-row items-center justify-between p-5 border-t border-gray-200">
@@ -22,3 +25,13 @@
         </button>
     </div>
 </form>
+<script>
+    tinymce.init({
+        selector: '#description',
+        setup: function (editor) {
+            editor.on('change', function (e) {
+                @this.set('description', editor.getContent());
+            });
+        }
+    });
+</script>
