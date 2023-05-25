@@ -56,11 +56,14 @@
                 <input id="music" type="file" accept="audio/*" wire:model.defer="music" />
                 <x-input-error for="music" class="mt-2" />
             @if($music)
-                <audio controls controlslist="nodownload" src="{{ $music->temporaryUrl() }}" class="mt-4"></audio>
+                <div class="flex">
+                    <audio controls controlslist="nodownload" src="{{ $music->temporaryUrl() }}" class="mt-4"></audio>
+                    <span style="cursor:pointer;color:red;" onclick="removeMusic()" x-on:click="$wire.set('music', '')" >X</span>
+                </div>
             @endif
         </div>
         <x-label for="file" value="{{ __('PDF file') }}" class="my-2 mr-8 flex flex-col"/>
-        <input type="file" accept="application/pdf" wire:model.defer="file" class="" />
+        <input type="file" accept="application/pdf" wire:model.defer="file" />
         <x-input-error for="file" class="mt-2" />
         <button type="submit" class="w-1/2 md:w-1/3 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_practice') }}</button>
         <div wire:loading>
@@ -82,4 +85,8 @@
             });
         }
     });
+
+    function removeMusic(){
+        music.value = music.defaultValue;
+    }
 </script>

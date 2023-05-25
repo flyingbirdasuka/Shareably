@@ -27,6 +27,7 @@ class PracticeEdit extends Component
     public $all_categories = [];
     public $add_categories = [];
     public $showDropdown = false;
+    public $original_music_removed = false;
 
     protected $rules = [
         'title' => 'required',
@@ -74,6 +75,21 @@ class PracticeEdit extends Component
             'title' => ['required', Rule::unique('practices')->ignore($value)],
         ]);
     }
+
+     // remove the original music when the remove button was clicked
+     protected $listeners = [
+        'removeMusic'
+    ];
+
+    public function removeMusic()
+    {
+        Storage::delete('/practice/'.$this->original_music_name); // delete the file
+        $this->practice->musics()->delete(); // delete the previous musicsheet in DB
+        $this->practice->musics()->detach(); // detach the relationship
+        $this->original_music_name = '';
+        $this->original_music = '';
+    }
+
     public function update_practice()
     {
 
