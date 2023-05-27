@@ -79,19 +79,11 @@
                                     @if(Auth::user()->is_admin)
 
                                         <!-- All Users -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('navigationsection.all_users') }}
-                                        </div>
                                         <x-dropdown-link href="{{ route('users-all') }}" :active="request()->is('users-all') ? 'active' : '' ">
                                             {{ __('navigationsection.all_users') }}
                                         </x-dropdown-link>
 
-                                        <div class="border-t border-gray-200"></div>
-
                                         <!-- All Teams -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('navigationsection.all_teams') }}
-                                        </div>
                                         <x-dropdown-link href="{{ route('teams-all') }}" :active="request()->is('teams-all') ? 'active' : '' ">
                                             {{ __('navigationsection.all_teams') }}
                                         </x-dropdown-link>
@@ -198,21 +190,6 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('categories') }}" :active="request()->is('categories*') ? 'active' : '' ">
-                {{ __('navigationsection.category') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('practices') }}" :active="request()->is('practices*') ? 'active' : '' ">
-                {{ __('navigationsection.practice') }}
-            </x-responsive-nav-link>
-
-            @if(Auth::user()->is_admin)
-                <x-responsive-nav-link href="{{ route('analytics-dashboard') }}" :active="request()->is('analytics-dashboard') ? 'active' : '' ">
-                    {{ __('navigationsection.analytics') }}
-                </x-responsive-nav-link>
-            @endif
-        </div>
-
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">
@@ -249,6 +226,33 @@
                         {{ __('navigationsection.log_out') }}
                     </x-responsive-nav-link>
                 </form>
+                <!-- Pages -->
+                <div class="border-t border-gray-200"></div>
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('navigationsection.pages') }}
+                    </div>
+                    <x-responsive-nav-link href="{{ route('categories') }}" :active="request()->is('categories*') ? 'active' : '' ">
+                        {{ __('navigationsection.category') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('practices') }}" :active="request()->is('practices*') ? 'active' : '' ">
+                        {{ __('navigationsection.practice') }}
+                    </x-responsive-nav-link>
+
+                    @if(Auth::user()->is_admin)
+                        <x-responsive-nav-link href="{{ route('analytics-dashboard') }}" :active="request()->is('analytics-dashboard') ? 'active' : '' ">
+                            {{ __('navigationsection.analytics') }}
+                        </x-responsive-nav-link>
+                        <!-- All Users -->
+                        <x-responsive-nav-link href="{{ route('users-all') }}" :active="request()->is('users-all') ? 'active' : '' ">
+                            {{ __('navigationsection.all_users') }}
+                        </x-responsive-nav-link>
+
+                        <!-- All Teams -->
+                        <x-responsive-nav-link href="{{ route('teams-all') }}" :active="request()->is('teams-all') ? 'active' : '' ">
+                            {{ __('navigationsection.all_teams') }}
+                        </x-responsive-nav-link>
+                    @endif
+
                 <!-- Language -->
                 <div class="border-t border-gray-200"></div>
                     <div class="block px-4 py-2 text-xs text-gray-400">
@@ -263,27 +267,6 @@
                     <x-responsive-nav-link href="/language/nl" :active="Session::get('locale') == 'nl' && 'active' ">
                     {{ __('navigationsection.dutch') }}
                     </x-responsive-nav-link>
-                @if(Auth::user()->is_admin)
-                    <!-- All Users -->
-                    <div class="border-t border-gray-200"></div>
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('navigationsection.all_users') }}
-                    </div>
-
-                    <x-responsive-nav-link href="{{ route('users-all') }}" :active="request()->is('users-all') ? 'active' : '' ">
-                        {{ __('navigationsection.all_users') }}
-                    </x-responsive-nav-link>
-
-                    <!-- All Teams -->
-                    <div class="border-t border-gray-200"></div>
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('navigationsection.all_teams') }}
-                    </div>
-
-                    <x-responsive-nav-link href="{{ route('teams-all') }}" :active="request()->is('teams-all') ? 'active' : '' ">
-                        {{ __('navigationsection.all_teams') }}
-                    </x-responsive-nav-link>
-                @endif
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
