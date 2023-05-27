@@ -26,8 +26,8 @@
             @endif
         </table>
         @if($video_id)
-            <div class="embed-container mb-4">
-                <iframe class="mt-6" src="{{$video_id}}" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="embed-container mb-4 ">
+                <iframe class="mt-6" src="{{$video_id}}" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="height:100vh; width:100%; overflow:hidden;"></iframe>
             </div>
         @endif
         @if($music)
