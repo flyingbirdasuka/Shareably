@@ -35,6 +35,6 @@
         @endif
     </div>
     <div class="container flex justify-center h-screen w-full mx-2 lg:flex-end lg:w-1/2 lg:h-screen mb-4">
-        <iframe src="{{ $pdf }}#view=Fit" style="height:100vh; width:100%;" ></iframe>
+        <iframe src="{{ $pdf }}#view=Fit" style="height:100vh; width:80%;" ></iframe>
     </div>
 </div>
