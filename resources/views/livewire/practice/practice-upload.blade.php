@@ -5,7 +5,7 @@
 </x-slot>
 
 <form wire:submit.prevent="add" class="flex flex-col lg:flex-row px-4 mb-4">
-    <div class="flex flex-start w-full lg:w-1/2 flex-col lg:mb-6">
+    <div class="flex flex-start flex-col w-full lg:w-1/2 lg:mb-6">
         <div>
             @if (session()->has('message'))
                 <div class="alert alert-success">
@@ -71,7 +71,9 @@
         </div>
     </div>
     @if($file)
-        <iframe class="flex flex-end mb-px ml-8" src="{{ $file->temporaryUrl() }}#view=Fit" height="600" width="90%"></iframe>
+        <div class="container flex flex-col justify-center items-center h-screen w-full mx-2 lg:w-1/2 lg:h-screen mb-4">
+            <iframe class="flex mb-px ml-8" src="{{ $file->temporaryUrl() }}#view=Fit" style="height:100vh; width:90%;"></iframe>
+        </div>
     @else
         <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.preview') }}</p>
     @endif

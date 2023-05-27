@@ -27,14 +27,14 @@
         </table>
         @if($video_id)
             <div class="embed-container mb-4 ">
-                <iframe class="mt-6" src="{{$video_id}}" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="height:100vh; width:100%; overflow:hidden;"></iframe>
+                <iframe class="mt-6" src="{{$video_id}}" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="height:90%; width:100%; overflow:hidden;"></iframe>
             </div>
         @endif
         @if($music)
             <audio controls controlslist="nodownload" src="{{$music}}"></audio>
         @endif
     </div>
-    <div class="container flex justify-center h-screen w-full mx-2 lg:flex-end lg:w-1/2 lg:h-screen mb-4">
-        <iframe src="{{ $pdf }}#view=Fit" style="height:100vh; width:80%;" ></iframe>
+    <div class="container flex justify-center h-screen w-full mx-2 lg:w-1/2 lg:h-screen mb-4">
+        <iframe src="{{ $pdf }}#view=Fit" style="height:100vh; width:90%;" ></iframe>
     </div>
 </div>
