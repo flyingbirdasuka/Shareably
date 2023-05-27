@@ -15,6 +15,7 @@ return [
     'log_out' => 'Log Out',
     'manage_account' => 'Manage Account',
     'manage_team' => 'Manage Team',
+    'pages' => 'Pages',
     'practice' => 'Practice',
     'profile' => 'Profile',
     'switch_teams' => 'Switch Teams',
