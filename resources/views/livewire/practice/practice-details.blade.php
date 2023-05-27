@@ -7,7 +7,7 @@
         </div>
 </x-slot>
 <div class="flex flex-col lg:flex-row lg:mb-6">
-    <div class="flex flex-start flex-col w-full lg:w-1/2">
+    <div class="flex flex-start flex-col w-full mx-2 lg:w-1/2">
         <table>
             <tr>
                 <x-table-data><b>{{ __('categorypage.description') }}</b> : {!! html_entity_decode($practice->description) !!}</x-table-data>
@@ -34,7 +34,7 @@
             <audio controls controlslist="nodownload" src="{{$music}}"></audio>
         @endif
     </div>
-    <div class="container flex justify-center lg:flex-end mb-4">
-        <iframe src="{{ $pdf }}#view=Fit" height="600" width="90%"></iframe>
+    <div class="container flex justify-center h-screen w-full mx-2 lg:flex-end lg:w-1/2 lg:h-screen mb-4">
+        <iframe src="{{ $pdf }}#view=Fit" style="height:100vh; width:100%;" ></iframe>
     </div>
 </div>
