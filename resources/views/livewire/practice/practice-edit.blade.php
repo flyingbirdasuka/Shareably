@@ -73,14 +73,14 @@
         <button type="submit" class="w-1/3 bg-indigo-500 hover:bgindigo-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.update_practice') }}</button>
     </div>
     @if($new_file)
-        <div class="flex flex-col flex justify-center lg:flex-end">
-            <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.new_file') }} : </p>
-            <iframe class="flex flex-end mb-px ml-8" src="{{ $new_file->temporaryUrl() }}#view=Fit" height="100%" width="90%"></iframe>
+        <div class="container flex flex-col justify-center items-center h-screen w-full mx-2 lg:w-1/2 lg:h-screen mb-4">
+            <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.new_file') }} </p>
+            <iframe class="flex mb-px ml-8" src="{{ $new_file->temporaryUrl() }}#view=Fit" style="height:100vh; width:90%;"></iframe>
         </div>
     @else
-        <div class="flex flex-col justify-center lg:flex-end lg:items-center">
-            <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.current_file') }} : </p>
-            <iframe src="{{$original_file}}#view=Fit" height="600" width="90%"></iframe>
+        <div class="container flex flex-col justify-center items-center h-screen w-full mx-2 lg:w-1/2 lg:h-screen mb-4">
+            <p class="text-sm text-gray-700 font-medium mt-4">{{ __('practicepage.current_file') }} </p>
+            <iframe class="flex items-center mb-px ml-8"  src="{{$original_file}}#view=Fit" style="height:100vh; width:90%;"></iframe>
         </div>
     @endif
 </form>
