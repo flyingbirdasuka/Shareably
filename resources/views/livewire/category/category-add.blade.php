@@ -1,4 +1,4 @@
-<form wire:submit.prevent="add">
+<form class="items-center" wire:submit.prevent="add">
     <div>
         @if (session()->has('message'))
             <div class="alert alert-success">
