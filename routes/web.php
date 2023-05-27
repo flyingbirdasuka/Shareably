@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+
+// use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Livewire\Category\CategorySection;
 use App\Http\Livewire\Category\CategoryDetails;
 use App\Http\Livewire\Practice\PracticeSection;
@@ -13,6 +16,10 @@ use App\Http\Livewire\Teams\TeamsAll;
 use App\Http\Livewire\Users\UsersAll;
 use App\Http\Livewire\Users\UserLogin;
 use App\Http\Livewire\Users\UserLogout;
+
+use App\Http\Livewire\Users\GoogleLogin;
+
+
 use App\Http\Livewire\UserSettings\UserSettingsSection;
 use App\Http\Livewire\Data;
 use Carbon\Carbon;
@@ -77,3 +84,7 @@ Route::middleware([
             Route::get('/analytics-dashboard',Data::class)->name('analytics-dashboard');
         });
 });
+
+// Google SSO login routes
+Route::get('auth/google', [GoogleLogin::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleLogin::class, 'handleGoogleCallback']);
