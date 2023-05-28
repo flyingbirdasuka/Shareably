@@ -1,11 +1,4 @@
 <form wire:submit.prevent="update_practice">
-    <div>
-        @if (session()->has('message'))
-            <div class="alert">
-                {{ session('message') }}
-            </div>
-        @endif
-    </div>
     <p class="font-semibold text-gray-800 p-6">{{ __('categorypage.add_practice') }}</p>
     <div class="flex flex-col px-6 py-5 bg-gray-50 overflow-scroll" style="height: 60vh;">
         <table class="text-sm text-left text-gray-500 border-gray-300">

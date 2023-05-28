@@ -109,9 +109,6 @@ class PracticeUpload extends Component
             $unsubscribe = url("/email-setting/{$user['id']}");
             Mail::to($user['email'])->send(new NewPractice($practice, $url, $name, $unsubscribe));
         }
-
-
-        session()->flash('message', 'Practice successfully added.');
         return redirect()->to('/practices');
     }
 

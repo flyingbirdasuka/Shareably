@@ -27,7 +27,6 @@ class CategoryAdd extends ModalComponent
             'title' => $this->title,
             'description' => $this->description,
         ]);
-        session()->flash('message', 'Category successfully added.');
         $this->closeModal();
         return redirect()->to('/categories');
     }
