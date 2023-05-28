@@ -143,8 +143,6 @@ class PracticeEdit extends Component
         foreach ($this->add_categories as $category_id){
             $this->practice->categories()->attach($category_id);
         }
-        
-        session()->flash('message', 'Practice successfully added.');
         return redirect()->to('/practices');
     }
     public function render()

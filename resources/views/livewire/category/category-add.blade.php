@@ -1,11 +1,4 @@
 <form class="items-center" wire:submit.prevent="add">
-    <div>
-        @if (session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
-    </div>
     <p class="font-semibold text-gray-800 p-6">{{ __('categorypage.add_category') }}</p>
     <div class="flex flex-col px-6 py-5 bg-gray-50">
         <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
