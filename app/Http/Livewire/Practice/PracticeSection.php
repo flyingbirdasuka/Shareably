@@ -95,6 +95,18 @@ class PracticeSection extends Component
             "updated_at" => Carbon::now(),
         ]);
 
+        // SQL debugging code - dont remove yet
+        //DB::enableQueryLog();
+        
+        // $p2 = Practice::join('favorites', 'practices.id', '=', 'favorites.practice_id')
+        //         ->where('practices.title', 'like', '%'.$this->search.'%')
+        //         ->where('user_id', '=' , $this->user->id)
+        //         ->select('practices.id','title', 'description', 'video_id', 'practices.created_at', 'practices.updated_at')
+        //         ->orderBy('title')
+        //         ->paginate(10);
+
+        // dd(DB::getQueryLog());
+
 
         // Admin practice list - list everything
         if ($this->user->is_admin) {
@@ -103,14 +115,16 @@ class PracticeSection extends Component
             ]);
         }
 
+
         // Return favorited practices only - for non admins
         return view('livewire.practice.practice-section', [
             'practices_list' => 
                 Practice::join('favorites', 'practices.id', '=', 'favorites.practice_id')
                 ->where('practices.title', 'like', '%'.$this->search.'%')
                 ->where('user_id', '=' , $this->user->id)
+                ->select('practices.id','title', 'description', 'video_id', 'practices.created_at', 'practices.updated_at')
                 ->orderBy('title')
-                ->paginate(10),
+                ->paginate(10)
         ]);
 
         return view('livewire.practice.practice-section');
