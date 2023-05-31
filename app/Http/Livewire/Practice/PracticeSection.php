@@ -36,6 +36,9 @@ class PracticeSection extends Component
         $this->user_practices = $this->user->practices()->pluck('practices.id')->all();
         */
 
+        // the favorited practices for non admin user
+        $this->user_practices = $this->user->practices()->pluck('practices.id')->all();
+
         // Capture the page view data for analytics
         $this->is_admin = $this->user->is_admin && true;
         if(!$this->is_admin){
