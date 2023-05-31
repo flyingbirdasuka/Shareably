@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 class CategoryComponent extends Component
 {
     public $category;
+    public $category_id;
     public $is_admin;
     public $description;
 
