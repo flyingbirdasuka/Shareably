@@ -1,6 +1,6 @@
 <x-table-row>
         <x-table-data><b><a href="categories/{{$category->id}}">{{ $category->title }}</a></b></x-table-data>
-        <x-table-data><a href="categories/{{$category->id}}">{!! $description !!}</a></x-table-data>
+        <x-table-data><a href="categories/{{$category_id}}">{!! $description !!}</a></x-table-data>
 
     @if($is_admin)
         <x-table-data>

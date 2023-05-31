@@ -103,12 +103,14 @@ class CategorySection extends Component
             ]);
         }
 
+
         // Normal user categories - only the ones they have been added to
         return view('livewire.category.category-section', [
             'categories_list' => 
                 Category::join('user_categories', 'categories.id', '=', 'user_categories.category_id')
                 ->where('categories.title', 'like', '%'.$this->search.'%')
                 ->where('user_id', '=' , $this->user->id)
+                ->select('categories.id','title', 'description', 'categories.created_at', 'categories.updated_at')
                 ->orderBy('title')
                 ->paginate(10),
         ]);
