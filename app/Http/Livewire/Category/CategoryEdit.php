@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Category;
 use Livewire\Component;
 use App\Models\Category;
 use LivewireUI\Modal\ModalComponent;
+use Illuminate\Validation\Rule;
 
 class CategoryEdit extends ModalComponent
 {
@@ -33,7 +34,7 @@ class CategoryEdit extends ModalComponent
     public function updatedTitle($value)
     {
         $this->validate([
-            'title' => ['required', Rule::unique('practices')->ignore($value)],
+            'title' => ['required', Rule::unique('categories')->ignore($value)],
         ]);
     }
 
