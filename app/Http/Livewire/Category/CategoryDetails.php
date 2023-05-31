@@ -20,7 +20,7 @@ class CategoryDetails extends Component
 
     public function mount($id)
     {
-        $this->category = Category::find($id)->first();
+        $this->category = Category::find($id);
         $this->practices = $this->category->practices()->orderBy('title')->get();
         $this->users = $this->category->users()->orderBy('name')->get();
         $this->is_admin = auth()->user()->is_admin;
