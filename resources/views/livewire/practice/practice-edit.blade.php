@@ -6,13 +6,6 @@
 
 <form wire:submit.prevent="update_practice" class="flex flex-col lg:flex-row px-4 mb-4">
     <div class="flex flex-start flex-col w-full lg:w-1/2 lg:mb-6">
-        <div>
-            @if (session()->has('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
-                </div>
-            @endif
-        </div>
         <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
             <x-input id="title" type="text" class="border-gray-300" wire:model="title" value="{{$title}}" />
             <x-input-error for="title" class="mt-2" />
