@@ -3,7 +3,7 @@
     <div class="flex flex-col px-6 py-5 bg-gray-50 overflow-scroll" style="height: 60vh;">
         <table class="text-sm text-left text-gray-500 border-gray-300">
             <tbody>
-                @foreach($all_practices as $practice)
+                @forelse($all_practices as $practice)
                     <tr class="bg-white border-b hover:bg-gray-50 ">
                         <td class="w-4 p-4">
                             <div class="flex items-center">
@@ -14,7 +14,9 @@
                             {{ $practice->title }}
                         </th>
                     </tr>
-                @endforeach
+                @empty
+                    {{ __('categorypage.no_practice_to_add') }}
+                @endforelse
             </tbody>
         </table>
     </div>
