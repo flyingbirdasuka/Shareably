@@ -89,12 +89,14 @@ class CategorySection extends Component
     {
 
         // Capture the search query for analytics
-        DB::table('search_words_data')->insert([
-            'user_id' => $this->user->id,
-            'search_word' => 'category_'.$this->search,
-            "created_at" =>  Carbon::now(),
-            "updated_at" => Carbon::now(),
-        ]);
+        if(!$this->is_admin && $this->search !=''){
+            DB::table('search_words_data')->insert([
+                'user_id' => $this->user->id,
+                'search_word' => 'category_'.$this->search,
+                "created_at" =>  Carbon::now(),
+                "updated_at" => Carbon::now(),
+            ]);
+        }
 
         // Admin category list - list everything
         if ($this->user->is_admin) {
