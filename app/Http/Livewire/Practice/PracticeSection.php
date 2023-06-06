@@ -44,7 +44,7 @@ class PracticeSection extends Component
         if(!$this->is_admin){
             DB::table('page_view_data')->insert([
                 'user_id' => $this->user->id,
-                'page_name' => 'category',
+                'page_name' => 'practice',
                 "created_at" =>  Carbon::now(),
                 "updated_at" => Carbon::now(),
             ]);
