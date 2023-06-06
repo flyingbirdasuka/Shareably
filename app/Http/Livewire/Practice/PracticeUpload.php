@@ -18,11 +18,13 @@ class PracticeUpload extends Component
     public $title;
     public $description;
     public $video_id;
+    public $video_type;
     public $file;
     public $music;
     public $all_categories = [];
     public $add_categories = [];
     public $showDropdown = false;
+
 
     public function mount()
     {
@@ -62,10 +64,16 @@ class PracticeUpload extends Component
             ],
         );
 
+        if($this->video_id != ''){
+            $this->validate([
+                'video_type' => 'required',
+            ]);
+        }
         $practice = Practice::create([
             'title' => $this->title,
             'description' => $this->description,
-            'video_id' => $this->video_id
+            'video_id' => $this->video_id,
+            'video_type' => $this->video_type,
         ]);
 
         // PDF file
