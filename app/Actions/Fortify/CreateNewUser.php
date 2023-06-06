@@ -37,11 +37,8 @@ class CreateNewUser implements CreatesNewUsers
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
-                // $this->createTeam($user);
-
                 // when the user click on the email invitation, it makes sure that the user will be added to the invited team even from registration form and delete the invite.
                 $pendingInvitations = TeamInvitation::where('email', '=', $user->email)->get();
-
                 if($pendingInvitations && count($pendingInvitations) > 0){
                     $this->addToDefaultTeam($user);
                     $this->addDefaultUserSetting($user);
@@ -54,6 +51,11 @@ class CreateNewUser implements CreatesNewUsers
                                 $invitation->email,
                                 $invitation->role
                             );
+                        }
+                        if($invitation->role == 'admin'){
+                            $user->update([
+                                'is_admin' => 1
+                            ]);
                         }
 
                         if(strlen($this->invited_teams)>0){
