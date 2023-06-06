@@ -18,6 +18,7 @@ class PracticeEdit extends Component
     public $title;
     public $description;
     public $video_id;
+    public $video_type;
     public $original_file;
     public $original_file_name;
     public $new_file;
@@ -45,6 +46,7 @@ class PracticeEdit extends Component
         $this->title = $this->practice->title;
         $this->description = $this->practice->description;
         $this->video_id = $this->practice->video_id;
+        $this->video_type = $this->practice->video_type;
         $this->original_file_name = $this->practice->musicsheets()->first()->filename;
         $this->original_file = asset('practice/' . $this->original_file_name);
         if($this->practice->musics()->first() != null) {
@@ -95,10 +97,16 @@ class PracticeEdit extends Component
 
         $this->validate();
 
+        if($this->video_id != ''){
+            $this->validate([
+                'video_type' => 'required',
+            ]);
+        }
         Practice::where('id', $this->practice->id)->update([
             'title' => $this->title,
             'description' => $this->description,
-            'video_id' => $this->video_id
+            'video_id' => $this->video_id,
+            'video_type' => $this->video_type
         ]);
 
         // where a new PDF is uploaded

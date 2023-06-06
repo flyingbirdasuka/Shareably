@@ -17,9 +17,22 @@
             </div>
 
         <x-label for="video_id" value="{{ __('Video ID') }}" class="my-4 mr-8 flex flex-col"/>
-            <x-input id="video_id" type="text" class="border-gray-300" wire:model.defer="video_id" />
+            <x-input id="video_id" type="text" class="border-gray-300" wire:model="video_id" />
             <x-input-error for="video_id" class="mt-2" />
-
+            @if($video_id)
+            <div class="col-span-6 sm:col-span-4">
+                <x-label for="video_type" value="video_type"/>
+                <label class="mx-1">
+                    <input type="radio" wire:model="video_type" value="1">
+                    google drive
+                </label>
+                <label class="mx-1">
+                    <input type="radio" wire:model="video_type" value="2">
+                    you tube
+                </label>
+                <x-input-error for="video_type" class="mt-2" />
+            </div>
+            @endif
             <div class="mt-4">
                 <button wire:click.prevent="$toggle('showDropdown')" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 my-6 rounded items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_category') }}</button>
 

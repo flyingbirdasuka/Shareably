@@ -20,7 +20,7 @@ class Practice extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title', 'description'
+        'title', 'description', 'video_id', 'video_type'
     ];
 
     /**
