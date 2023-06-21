@@ -87,6 +87,27 @@
 <script>
     tinymce.init({
         selector: '#description',
+        menubar: false,
+        toolbar: [
+            { name: 'styles', items: [ 'styles' ] },
+        ],
+        style_formats: [
+            { title: 'Headers', items: [
+                { title: 'Heading 2', block: 'h2' },
+                { title: 'Heading 3', block: 'h3' },
+                { title: 'Heading 4', block: 'h4' },
+                { title: 'Heading 5', block: 'h5' },
+                { title: 'Heading 6', block: 'h6' }
+            ]
+            },
+            { title: 'Inline', items: [
+                { title: 'Bold', block: 'b' },
+                { title: 'Italic', block: 'i' },
+                { title: 'Underline', block: 'u' },
+                { title: 'Strikethrough', block: 's' }
+            ]
+            },
+        ],
         setup: function (editor) {
             editor.on('change', function (e) {
                 @this.set('description', editor.getContent());
