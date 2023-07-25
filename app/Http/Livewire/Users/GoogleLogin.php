@@ -41,13 +41,17 @@ class GoogleLogin extends Auth
         try {
             //create a user using socialite driver google
             $user = Socialite::driver('google')->user();
+
             // if the user exits, use that user and login
-            $finduser = User::where('google_id', $user->id)->first();
+            $finduser = User::where('email', $user->email)->first();
+
             if($finduser){
-                //if the user exists, login and show dashboard
+                //if the user exists via email check, login and show dashboard
                 Auth::login($finduser);
                 return redirect('/dashboard');
-            }else{
+            }
+            /* -- Code was for new users who are creatd via SSO, this is no longer needed and has been commented out for now.
+            else {
                 //user is not yet created, so create first
                 $newUser = User::create([
                     'name' => $user->name,
@@ -75,6 +79,7 @@ class GoogleLogin extends Auth
                 // go to the dashboard
                 return redirect('/dashboard');
             }
+            */
             //catch exceptions
         } catch (Exception $e) {
             dd($e->getMessage());

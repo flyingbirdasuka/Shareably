@@ -18,7 +18,7 @@ use App\Http\Livewire\Users\UserLogin;
 use App\Http\Livewire\Users\UserLogout;
 
 use App\Http\Livewire\Users\GoogleLogin;
-
+// use App\Http\Controllers\GoogleController;
 
 use App\Http\Livewire\UserSettings\UserSettingsSection;
 use App\Http\Livewire\Data;
@@ -88,3 +88,9 @@ Route::middleware([
 // Google SSO login routes
 Route::get('auth/google', [GoogleLogin::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleLogin::class, 'handleGoogleCallback']);
+
+
+// Route::controller(GoogleController::class)->group(function(){
+//     Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+//     Route::get('auth/google/callback', 'handleGoogleCallback');
+// });
