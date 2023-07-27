@@ -41,7 +41,7 @@ class AddUser extends ModalComponent
                 // 2. if it is then add the user to the google drive video (id of the video and user email)
                 $user_email = User::find($user)->email;
 
-                $this->addToGoogleDrive($user_email, $practiceIds,'+7 days');
+                $this->addToGoogleDrive($user_email, $practiceIds, '+3 days');
 
             }
         }
@@ -73,16 +73,17 @@ class AddUser extends ModalComponent
         // Create the Drive service
         $driveService = new Drive($client);
 
-        // Set the expiration date (timestamp) for sharing the file
-        $expirationTimestamp = strtotime($expirationDate);
-
         // Set up the new permission settings
         $permission = new Drive\Permission([
             'type' => 'user',
             'role' => 'reader', // Choose the appropriate role (reader, writer, etc.)
             'emailAddress' => $email, // Replace with the email address of the user
-            'expirationTime' => date('c', $expirationTimestamp), // Set the expirationTime
         ]);
+
+        // If an expiration date is specified, set it
+        if ($expirationDate) {
+            $permission->setExpirationTime(date('c', strtotime($expirationDate)));
+        }
 
         // Send the request to update the file permission
         try {
