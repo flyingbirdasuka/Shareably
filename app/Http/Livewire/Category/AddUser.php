@@ -32,16 +32,16 @@ class AddUser extends ModalComponent
         foreach($this->users as $user){
             if(!in_array(intval($user), $original_users)){
                 // attatch the user to the category
-                // Category::where('id',$this->category_id)->first()->users()->attach($user);
+                Category::where('id',$this->category_id)->first()->users()->attach($user);
 
                 // loop through the related video's and add the permission to the google drive
                 // 1. get all the practices which is realated to this category and loop through the practices and check if the related video is from google drive (video_type is 1)
-                $practices = Category::where('id',$this->category_id)->first()->practices()->get()->where('video_type',2);
+                $practiceIds = Category::where('id',$this->category_id)->first()->practices()->get()->where('video_type',2)->pluck('video_id')->toArray();
 
                 // 2. if it is then add the user to the google drive video (id of the video and user email)
                 $user_email = User::find($user)->email;
 
-                $this->addToGoogleDrive($user_email);
+                $this->addToGoogleDrive($user_email, $practiceIds,'+7 days');
 
             }
         }
@@ -56,66 +56,44 @@ class AddUser extends ModalComponent
         return redirect('categories/'.$this->category_id);
     }
 
-    public function addToGoogleDrive($email){
-        // $fs = Storage::disk('google');
-
-        // $contents = $fs->listContents('Others', true /* is_recursive */);
-        // $ids = ['1pTz-_-WPMnGrmAKQbAug326xSgu9b0v6ylXDgl8cbbs'];
-        // foreach ($contents as $item) {
-        //     // check if the file id is in the practices id of the category
-        //     if(in_array($item['extraMetadata']['id'], $ids )){
-        //         dd($item['extraMetadata']['id'], $item);
-        //     }
-        //     // dd($item->path(), $item['type'], $item['extraMetadata']['id'] );
-        // }
-
-        // dd($contents);
-
-        // Load Composer's autoloader
-        // require 'vendor/autoload.php';
+    public function addToGoogleDrive($email, $practiceIds, $expirationDate = null){
 
         // Set up the Google API client
         $client = new Client();
         $client->setAuthConfig(config_path('googleaccess.json'));
         $client->setAccessType('offline'); // This ensures we get a refresh token for long-term access
         $client->setApprovalPrompt('force');
-        $client->refreshToken('1//04TdkVOdO6XhkCgYIARAAGAQSNwF-L9IrsQga6sKpUryF6Reorg9pSTSGSASCfy_OJzCdizz7i-KyYvCCBFgawdvgfDrFfYyCIfA');
-        $client->setAccessToken('ya29.a0AbVbY6NhtJs350crwQITsQLs4xu2DDtwcntWhXJuJ2czm-nrivUyRmZTymoPdedDv9ZcpYjy5Gnhbz0OQt8jYFVQEG50bj__X3ZUKahmfyHh-Xqq8yzyAtkcQapdieqoovppwRX7Bg1T4kOziEZ4VWVapUmmhhIkaCgYKAYQSARISFQFWKvPl2dkCw2PJmZ-A6ODizv63XQ0167');
+        $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
 
         // If the access token has expired, refresh it
         if ($client->isAccessTokenExpired()) {
-            $client->fetchAccessTokenWithRefreshToken('1//04TdkVOdO6XhkCgYIARAAGAQSNwF-L9IrsQga6sKpUryF6Reorg9pSTSGSASCfy_OJzCdizz7i-KyYvCCBFgawdvgfDrFfYyCIfA');
-            file_put_contents('ya29.a0AbVbY6NhtJs350crwQITsQLs4xu2DDtwcntWhXJuJ2czm-nrivUyRmZTymoPdedDv9ZcpYjy5Gnhbz0OQt8jYFVQEG50bj__X3ZUKahmfyHh-Xqq8yzyAtkcQapdieqoovppwRX7Bg1T4kOziEZ4VWVapUmmhhIkaCgYKAYQSARISFQFWKvPl2dkCw2PJmZ-A6ODizv63XQ0167', json_encode($client->getAccessToken()));
+            $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
         }
 
         // Create the Drive service
         $driveService = new Drive($client);
 
-        // Replace 'your_file_id' with the actual ID of the file for which you want to change permissions
-        $fileId = '1pTz-_-WPMnGrmAKQbAug326xSgu9b0v6ylXDgl8cbbs';
+        // Set the expiration date (timestamp) for sharing the file
+        $expirationTimestamp = strtotime($expirationDate);
 
         // Set up the new permission settings
         $permission = new Drive\Permission([
             'type' => 'user',
             'role' => 'reader', // Choose the appropriate role (reader, writer, etc.)
-            'emailAddress' => 'tomshaddock@googlemail.com', // Replace with the email address of the user
+            'emailAddress' => $email, // Replace with the email address of the user
+            'expirationTime' => date('c', $expirationTimestamp), // Set the expirationTime
         ]);
 
-        
         // Send the request to update the file permission
         try {
-            $driveService->permissions->create($fileId, $permission);
-            dd('worked', $permission);
+            foreach ($practiceIds as $id) {                 
+                $driveService->permissions->create($id, $permission);
+            }
             // Permission changed successfully
+            // dd('worked', $permission);
         } catch (\Exception $e) {
-            dd('not worked', $permission);
             // An error occurred
-            // Handle the error as needed
-        }
-        foreach($practices as $practice){
-            $video_id = $practice->video_id;
-            // attach to the google drive via a post request
-
+            // dd('not worked', $permission, $e);
         }
     }
 
