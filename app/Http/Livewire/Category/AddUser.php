@@ -5,9 +5,11 @@ namespace App\Http\Livewire\Category;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\UserCategories;
 use LivewireUI\Modal\ModalComponent;
 use Google\Client;
 use Google\Service\Drive;
+use DB;
 
 class AddUser extends ModalComponent
 {
@@ -29,19 +31,17 @@ class AddUser extends ModalComponent
         $original_users = Category::find($this->category_id)->users()->get()->pluck('id')->toArray();
 
         // if the user is added new then attatch to the category
-        foreach($this->users as $user){
-            if(!in_array(intval($user), $original_users)){
+        foreach($this->users as $user_id){
+            if(!in_array(intval($user_id), $original_users)){
                 // attatch the user to the category
-                Category::where('id',$this->category_id)->first()->users()->attach($user);
+                Category::where('id',$this->category_id)->first()->users()->attach($user_id);
 
                 // loop through the related video's and add the permission to the google drive
                 // 1. get all the practices which is realated to this category and loop through the practices and check if the related video is from google drive (video_type is 1)
                 $practiceIds = Category::where('id',$this->category_id)->first()->practices()->get()->where('video_type',2)->pluck('video_id')->toArray();
 
                 // 2. if it is then add the user to the google drive video (id of the video and user email)
-                $user_email = User::find($user)->email;
-
-                $this->addToGoogleDrive($user_email, $practiceIds, '+3 days');
+                $this->addToGoogleDrive($user_id, $practiceIds, '+3 days');
 
             }
         }
@@ -56,7 +56,7 @@ class AddUser extends ModalComponent
         return redirect('categories/'.$this->category_id);
     }
 
-    public function addToGoogleDrive($email, $practiceIds, $expirationDate = null){
+    public function addToGoogleDrive($user_id, $practiceIds, $expirationDate = null){
 
         // Set up the Google API client
         $client = new Client();
@@ -77,12 +77,15 @@ class AddUser extends ModalComponent
         $permission = new Drive\Permission([
             'type' => 'user',
             'role' => 'reader', // Choose the appropriate role (reader, writer, etc.)
-            'emailAddress' => $email, // Replace with the email address of the user
+            'emailAddress' => User::find($user_id)->email, // Replace with the email address of the user
         ]);
 
         // If an expiration date is specified, set it
         if ($expirationDate) {
             $permission->setExpirationTime(date('c', strtotime($expirationDate)));
+            // save to the database
+            // dd($user_id, DB::table('user_categories')->where('user_id', $user_id)->first());
+            DB::table('user_categories')->where('user_id', $user_id)->update(['expiration_date' => date('c', strtotime($expirationDate))]);
         }
 
         // Send the request to update the file permission
@@ -96,6 +99,7 @@ class AddUser extends ModalComponent
             // An error occurred
             // dd('not worked', $permission, $e);
         }
+
     }
 
     public function render()
