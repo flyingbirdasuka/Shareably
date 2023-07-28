@@ -5,7 +5,11 @@ namespace App\Http\Livewire\Practice;
 use Storage;
 use Livewire\Component;
 use App\Models\Practice;
+use App\Models\User;
 use LivewireUI\Modal\ModalComponent;
+use Google\Client;
+use Google\Service\Drive;
+use DB;
 
 class PracticeRemove extends ModalComponent
 {
@@ -43,15 +47,67 @@ class PracticeRemove extends ModalComponent
             $practice->first()->categories()->detach($category);
         }
 
-         // remove the user_practice (favorite) relationship (many)
-         $users = $practice->first()->users()->get();
-         foreach($users as $user){
-             $practice->first()->users()->detach($user);
-         }
+        // remove the google drive permission
+        if($practice->first()->video_type == 1){
+            $driveService = $this->googleSetup();
+            // get the users from the google drive permission and when the user is not the admin then remove them 
+            $non_admin_users = User::where('is_admin', 0)->get();
+            foreach($non_admin_users as $user){
+                $this->removeFromGoogleDrive($user->id, $practice->first()->video_id);
+            }
+        }
+        // remove the user_practice (favorite) relationship (many)
+        $favorited_users = $practice->first()->users()->get();
+        foreach($favorited_users as $user){
+            $practice->first()->users()->detach($user);
+        }
 
         // remove the practice
         $practice->delete();
         return redirect()->to('/practices');
+    }
+
+    public function googleSetup(){
+        // Set up the Google API client
+        $client = new Client();
+        $client->setAuthConfig(config_path('googleaccess.json'));
+        $client->setAccessType('offline'); // This ensures we get a refresh token for long-term access
+        $client->setApprovalPrompt('force');
+        $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
+
+        // If the access token has expired, refresh it
+        if ($client->isAccessTokenExpired()) {
+            $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
+        }
+
+        // Create the Drive service
+        $driveService = new Drive($client);
+        return $driveService;
+    }
+
+    public function removeFromGoogleDrive($user_id, $practiceId){
+        $driveService = $this->googleSetup();
+        $parameters = array();
+        $parameters['fields'] = "permissions(*)";
+        // get the list of the permissions of this file
+        $permissions = $driveService->permissions->listPermissions($practiceId, $parameters);
+        $emailAddress = User::find($user_id)->email;
+        // Get the permission ID for the specific user (if it exists)
+        $permissionId = $this->getPermissionId($permissions, $emailAddress);
+        // remove the user from the google drive file
+        if($permissionId){
+            $driveService->permissions->delete($practiceId, $permissionId);
+        }
+    }
+
+    function getPermissionId($permissions, $emailAddress)
+    {
+        foreach ($permissions as $permission) {
+            if ($permission->emailAddress === $emailAddress) {
+                return $permission->id;
+            }
+        }
+        return null;
     }
 
     public function render()

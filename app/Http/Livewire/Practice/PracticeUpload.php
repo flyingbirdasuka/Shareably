@@ -134,10 +134,10 @@ class PracticeUpload extends Component
                     try {
                         $driveService->permissions->create($this->video_id, $permission);
                         // Permission changed successfully
-                        dd('worked', $permission);
+                        // dd('worked', $permission);
                     } catch (\Exception $e) {
                         // An error occurred
-                        dd('not worked', $permission, $e);
+                        // dd('not worked', $permission, $e);
                     }
                 }
             }
