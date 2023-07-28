@@ -5,6 +5,7 @@ return [
     'add_user' => 'Add User',
     'admin' => 'admin',
     'close' => 'Close',
+    'name' => 'Name',
     'non_admin' => 'non admin',
     'no_user' => 'No User',
     'remove' => 'Remove',

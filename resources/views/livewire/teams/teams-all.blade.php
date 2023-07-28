@@ -9,13 +9,13 @@
             <div class="flex absolute inset-y-0 items-center pl-3">
                 <i class="fa-solid fa-magnifying-glass" style="color:gray;"></i>
             </div>
-            <input wire:model.delay.500ms="search" type="search" class="p-4 pl-10 w-full text-sm bg-gray-50 rounded-lg  border-gray-300 focus:border-indigo-500" placeholder="Search">
+            <input wire:model.delay.500ms="search" type="search" class="p-4 pl-10 w-full text-sm bg-gray-50 rounded-lg  border-gray-300 focus:border-indigo-500" placeholder="{{ __('teamspage.search') }}">
         </div>
     </div>
 <x-table>
     <x-table-head>
-        <x-table-heading>Name</x-table-heading>
-        <x-table-heading>Users</x-table-heading>
+        <x-table-heading>{{ __('teamspage.name') }}</x-table-heading>
+        <x-table-heading>{{ __('teamspage.users') }}</x-table-heading>
     </x-table-head>
     <x-table-body>
         @foreach($teams as $team)

@@ -9,17 +9,17 @@
 <div class="mt-4">
     @if($is_admin)
         <div class="flex my-4 mx-4 text-sm">
-            <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class=" bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">Add Practice</button>
+            <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class=" bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_practice') }}</button>
             <button wire:click.prevent="$emit('openModal', 'category.add-user', {{ json_encode(['category_id' => $category->id ]) }})" class="mx-4 ml-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_user') }}</button>
             <button wire:click.prevent="$emit('openModal', 'category.show-users', {{ json_encode(['category_id' => $category->id ]) }})" class=" bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.show_users') }}</button>
         </div>
     @endif
     <x-table>
         <x-table-head>
-            <x-table-heading>Title</x-table-heading>
-            <x-table-heading>Description</x-table-heading>
+            <x-table-heading>{{ __('categorypage.title') }}</x-table-heading>
+            <x-table-heading>{{ __('categorypage.description') }}</x-table-heading>
             @if($is_admin)
-                <x-table-heading>Edit</x-table-heading>
+                <x-table-heading>{{ __('categorypage.edit') }}</x-table-heading>
             @else
                 <x-table-heading></x-table-heading>
             @endif

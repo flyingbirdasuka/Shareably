@@ -1,11 +1,11 @@
 <form class="items-center" wire:submit.prevent="add">
     <p class="font-semibold text-gray-800 p-6">{{ __('categorypage.add_category') }}</p>
     <div class="flex flex-col px-6 py-5 bg-gray-50">
-        <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
+        <x-label for="title" value="{{ __('categorypage.title') }}" class="my-4 mr-8 flex flex-col"/>
             <x-input id="title" type="text" class="w-3/4" wire:model.defer="title" />
             <x-input-error for="title" class="mt-2" />
 
-        <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
+        <x-label for="description" value="{{ __('categorypage.description') }}" class="my-4 mr-8 flex flex-col"/>
         <div wire:ignore>
             <textarea id="description" class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.defer="description">
             </textarea>
