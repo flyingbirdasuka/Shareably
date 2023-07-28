@@ -85,7 +85,7 @@ class AddUser extends ModalComponent
         $permission = new Drive\Permission([
             'type' => 'user',
             'role' => 'reader', // Choose the appropriate role (reader, writer, etc.)
-            'emailAddress' => User::find($user_id)->email, // Replace with the email address of the user
+            'emailAddress' => User::find($user_id)->email, 
         ]);
 
         // If an expiration date is specified, set it
