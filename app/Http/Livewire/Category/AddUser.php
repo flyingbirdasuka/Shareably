@@ -30,18 +30,18 @@ class AddUser extends ModalComponent
     {
         $original_users = Category::find($this->category_id)->users()->get()->pluck('id')->toArray();
 
+        // get all the practices which is realated to this category and loop through the practices and check if the related video is from google drive (video_type is 1)
+        $practiceIds = Category::where('id',$this->category_id)->first()->practices()->get()->where('video_type',1)->pluck('video_id')->toArray();
+
         // if the user is added new then attatch to the category
         foreach($this->users as $user_id){
             if(!in_array(intval($user_id), $original_users)){
                 // attatch the user to the category
                 Category::where('id',$this->category_id)->first()->users()->attach($user_id);
 
-                // loop through the related video's and add the permission to the google drive
-                // 1. get all the practices which is realated to this category and loop through the practices and check if the related video is from google drive (video_type is 1)
-                $practiceIds = Category::where('id',$this->category_id)->first()->practices()->get()->where('video_type',2)->pluck('video_id')->toArray();
-
-                // 2. if it is then add the user to the google drive video (id of the video and user email)
+                // add the user to the google drive video (id of the video and user email)
                 $this->addToGoogleDrive($user_id, $practiceIds, '+3 days');
+                // $this->addToGoogleDrive($user_id, $practiceIds);
 
             }
         }
@@ -49,6 +49,9 @@ class AddUser extends ModalComponent
         // if the user was removed then detach from the category
         foreach($original_users as $original_user){
             if(!in_array(intval($original_user), $this->users )){
+                // remove the user to the google drive video
+                $this->removeFromGoogleDrive($original_user, $practiceIds);
+
                 Category::find($this->category_id)->users()->detach($original_user);
             }
         }
@@ -56,8 +59,7 @@ class AddUser extends ModalComponent
         return redirect('categories/'.$this->category_id);
     }
 
-    public function addToGoogleDrive($user_id, $practiceIds, $expirationDate = null){
-
+    public function googleSetup(){
         // Set up the Google API client
         $client = new Client();
         $client->setAuthConfig(config_path('googleaccess.json'));
@@ -72,6 +74,12 @@ class AddUser extends ModalComponent
 
         // Create the Drive service
         $driveService = new Drive($client);
+        return $driveService;
+    }
+
+    public function addToGoogleDrive($user_id, $practiceIds, $expirationDate = null){
+
+        $driveService = $this->googleSetup();
 
         // Set up the new permission settings
         $permission = new Drive\Permission([
@@ -84,7 +92,6 @@ class AddUser extends ModalComponent
         if ($expirationDate) {
             $permission->setExpirationTime(date('c', strtotime($expirationDate)));
             // save to the database
-            // dd($user_id, DB::table('user_categories')->where('user_id', $user_id)->first());
             DB::table('user_categories')->where('user_id', $user_id)->update(['expiration_date' => date('c', strtotime($expirationDate))]);
         }
 
@@ -100,6 +107,32 @@ class AddUser extends ModalComponent
             // dd('not worked', $permission, $e);
         }
 
+    }
+
+    public function removeFromGoogleDrive($user_id, $practiceIds){
+        $driveService = $this->googleSetup();
+
+        foreach ($practiceIds as $practiceId) {
+            $parameters = array();
+            $parameters['fields'] = "permissions(*)";
+            // get the list of the permissions of this file
+            $permissions = $driveService->permissions->listPermissions($practiceId, $parameters);
+            $emailAddress = User::find($user_id)->email;
+            // Get the permission ID for the specific user (if it exists)
+            $permissionId = $this->getPermissionId($permissions, $emailAddress);
+            // remove the user from the google drive file
+            $driveService->permissions->delete($practiceId, $permissionId);
+        }
+    }
+
+    function getPermissionId($permissions, $emailAddress)
+    {
+        foreach ($permissions as $permission) {
+            if ($permission->emailAddress === $emailAddress) {
+                return $permission->id;
+            }
+        }
+        return null;
     }
 
     public function render()
