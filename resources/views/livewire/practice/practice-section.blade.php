@@ -9,7 +9,7 @@
             <div class="flex absolute inset-y-0 items-center pl-3">
                 <i class="fa-solid fa-magnifying-glass" style="color:gray;"></i>
             </div>
-            <input wire:model.delay.1000ms="search" type="search" class="p-4 pl-10 w-full text-sm bg-gray-50 rounded-lg  border-gray-300 focus:border-indigo-500" placeholder="Search">
+            <input wire:model.delay.1000ms="search" type="search" class="p-4 pl-10 w-full text-sm bg-gray-50 rounded-lg  border-gray-300 focus:border-indigo-500" placeholder="{{ __('practicepage.search') }}">
         </div>
         @if($categories)
             @if($is_admin)
@@ -19,10 +19,10 @@
     </div>
     <x-table>
         <x-table-head>
-            <x-table-heading>Title</x-table-heading>
-            <x-table-heading>Description</x-table-heading>
+            <x-table-heading>{{ __('practicepage.title') }}</x-table-heading>
+            <x-table-heading>{{ __('practicepage.description') }}</x-table-heading>
             @if($is_admin)
-                <x-table-heading>Edit</x-table-heading>
+                <x-table-heading>{{ __('practicepage.edit') }}</x-table-heading>
             @else
                 <x-table-heading></x-table-heading>
             @endif

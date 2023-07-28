@@ -9,7 +9,7 @@
 </div>
 <div class="flex flex-col pb-4 mb-6">
   <!-- all  -->
-  <h4 class="text-center mb-6 font-bold">ALL</h4>
+  <h4 class="text-center mb-6 font-bold">{{ __('datapage.all') }}</h4>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
     <!-- practice -->
     <div class="flex rounded-xl items-center p-4 shadow-lg">
@@ -18,9 +18,9 @@
       </div>
 
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most favorited practice </p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }} </p>
         <h2 class="font-semibold">{{ $practice_most_favorited }}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $practice_most_favorited_count }} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $practice_most_favorited_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
     <!-- session -->
@@ -30,10 +30,10 @@
       </div>
 
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most used user</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
         <h2 class="font-semibold">{{ $most_used_session_user}} <br>
-        {{  $most_used_session_time  }} minutes</h2>
-        <p class="mt-2 text-sm text-gray-500">average: {{ $average_settion_time}} minutes</p>
+        {{  $most_used_session_time  }} {{ __('datapage.minutes') }}</h2>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: {{ $average_settion_time}} {{ __('datapage.minutes') }}</p>
       </div>
     </div>
     <!-- page -->
@@ -43,9 +43,9 @@
       </div>
 
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most viewed page</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
         <h2 class="font-semibold">{{ $most_viewed_page }} </h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $most_viewd_page_count }} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $most_viewd_page_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
     <!-- language -->
@@ -55,14 +55,14 @@
       </div>
 
       <div class="ml-4">
-      <p class="mt-2 text-sm text-gray-500">most used language</p>
+      <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
         <h2 class="font-semibold">{{ $most_used_language }}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_count }} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
   </div>
   <!-- this week -->
-  <h4 class="text-center m-8 font-bold">This week</h4>
+  <h4 class="text-center m-8 font-bold">{{ __('datapage.this_week') }}</h4>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
     <!-- practice -->
     <div class="flex items-center  rounded-xl p-4 shadow-lg">
@@ -71,9 +71,9 @@
       </div>
 
       <div class="ml-4">
-      <p class="mt-2 text-sm text-gray-500">most favorited practice</p>
+      <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
         <h2 class="font-semibold">{{  $practice_most_favorited_this_week }}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $practice_most_favorited_this_week_count }} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $practice_most_favorited_this_week_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
     <!-- session -->
@@ -82,10 +82,10 @@
         <i class="fa-regular fa-user"></i>
       </div>
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most used user</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_user') }}</p>
         <h2 class="font-semibold">{{ $most_used_session_user_this_week}} <br>
-        {{ $most_used_session_time_this_week}} minutes</h2>
-        <p class="mt-2 text-sm text-gray-500">average: {{ $average_settion_time_this_week }} minutes</p>
+        {{ $most_used_session_time_this_week}} {{ __('datapage.minutes') }}</h2>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: {{ $average_settion_time_this_week }} {{ __('datapage.minutes') }}</p>
       </div>
     </div>
     <!-- page -->
@@ -94,9 +94,9 @@
         <i class="fa-regular fa-file-lines"></i>
       </div>
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most viewed page</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
         <h2 class="font-semibold">{{ $most_viewed_page_this_week}}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $most_viewed_page_this_week_count}} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $most_viewed_page_this_week_count}} {{ __('datapage.times') }}</p>
       </div>
     </div>
     <!-- language -->
@@ -105,14 +105,14 @@
       <img src="{{ asset('general/language.png')}}" width="60px" />
       </div>
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most used language</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
         <h2 class="font-semibold">{{ $most_used_language_this_week}}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_this_week_count}} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_this_week_count}} {{ __('datapage.times') }}</p>
       </div>
     </div>
   </div>
   <!-- this month -->
-  <h4 class="text-center m-8 font-bold">This Month</h4>
+  <h4 class="text-center m-8 font-bold">{{ __('datapage.this_month') }}</h4>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
     <!-- practice -->
     <div class="flex items-center rounded-xl p-4 shadow-lg">
@@ -120,9 +120,9 @@
         <i class="fa-regular fa-heart"></i>
       </div>
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most favorited practice</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
         <h2 class="font-semibold">{{ $practice_most_favorited_this_month }}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{  $practice_most_favorited_this_month_count }} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{  $practice_most_favorited_this_month_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
     <!-- session -->
@@ -132,10 +132,10 @@
       </div>
 
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most used user</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_user') }}</p>
         <h2 class="font-semibold">{{ $most_used_session_user_this_month}}<br>
-        {{ $most_used_session_time_this_month}} minutes</h2>
-        <p class="mt-2 text-sm text-gray-500">average: {{ $average_settion_time_this_month }} minutes</p>
+        {{ $most_used_session_time_this_month}} {{ __('datapage.minutes') }}</h2>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: {{ $average_settion_time_this_month }} {{ __('datapage.minutes') }}</p>
       </div>
     </div>
     <!-- page -->
@@ -145,9 +145,9 @@
       </div>
 
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most viewed page</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
         <h2 class="font-semibold">{{ $most_viewed_page_this_month}}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $most_viewed_page_this_month_count }} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $most_viewed_page_this_month_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
     <!-- language -->
@@ -157,9 +157,9 @@
       </div>
 
       <div class="ml-4">
-        <p class="mt-2 text-sm text-gray-500">most used language</p>
+        <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
         <h2 class="font-semibold">{{ $most_used_language_this_month}}</h2>
-        <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_this_month_count}} times</p>
+        <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_this_month_count}} {{ __('datapage.times') }}</p>
       </div>
     </div>
   </div>
@@ -174,9 +174,9 @@
         </div>
 
         <div class="ml-4">
-          <p class="mt-2 text-sm text-gray-500">most favorited practice</p>
+          <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
           <h2 class="font-semibold"><p class="range_data"></p></h2>
-          <p class="mt-2 text-sm text-gray-500"><span class="range_data"></span> times</p>
+          <p class="mt-2 text-sm text-gray-500"><span class="range_data"></span> {{ __('datapage.times') }}</p>
         </div>
       </div>
       <!-- session -->
@@ -186,10 +186,10 @@
         </div>
 
         <div class="ml-4">
-          <p class="mt-2 text-sm text-gray-500">most used user</p>
+          <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_user') }}</p>
           <h2 class="font-semibold"><span class="range_data"></span><br>
-          <span class="range_data"></span>  minutes</h2>
-          <p class="mt-2 text-sm text-gray-500">average: <span class="range_data"></span>  minutes</p>
+          <span class="range_data"></span>  {{ __('datapage.minutes') }}</h2>
+          <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: <span class="range_data"></span>  {{ __('datapage.minutes') }}</p>
         </div>
       </div>
       <!-- page -->
@@ -198,9 +198,9 @@
           <i class="fa-regular fa-file-lines"></i>
         </div>
         <div class="ml-4">
-          <p class="mt-2 text-sm text-gray-500">most viewed page</p>
+          <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
           <h2 class="font-semibold"><span class="range_data"></span></h2>
-          <p class="mt-2 text-sm text-gray-500"><span class="range_data"></span>  times </p>
+          <p class="mt-2 text-sm text-gray-500"><span class="range_data"></span>  {{ __('datapage.times') }} </p>
         </div>
       </div>
       <!-- language -->
@@ -209,9 +209,9 @@
         <img src="{{ asset('general/language.png')}}" width="60px" />
         </div>
         <div class="ml-4">
-          <p class="mt-2 text-sm text-gray-500">most used language</p>
+          <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
           <h2 class="font-semibold"><span class="range_data"></span></h2>
-          <p class="mt-2 text-sm text-gray-500"> <span class="range_data"></span> times</p>
+          <p class="mt-2 text-sm text-gray-500"> <span class="range_data"></span> {{ __('datapage.times') }}</p>
         </div>
       </div>
     </div>

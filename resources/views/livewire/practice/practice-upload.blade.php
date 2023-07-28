@@ -6,29 +6,29 @@
 
 <form wire:submit.prevent="add" class="flex flex-col lg:flex-row px-4 mb-4">
     <div class="flex flex-start flex-col w-full lg:w-1/2 lg:mb-6">
-        <x-label for="title" value="{{ __('Title') }}" class="my-4 mr-8 flex flex-col"/>
+        <x-label for="title" value="{{ __('practicepage.title') }}" class="my-4 mr-8 flex flex-col"/>
             <x-input id="title" type="text" class="border-gray-300" wire:model.defer="title" />
             <x-input-error for="title" class="mt-2" />
 
-        <x-label for="description" value="{{ __('Description') }}" class="my-4 mr-8 flex flex-col"/>
+        <x-label for="description" value="{{ __('practicepage.description') }}" class="my-4 mr-8 flex flex-col"/>
             <div wire:ignore>
                 <textarea id="description" class="w-3/4 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" wire:model.defer="description">
                 </textarea>
             </div>
 
-        <x-label for="video_id" value="{{ __('Video ID') }}" class="my-4 mr-8 flex flex-col"/>
+        <x-label for="video_id" value="{{ __('practicepage.video_id') }}" class="my-4 mr-8 flex flex-col"/>
             <x-input id="video_id" type="text" class="border-gray-300" wire:model="video_id" />
             <x-input-error for="video_id" class="mt-2" />
             @if($video_id)
             <div class="col-span-6 sm:col-span-4">
-                <x-label for="video_type" value="video_type"/>
+                <x-label for="video_type" value="{{ __('practicepage.video_type') }}"/>
                 <label class="mx-1">
                     <input type="radio" wire:model="video_type" value="1">
-                    google drive
+                    {{ __('practicepage.google_drive') }}
                 </label>
                 <label class="mx-1">
                     <input type="radio" wire:model="video_type" value="2">
-                    you tube
+                    {{ __('practicepage.youtube') }}
                 </label>
                 <x-input-error for="video_type" class="mt-2" />
             </div>
@@ -58,7 +58,7 @@
             @endif
             <x-input-error for="add_categories" class="mt-2" />
 
-            <x-label for="music" value="{{ __('Music') }}" class="my-4 mr-8 flex flex-col"/>
+            <x-label for="music" value="{{ __('practicepage.music') }}" class="my-4 mr-8 flex flex-col"/>
                 <input id="music" type="file" accept="audio/*" wire:model.defer="music" />
                 <x-input-error for="music" class="mt-2" />
             @if($music)
@@ -68,12 +68,12 @@
                 </div>
             @endif
         </div>
-        <x-label for="file" value="{{ __('PDF file') }}" class="my-2 mr-8 flex flex-col"/>
+        <x-label for="file" value="{{ __('practicepage.pdf_file') }}" class="my-2 mr-8 flex flex-col"/>
         <input type="file" accept="application/pdf" wire:model.defer="file" />
         <x-input-error for="file" class="mt-2" />
         <button type="submit" class="w-1/2 md:w-1/3 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 my-6 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_practice') }}</button>
         <div wire:loading>
-            Uploading...
+        {{ __('practicepage.uploading') }}
         </div>
     </div>
     @if($file)

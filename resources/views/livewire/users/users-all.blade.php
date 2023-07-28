@@ -15,7 +15,7 @@
     <x-table>
         <x-table-head>
             <x-table-heading></x-table-heading>
-            <x-table-heading>Name</x-table-heading>
+            <x-table-heading>{{ __('userspage.name') }}</x-table-heading>
             <x-table-heading></x-table-heading>
             <x-table-heading></x-table-heading>
         </x-table-head>

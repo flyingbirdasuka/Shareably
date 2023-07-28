@@ -12,10 +12,10 @@
     <div class="flex flex-start flex-col w-full mx-2 lg:w-1/2">
         <table>
             <tr>
-                <x-table-data><b>{{ __('categorypage.description') }}</b> : {!! html_entity_decode($practice->description) !!}</x-table-data>
+                <x-table-data><b>{{ __('practicepage.description') }}</b> : {!! html_entity_decode($practice->description) !!}</x-table-data>
             </tr>
             <tr>
-                <x-table-data><b>{{ __('categorypage.categorypage_title') }}</b> : </x-table-data>
+                <x-table-data><b>{{ __('practicepage.category') }}</b> : </x-table-data>
             </tr>
             @if(count($categories) > 0)
                 @foreach($categories as $category)
