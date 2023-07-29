@@ -160,7 +160,12 @@ class Data extends Component
 
         $this->most_used_session_time_this_week = DB::table('session_data')->count() > 0 ? round((User::join('session_data', 'users.id', '=', 'session_data.user_id')->select(DB::raw('SUM(session_time) AS session'))->where('session_data.created_at','>=',Carbon::today()->subDays(7))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 0;
 
-        $this->most_used_session_user_this_week = DB::table('session_data')->count() > 0 ? User::join('session_data', 'users.id', '=', 'session_data.user_id')
+        $this->most_used_session_user_this_week = DB::table('session_data')->count() > 0 && User::join('session_data', 'users.id', '=', 'session_data.user_id')
+        ->where('session_data.created_at','>=',Carbon::today()->subDays(7))
+        ->groupBy('user_id')
+        ->orderByRaw('sum(session_time) DESC')
+        ->select('user_id','name')
+        ->first() != null ? User::join('session_data', 'users.id', '=', 'session_data.user_id')
         ->where('session_data.created_at','>=',Carbon::today()->subDays(7))
         ->groupBy('user_id')
         ->orderByRaw('sum(session_time) DESC')
@@ -169,7 +174,12 @@ class Data extends Component
 
         $this->most_used_session_time_this_month = DB::table('session_data')->count() > 0 ? round((User::join('session_data', 'users.id', '=', 'session_data.user_id')->select(DB::raw('SUM(session_time) AS session'))->where('session_data.created_at','>=',Carbon::today()->subDays($this_month_days))->groupBy('user_id')->orderByRaw('sum(session_time) DESC')->value('session'))/60,2) : 0;
 
-        $this->most_used_session_user_this_month = DB::table('session_data')->count() > 0 ? User::join('session_data', 'users.id', '=', 'session_data.user_id')
+        $this->most_used_session_user_this_month = DB::table('session_data')->count() > 0 && User::join('session_data', 'users.id', '=', 'session_data.user_id')
+        ->where('session_data.created_at','>=',Carbon::today()->subDays($this_month_days))
+        ->groupBy('user_id')
+        ->orderByRaw('sum(session_time) DESC')
+        ->select('user_id','name')
+        ->first() != null ? User::join('session_data', 'users.id', '=', 'session_data.user_id')
         ->where('session_data.created_at','>=',Carbon::today()->subDays($this_month_days))
         ->groupBy('user_id')
         ->orderByRaw('sum(session_time) DESC')
