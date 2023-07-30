@@ -7,9 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\UserCategories;
 use LivewireUI\Modal\ModalComponent;
-use Google\Service\Drive;
 use App\Traits\GoogleSetup;
-use DB;
 
 class AddUser extends ModalComponent
 {

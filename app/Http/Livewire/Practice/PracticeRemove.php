@@ -7,10 +7,7 @@ use Livewire\Component;
 use App\Models\Practice;
 use App\Models\User;
 use LivewireUI\Modal\ModalComponent;
-// use Google\Client;
-// use Google\Service\Drive;
 use App\Traits\GoogleSetup;
-use DB;
 
 class PracticeRemove extends ModalComponent
 {
