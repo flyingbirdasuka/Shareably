@@ -10,12 +10,13 @@ use App\Models\MusicSheet;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewPractice;
-use Google\Client;
+use App\Traits\GoogleSetup;
 use Google\Service\Drive;
 use DB;
 
 class PracticeUpload extends Component
 {
+    use GoogleSetup;
     use WithFileUploads;
 
     public $title;
@@ -151,24 +152,6 @@ class PracticeUpload extends Component
             Mail::to($user['email'])->send(new NewPractice($practice, $url, $name, $unsubscribe));
         }
         return redirect()->to('/practices');
-    }
-
-    public function googleSetup(){
-        // Set up the Google API client
-        $client = new Client();
-        $client->setAuthConfig(config_path('googleaccess.json'));
-        $client->setAccessType('offline'); // This ensures we get a refresh token for long-term access
-        $client->setApprovalPrompt('force');
-        $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
-
-        // If the access token has expired, refresh it
-        if ($client->isAccessTokenExpired()) {
-            $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
-        }
-
-        // Create the Drive service
-        $driveService = new Drive($client);
-        return $driveService;
     }
 
     public function render()
