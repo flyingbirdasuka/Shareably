@@ -7,13 +7,14 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\UserCategories;
 use LivewireUI\Modal\ModalComponent;
-use Google\Client;
 use Google\Service\Drive;
+use App\Traits\GoogleSetup;
 use DB;
 
 class AddUser extends ModalComponent
 {
 
+    use GoogleSetup;
     public $user_id;
     public $category_id;
     public $users =[];
@@ -57,24 +58,6 @@ class AddUser extends ModalComponent
         }
 
         return redirect('categories/'.$this->category_id);
-    }
-
-    public function googleSetup(){
-        // Set up the Google API client
-        $client = new Client();
-        $client->setAuthConfig(config_path('googleaccess.json'));
-        $client->setAccessType('offline'); // This ensures we get a refresh token for long-term access
-        $client->setApprovalPrompt('force');
-        $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
-
-        // If the access token has expired, refresh it
-        if ($client->isAccessTokenExpired()) {
-            $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
-        }
-
-        // Create the Drive service
-        $driveService = new Drive($client);
-        return $driveService;
     }
 
     public function addToGoogleDrive($user_id, $practiceIds, $expirationDate = null){
@@ -121,18 +104,10 @@ class AddUser extends ModalComponent
             // Get the permission ID for the specific user (if it exists)
             $permissionId = $this->getPermissionId($permissions, $emailAddress);
             // remove the user from the google drive file
-            $driveService->permissions->delete($practiceId, $permissionId);
-        }
-    }
-
-    function getPermissionId($permissions, $emailAddress)
-    {
-        foreach ($permissions as $permission) {
-            if ($permission->emailAddress === $emailAddress) {
-                return $permission->id;
+            if($permissionId){
+                $driveService->permissions->delete($practiceId, $permissionId);
             }
         }
-        return null;
     }
 
     public function render()

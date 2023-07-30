@@ -38,7 +38,7 @@ class NewPractice extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('info@asukamethod.com', 'Monpu san'),
+            from: new Address('info@asukamethod.com', 'Asuka Method'),
             subject: 'New Practice uploaded!',
         );
     }

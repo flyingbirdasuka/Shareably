@@ -7,13 +7,15 @@ use Livewire\Component;
 use App\Models\Practice;
 use App\Models\User;
 use LivewireUI\Modal\ModalComponent;
-use Google\Client;
-use Google\Service\Drive;
+// use Google\Client;
+// use Google\Service\Drive;
+use App\Traits\GoogleSetup;
 use DB;
 
 class PracticeRemove extends ModalComponent
 {
 
+    use GoogleSetup;
     public $practice_id; 
 
     public function mount($practice_id)
@@ -67,24 +69,6 @@ class PracticeRemove extends ModalComponent
         return redirect()->to('/practices');
     }
 
-    public function googleSetup(){
-        // Set up the Google API client
-        $client = new Client();
-        $client->setAuthConfig(config_path('googleaccess.json'));
-        $client->setAccessType('offline'); // This ensures we get a refresh token for long-term access
-        $client->setApprovalPrompt('force');
-        $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
-
-        // If the access token has expired, refresh it
-        if ($client->isAccessTokenExpired()) {
-            $client->setAccessToken($client->fetchAccessTokenWithRefreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN')));
-        }
-
-        // Create the Drive service
-        $driveService = new Drive($client);
-        return $driveService;
-    }
-
     public function removeFromGoogleDrive($user_id, $practiceId){
         $driveService = $this->googleSetup();
         $parameters = array();
@@ -98,16 +82,6 @@ class PracticeRemove extends ModalComponent
         if($permissionId){
             $driveService->permissions->delete($practiceId, $permissionId);
         }
-    }
-
-    function getPermissionId($permissions, $emailAddress)
-    {
-        foreach ($permissions as $permission) {
-            if ($permission->emailAddress === $emailAddress) {
-                return $permission->id;
-            }
-        }
-        return null;
     }
 
     public function render()
