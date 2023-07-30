@@ -69,21 +69,6 @@ class PracticeRemove extends ModalComponent
         return redirect()->to('/practices');
     }
 
-    public function removeFromGoogleDrive($user_id, $practiceId){
-        $driveService = $this->googleSetup();
-        $parameters = array();
-        $parameters['fields'] = "permissions(*)";
-        // get the list of the permissions of this file
-        $permissions = $driveService->permissions->listPermissions($practiceId, $parameters);
-        $emailAddress = User::find($user_id)->email;
-        // Get the permission ID for the specific user (if it exists)
-        $permissionId = $this->getPermissionId($permissions, $emailAddress);
-        // remove the user from the google drive file
-        if($permissionId){
-            $driveService->permissions->delete($practiceId, $permissionId);
-        }
-    }
-
     public function render()
     {
         return view('livewire.practice.practice-remove');
