@@ -7,9 +7,7 @@ use App\Models\Practice;
 use App\Models\Category;
 use App\Models\User;
 use LivewireUI\Modal\ModalComponent;
-use Google\Service\Drive;
 use App\Traits\GoogleSetup;
-use DB;
 
 class AddPractice extends ModalComponent
 {
