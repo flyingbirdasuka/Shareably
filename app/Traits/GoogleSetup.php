@@ -37,40 +37,89 @@ trait GoogleSetup {
         return null;
     }
 
-    public function addToGoogleDrive($user_id, $practice_id, $expirationDate = null){
+    function getPermissionExpirationDate($permissions, $emailAddress)
+    {
+        foreach ($permissions as $permission) {
+            if ($permission->emailAddress === $emailAddress) {
+                return $permission->expirationTime;
+            }
+        }
+        return null;
+    }
 
-        $driveService = $this->googleSetup();
+    function setExpirationDate($driveService, $users_categories, $practice_id, $emailAddress,$expirationDate){
+        $expirationDate;
+        foreach($users_categories as $category){
+            // check if the category has a same practice
+            $overwrapped_practice = $category->practices()->where('video_id', $practice_id)->get();
+            // if a same practice is in the category, then check the expiration date
+            if(count($overwrapped_practice) != 0 ){
+                // check the expiration date of the permission
+                $parameters = array();
+                $parameters['fields'] = "permissions(*)";
+                // get the list of the permissions of this file
+                $permissions = $driveService->permissions->listPermissions($practice_id, $parameters);
+                // Get the permission ID for the specific user (if it exists)
+                $permission_id = $this->getPermissionId($permissions, $emailAddress);
+                // check the expiration date
+                $original_expiration_date = $this->getPermissionExpirationDate($permissions, $emailAddress);
+                if($expirationDate == null){
+                    $expirationDate = $expirationDate;
+                } else if(strtotime($original_expiration_date) <= strtotime($expirationDate)){
+                    $expirationDate = $expirationDate;
+                } else {
+                    $expirationDate = $original_expiration_date;
+                }
+            }
 
+        }
+        return $expirationDate;
+    }
+
+    public function createPermission($emailAddress, $user_id, $setted_expirationDate){
         // Set up the new permission settings
         $permission = new Drive\Permission([
             'type' => 'user',
             'role' => 'reader', // Choose the appropriate role (reader, writer, etc.)
-            'emailAddress' => User::find($user_id)->email,
+            'emailAddress' => $emailAddress,
         ]);
 
         // If an expiration date is specified, set it
-        if ($expirationDate) {
-            $permission->setExpirationTime(date('c', strtotime($expirationDate)));
+        if ($setted_expirationDate) {
+            $permission->setExpirationTime(date('c', strtotime($setted_expirationDate)));
             // save to the database
-            DB::table('user_categories')->where('user_id', $user_id)->update(['expiration_date' => date('c', strtotime($expirationDate))]);
+            DB::table('user_categories')->where('user_id', $user_id)->update(['expiration_date' => date('c', strtotime($setted_expirationDate))]);
         }
-
+        return $permission;
+    }
+    public function addToGoogleDrive($user_id, $practice_id, $expirationDate = null){
+        $driveService = $this->googleSetup();
+        $emailAddress = User::find($user_id)->email;
+        // check if the user is related to another category to give the longest expiration date
+        $users_categories = User::find($user_id)->categories()->get();
         // Send the request to update the file permission
-        try {
-            if(is_array($practice_id)){
-                foreach ($practice_id as $id) {
-                    $driveService->permissions->create($id, $permission);
-                }
-            } else {
-                $driveService->permissions->create($practice_id, $permission);
-            }
+        // try {
+        if(is_array($practice_id)){
+            foreach ($practice_id as $id) {
+                $setted_expirationDate = $this->setExpirationDate($driveService,$users_categories,$id,$emailAddress, $expirationDate);
 
+                $permission = $this->createPermission($emailAddress, $user_id, $setted_expirationDate);
+                $driveService->permissions->create($id, $permission);
+            }
+        } else {
+            // dd('not array',$practice_id);
+            $setted_expirationDate = $this->setExpirationDate($driveService,$users_categories,$practice_id, $emailAddress, $expirationDate);
+
+            $permission = $this->createPermission($emailAddress, $user_id, $setted_expirationDate);
+            $driveService->permissions->create($practice_id, $permission);
+        }
+        dd('created', $permission);
             // Permission changed successfully
             // dd('worked', $permission);
-        } catch (\Exception $e) {
-            // An error occurred
-            // dd('not worked', $permission, $e);
-        }
+        // } catch (\Exception $e) {
+        //     // An error occurred
+        //     dd('not worked', $permission, $e);
+        // }
 
     }
 
