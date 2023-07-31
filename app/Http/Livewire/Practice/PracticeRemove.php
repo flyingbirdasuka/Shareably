@@ -49,9 +49,8 @@ class PracticeRemove extends ModalComponent
         // remove the google drive permission
         if($practice->first()->video_type == 1){
             $driveService = $this->googleSetup();
-            // get the users from the google drive permission and when the user is not the admin then remove them 
-            $non_admin_users = User::where('is_admin', 0)->get();
-            foreach($non_admin_users as $user){
+            // get the users from the google drive permission
+            foreach(User::all() as $user){
                 $this->removeFromGoogleDrive($user->id, $practice->first()->video_id);
             }
         }
