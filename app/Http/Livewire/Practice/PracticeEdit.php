@@ -9,9 +9,11 @@ use App\Models\Category;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
+use App\Traits\GoogleSetup;
 
 class PracticeEdit extends Component
 {
+    use GoogleSetup;
     use WithFileUploads;
     
     public $practice;
@@ -125,13 +127,13 @@ class PracticeEdit extends Component
             $this->new_file->storeAs('/', $new_unique_name, $disk = 'practice');
         }
 
-        // where a new music is uploaded
+        // // where a new music is uploaded
         if($this->new_music){
             Storage::delete('/practice/'.$this->original_music_name); // delete the file
             $this->practice->musics()->delete(); // delete the previous musicsheet in DB
             $this->practice->musics()->detach(); // detach the relationship
 
-            // add the new file
+        //     // add the new file
             $new_music_filename = $this->new_music->getClientOriginalName();
             $new_music_unique_name = uniqid().'-'.$new_music_filename;
             $this->practice->musics()->create([
@@ -142,15 +144,42 @@ class PracticeEdit extends Component
         }
     
 
-        // update the attatched categories
-        // remove the original category for this practice (THIS WORKS)
-        foreach($this->practice->categories()->get() as $original_category){
-            $this->practice->categories()->detach($original_category);
+        $original_categories = Practice::find($this->practice->id)->categories()->get()->pluck('id')->toArray();
+
+        // if the category is added new then attatch to the category
+        foreach($this->add_categories as $category_id){
+            if(!in_array(intval($category_id), $original_categories)){
+                // attatch the user to the category
+                $practices = Category::find($category_id)->practices()->get()->where('video_type',1)->pluck('video_id')->toArray();
+                dd($practices);
+                // add the user to the google drive video (id of the video and user email)
+                foreach($practices as $practice){
+                    $users = Category::find($category_id)->users()->where('is_admin',0)->get()->pluck('id')->toArray();
+                    foreach($users as $user){
+                        $this->addToGoogleDrive($user, $practice->video_id, '+3 days');
+                    }
+                }
+                Category::where('id',$this->category_id)->first()->users()->attach($user_id);
+
+
+            }
         }
-        // add the new categories into this practice (THIS WORKS)
-        foreach ($this->add_categories as $category_id){
-            $this->practice->categories()->attach($category_id);
+
+        // if the category was removed then detach from the category
+        foreach($original_categories as $category_id){
+            if(!in_array(intval($category_id), $this->add_categories)){
+                // if the practice has a google drive video then remove the user permission
+                $practices = Category::find($category_id)->practices()->get()->where('video_type',1);
+                foreach($practices as $practice){
+                    $users = Category::find($category_id)->users()->where('is_admin',0)->get()->pluck('id')->toArray();
+                    foreach($users as $user){
+                        $this->removeFromGoogleDrive($user, $practice->video_id);
+                    }
+                }
+                $this->practice->categories()->detach($category_id);
+            }
         }
+
         return redirect()->to('/practices');
     }
     public function render()
