@@ -47,7 +47,9 @@
                 @endif
             </x-table-data>
             <x-table-data>
-                <button wire:click.prevent="$emit('openModal', 'users.remove-user', {{ json_encode(['user_id' => $user->id ]) }})" class="px-4 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">{{ __('userspage.remove') }}</button>
+                @if(!$user->is_admin && $user->id != Auth::user()->id)
+                    <button wire:click.prevent="$emit('openModal', 'users.remove-user', {{ json_encode(['user_id' => $user->id ]) }})" class="px-4 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">{{ __('userspage.remove') }}</button>
+                @endif
             </x-table-data>
         </x-table-row>    
         @empty
