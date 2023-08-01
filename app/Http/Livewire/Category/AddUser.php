@@ -39,7 +39,7 @@ class AddUser extends ModalComponent
                 Category::where('id',$this->category_id)->first()->users()->attach($user_id);
 
                 // add the user to the google drive video (id of the video and user email)
-                $this->addToGoogleDrive($user_id, $practiceIds, '+3 days');
+                $this->addToGoogleDrive($user_id, $practiceIds, '+1 days', $this->category_id);
                 // $this->addToGoogleDrive($user_id, $practiceIds);
 
             }

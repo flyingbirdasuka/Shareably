@@ -150,20 +150,14 @@ class PracticeEdit extends Component
         foreach($this->add_categories as $category_id){
             if(!in_array(intval($category_id), $original_categories)){
                 // attatch the user to the category
-                $practices = Category::find($category_id)->practices()->get()->where('video_type',1)->pluck('video_id')->toArray();
-                dd($practices);
-                // add the user to the google drive video (id of the video and user email)
-                foreach($practices as $practice){
-                    $users = Category::find($category_id)->users()->where('is_admin',0)->get()->pluck('id')->toArray();
-                    foreach($users as $user){
-                        $this->addToGoogleDrive($user, $practice->video_id, '+3 days');
-                    }
+                $users = Category::find($category_id)->users()->where('is_admin',0)->get()->pluck('id')->toArray();
+                foreach($users as $user){
+                    $this->addToGoogleDrive($user, $this->practice->video_id, '+3 days', $category_id);
                 }
-                Category::where('id',$this->category_id)->first()->users()->attach($user_id);
-
-
+                Category::where('id',$category_id)->first()->practices()->attach($this->practice->id);
             }
         }
+
 
         // if the category was removed then detach from the category
         foreach($original_categories as $category_id){
@@ -174,11 +168,12 @@ class PracticeEdit extends Component
                     $users = Category::find($category_id)->users()->where('is_admin',0)->get()->pluck('id')->toArray();
                     foreach($users as $user){
                         $this->removeFromGoogleDrive($user, $practice->video_id);
-                    }
+                    } 
                 }
                 $this->practice->categories()->detach($category_id);
             }
         }
+
 
         return redirect()->to('/practices');
     }
