@@ -34,14 +34,14 @@ class UsersAll extends Component
         $this->resetPage();
     }
 
-    public function changeRole($userId)
-    {
-        $user = User::where('id',$userId)->first();
-        User::where('id',$userId)->update([
-            'is_admin' => $user->is_admin == 1? 0 : 1,
-        ]);
-        return redirect()->to('/users-all');
-    }
+    // public function changeRole($userId)
+    // {
+    //     $user = User::where('id',$userId)->first();
+    //     User::where('id',$userId)->update([
+    //         'is_admin' => $user->is_admin == 1? 0 : 1,
+    //     ]);
+    //     return redirect()->to('/users-all');
+    // }
 
     public function render()
     {

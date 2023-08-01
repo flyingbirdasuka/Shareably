@@ -30,13 +30,17 @@
             <x-table-data>
                 @if($user->is_admin)
                     @if($user->id != $default_team_owner)
-                        <a wire:click.prevent="changeRole({{$user->id}})" class="underline cursor-pointer">{{ __('userspage.admin') }}</a>
+                        <!-- <a wire:click.prevent="changeRole({{$user->id}})" class="underline cursor-pointer"> -->
+                            {{ __('userspage.admin') }}
+                        <!-- </a> -->
                     @else
                         <p>{{ __('userspage.admin') }}</p>
                     @endif
                 @else
                     @if($user->id != $default_team_owner)
-                        <a wire:click.prevent="changeRole({{$user->id}})" class="underline cursor-pointer">{{ __('userspage.non_admin') }}</a>
+                        <!-- <a wire:click.prevent="changeRole({{$user->id}})" class="underline cursor-pointer"> -->
+                            {{ __('userspage.non_admin') }}
+                        <!-- </a> -->
                     @else
                         <p class="underline">{{ __('userspage.non_admin') }}</p>
                     @endif
