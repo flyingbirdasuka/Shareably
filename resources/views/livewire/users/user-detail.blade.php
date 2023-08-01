@@ -76,7 +76,7 @@
                                     <span class="text-slate-500"><i class="fa-regular fa-folder"></i></span>
                                     <span class="tracking-wide">{{__('userdetailpage.category')}}</span>
                                 </div>
-                                <button wire:click="$emit('openModal', 'users.add-category', {{ json_encode(['user_id' => $user->id]) }})" class="bg-indigo-500 hover:bg-indigo-700 text-white text-sm py-1 px-2 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_category') }}</button>
+                                <!-- <button wire:click="$emit('openModal', 'users.add-category', {{ json_encode(['user_id' => $user->id]) }})" class="bg-indigo-500 hover:bg-indigo-700 text-white text-sm py-1 px-2 rounded items-center focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_category') }}</button> -->
                             </div>
                             <ul class="list-inside space-y-2">
                                 @foreach($categories as $category)
