@@ -167,8 +167,8 @@ class PracticeEdit extends Component
                 foreach($practices as $practice){
                     $users = Category::find($category_id)->users()->where('is_admin',0)->get()->pluck('id')->toArray();
                     foreach($users as $user){
-                        $this->removeFromGoogleDrive($user, $practice->video_id);
-                    } 
+                        $this->removeFromGoogleDrive($user, $practice->video_id, $category_id);
+                    }
                 }
                 $this->practice->categories()->detach($category_id);
             }

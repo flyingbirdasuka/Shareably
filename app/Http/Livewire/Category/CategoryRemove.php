@@ -30,7 +30,7 @@ class CategoryRemove extends ModalComponent
                 foreach($users as $user){
                     if($user->is_admin == 0){ // if the user is not admin, remove the google drive permission
                         $driveService = $this->googleSetup();
-                        $this->removeFromGoogleDrive($user->id, $practice->video_id);
+                        $this->removeFromGoogleDrive($user->id, $practice->video_id, $this->category_id);
                     }
                 }
             }

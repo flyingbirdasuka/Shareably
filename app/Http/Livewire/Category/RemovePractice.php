@@ -31,7 +31,7 @@ class RemovePractice extends ModalComponent
             // get the users from the google drive permission and when the user is not the admin then remove them 
             $users = Category::find($this->category_id)->users()->where('is_admin', 0)->get();
             foreach($users as $user){
-                $this->removeFromGoogleDrive($user->id, $practice->video_id);
+                $this->removeFromGoogleDrive($user->id, $practice->video_id, $this->category_id);
             }
         }
         Category::where('id',$this->category_id)->first()->practices()->detach($this->practice_id);

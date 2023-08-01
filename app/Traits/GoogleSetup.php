@@ -61,7 +61,7 @@ trait GoogleSetup {
                 $permissions = $driveService->permissions->listPermissions($practice_id, $parameters);
                 // Get the permission ID for the specific user (if it exists)
                 $permission_id = $this->getPermissionId($permissions, $emailAddress);
-                // check the expiration date 
+                // check the expiration date
                 $original_expiration_date = $this->getPermissionExpirationDate($permissions, $emailAddress);
                 if($expirationDate == null){
                     $expirationDate = $expirationDate;
@@ -92,17 +92,18 @@ trait GoogleSetup {
         }
         return $permission;
     }
-    
+
     public function addToGoogleDrive($user_id, $practice_id, $expirationDate = null, $category_id){
-        $driveService = $this->googleSetup(); 
+        $driveService = $this->googleSetup();
         $emailAddress = User::find($user_id)->email;
-        // check if the user is related to another category to give the longest expiration date
+        // check if the user is related to other categories to give the longest expiration date
         $overwrapped_categories = User::find($user_id)->categories()->where('category_id','!=', $category_id)->get();
         // Send the request to update the file permission
         // try {
         if(is_array($practice_id)){
             foreach ($practice_id as $id) {
                 if(count($overwrapped_categories)!= 0){
+                    // check if the user already has access to the same practice. if so set the correct expiration date
                     $expirationDate = $this->setExpirationDate($driveService,$overwrapped_categories,$id,$emailAddress, $expirationDate);
                 }
                 $permission = $this->createPermission($emailAddress, $user_id, $expirationDate);
@@ -125,38 +126,55 @@ trait GoogleSetup {
 
     }
 
-    public function removeFromGoogleDrive($user_id, $practice_id){
+    public function removeFromGoogleDrive($user_id, $practice_id, $category_id){
         $driveService = $this->googleSetup();
+        $emailAddress = User::find($user_id)->email;
+
+        // check if the user is related to other categoies to keep the google drive permission
+        $overwrapped_categories = User::find($user_id)->categories()->where('category_id','!=', $category_id)->get();
 
         if(is_array($practice_id)){
             foreach ($practice_id as $id) {
-                $parameters = array();
-                $parameters['fields'] = "permissions(*)";
-                // get the list of the permissions of this file
-                $permissions = $driveService->permissions->listPermissions($id, $parameters);
-                $emailAddress = User::find($user_id)->email;
-                // Get the permission ID for the specific user (if it exists)
-                $permission_id = $this->getPermissionId($permissions, $emailAddress);
-                // remove the user from the google drive file
-                if($permission_id){
-                    $driveService->permissions->delete($id, $permission_id);
+                if(count($overwrapped_categories) == 0){
+                    // Get the permission ID for the specific user (if it exists)
+                    $parameters = array();
+                    $parameters['fields'] = "permissions(*)";
+                    // get the list of the permissions of this file
+                    $permissions = $driveService->permissions->listPermissions($id, $parameters);
+                    $permission_id = $this->getPermissionId($permissions, $emailAddress);
+                    // remove the user from the google drive file
+                    if($permission_id){
+                        $driveService->permissions->delete($id, $permission_id);
+                    }
                 }
             }
         } else {
-            $parameters = array();
-            $parameters['fields'] = "permissions(*)";
-            // get the list of the permissions of this file
-            $permissions = $driveService->permissions->listPermissions($practice_id, $parameters);
-            $emailAddress = User::find($user_id)->email;
-            // Get the permission ID for the specific user (if it exists)
-            $permission_id = $this->getPermissionId($permissions, $emailAddress);
-            // remove the user from the google drive file
-            if($permission_id){
-                $driveService->permissions->delete($practice_id, $permission_id);
+            if(count($overwrapped_categories)== 0){
+                $parameters = array();
+                $parameters['fields'] = "permissions(*)";
+                // get the list of the permissions of this file
+                $permissions = $driveService->permissions->listPermissions($practice_id, $parameters);
+                $permission_id = $this->getPermissionId($permissions, $emailAddress);
+                // remove the user from the google drive file
+                if($permission_id){
+                    $driveService->permissions->delete($practice_id, $permission_id);
+                }
             }
         }
-
     }
 
+    public function removeCompletelyFromGoogleDrive($user_id, $practice_id){
+        $driveService = $this->googleSetup();
+        $emailAddress = User::find($user_id)->email;
+        $parameters = array();
+        $parameters['fields'] = "permissions(*)";
+        // get the list of the permissions of this file
+        $permissions = $driveService->permissions->listPermissions($practice_id, $parameters);
+        $permission_id = $this->getPermissionId($permissions, $emailAddress);
+        // remove the user from the google drive file
+        if($permission_id){
+            $driveService->permissions->delete($practice_id, $permission_id);
+        }
+    }
 
 }

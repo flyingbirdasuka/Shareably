@@ -30,7 +30,7 @@ class ShowUsers extends ModalComponent
         $practices = Category::find($this->category_id)->practices()->get();
         foreach($practices as $practice){
             if($practice->video_type == 1){ // if the practice has a google drive video then remove the user's permission
-                $this->removeFromGoogleDrive($this->user_id, $practice->video_id);
+                $this->removeFromGoogleDrive($this->user_id, $practice->video_id, $this->category_id);
             }
         }
         Category::where('id',$this->category->id)->first()->users()->detach($this->user_id);

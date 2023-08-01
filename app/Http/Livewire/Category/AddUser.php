@@ -49,8 +49,7 @@ class AddUser extends ModalComponent
         foreach($original_users as $original_user){
             if(!in_array(intval($original_user), $this->users)){
                 // remove the user to the google drive video
-                $this->removeFromGoogleDrive($original_user, $practiceIds);
-
+                $this->removeFromGoogleDrive($original_user, $practiceIds, $this->category_id);
                 Category::find($this->category_id)->users()->detach($original_user);
             }
         }
