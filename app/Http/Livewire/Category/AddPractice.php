@@ -56,7 +56,7 @@ class AddPractice extends ModalComponent
                 // and if the practice has a google video then remove a permission
                 $practice = Practice::find($original_practice);
                 foreach($this->users as $user){
-                    $this->removeFromGoogleDrive($user->id, $practice->video_id);
+                    $this->removeFromGoogleDrive($user->id, $practice->video_id, $this->category_id);
                 }
                 Category::find($this->category_id)->practices()->detach($original_practice);
             }
