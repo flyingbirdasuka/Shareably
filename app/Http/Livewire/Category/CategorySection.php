@@ -113,6 +113,7 @@ class CategorySection extends Component
                 ->where('categories.title', 'like', '%'.$this->search.'%')
                 ->where('user_id', '=' , $this->user->id)
                 ->select('categories.id','title', 'description', 'categories.created_at', 'categories.updated_at')
+                ->distinct()
                 ->orderBy('title')
                 ->paginate(10),
         ]);
