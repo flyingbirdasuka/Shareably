@@ -93,7 +93,7 @@ trait GoogleSetup {
         return $permission;
     }
 
-    public function addToGoogleDrive($user_id, $practice_id, $expirationDate = null, $category_id){
+    public function addToGoogleDrive($user_id, $practice_id, $category_id, $expirationDate = null){
         $driveService = $this->googleSetup();
         $emailAddress = User::find($user_id)->email;
         // check if the user is related to other categories to give the longest expiration date

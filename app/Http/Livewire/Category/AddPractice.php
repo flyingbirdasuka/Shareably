@@ -42,8 +42,8 @@ class AddPractice extends ModalComponent
                 // and if the practice has a google video then give the user a permission
                 if($practice->video_type == 1){
                     foreach($this->users as $user){
-                        $this->addToGoogleDrive($user->id, $practice->video_id, '+1 days', $this->category_id);
-                        // $this->addToGoogleDrive($user->id, $practice->video_id );
+                        $this->addToGoogleDrive($user->id, $practice->video_id, $this->category_id,'+1 days'); // the expiration date is for test purpose. Replace with the lower version later
+                        // $this->addToGoogleDrive($user->id, $practice->video_id, $this->category_id);
                     }
                 }
 

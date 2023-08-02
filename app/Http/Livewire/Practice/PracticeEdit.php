@@ -152,7 +152,9 @@ class PracticeEdit extends Component
                 // attatch the user to the category
                 $users = Category::find($category_id)->users()->where('is_admin',0)->get()->pluck('id')->toArray();
                 foreach($users as $user){
-                    $this->addToGoogleDrive($user, $this->practice->video_id, '+3 days', $category_id);
+                    $this->addToGoogleDrive($user, $this->practice->video_id, $category_id, '+3 days');
+                    // the expiration date is for test purpose. Replace with the lower version later
+                    // $this->addToGoogleDrive($user, $this->practice->video_id, $category_id);
                 }
                 Category::where('id',$category_id)->first()->practices()->attach($this->practice->id);
             }

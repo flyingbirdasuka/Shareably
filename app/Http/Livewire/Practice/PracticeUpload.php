@@ -119,8 +119,9 @@ class PracticeUpload extends Component
 
                 // if the practice has a google drive video (video_type is 1)
                 if($this->video_type == 1){
-                    $this->addToGoogleDrive($user->id, $this->video_id, null, $category_id);
-                    // $this->addToGoogleDrive($user->id, $practice->video_id );
+                    $this->addToGoogleDrive($user->id, $this->video_id, $category_id, null);
+                    // the expiration date is for test purpose. Replace with the lower version later
+                    // $this->addToGoogleDrive($user->id, $practice->video_id, $category_id);
 
                 }
             }
