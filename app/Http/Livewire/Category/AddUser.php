@@ -39,8 +39,9 @@ class AddUser extends ModalComponent
                 Category::where('id',$this->category_id)->first()->users()->attach($user_id);
 
                 // add the user to the google drive video (id of the video and user email)
-                $this->addToGoogleDrive($user_id, $practiceIds, '+3 days');
-                // $this->addToGoogleDrive($user_id, $practiceIds);
+                $this->addToGoogleDrive($user_id, $practiceIds, $this->category_id, '+1 days');
+                // the expiration date is for test purpose. Replace with the lower version later
+                // $this->addToGoogleDrive($user_id, $practiceIds, $this->category_id);
 
             }
         }
@@ -49,8 +50,7 @@ class AddUser extends ModalComponent
         foreach($original_users as $original_user){
             if(!in_array(intval($original_user), $this->users)){
                 // remove the user to the google drive video
-                $this->removeFromGoogleDrive($original_user, $practiceIds);
-
+                $this->removeFromGoogleDrive($original_user, $practiceIds, $this->category_id);
                 Category::find($this->category_id)->users()->detach($original_user);
             }
         }

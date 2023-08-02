@@ -28,12 +28,12 @@ class PracticeComponent extends Component
     }
 
     public function updatedUserPractices(){
-        // refresh the previous relationship
+        // refresh the previous relationship (favorite practice)
         foreach(auth()->user()->practices()->get() as $practice){
             auth()->user()->practices()->detach($practice);
         }
 
-        // add the new relationship
+        // add the new relationship (favorite practice)
         foreach ($this->user_practices as $practice_id){
             auth()->user()->practices()->attach($practice_id);
         }

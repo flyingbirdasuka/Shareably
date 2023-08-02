@@ -7,9 +7,11 @@ use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
 use DB;
 use Storage;
+use App\Traits\GoogleSetup;
 
 class RemoveUser extends ModalComponent
 {
+    use GoogleSetup;
     public $user_id;
 
     public function mount($user_id)
@@ -17,13 +19,18 @@ class RemoveUser extends ModalComponent
         $this->user_id = $user_id; 
     }
 
-    static function delete($user_id)
+    public function delete($user_id)
     {
         $user = User::where('id', $user_id);
 
         // remove the user_category relationship
         $categories = $user->first()->categories()->get();
+
         foreach($categories as $category){
+            // remove the user to the google drive video
+            $practiceIds = $category->practices()->where('video_type',1)->get()->pluck('video_id')->toArray();
+            $this->removeFromGoogleDrive($user_id, $practiceIds, $category->id);
+
             $user->first()->categories()->detach($category);
         }
 

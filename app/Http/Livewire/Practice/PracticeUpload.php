@@ -119,27 +119,10 @@ class PracticeUpload extends Component
 
                 // if the practice has a google drive video (video_type is 1)
                 if($this->video_type == 1){
-                    // then give the user a permission.
+                    $this->addToGoogleDrive($user->id, $this->video_id, $category_id, null);
+                    // the expiration date is for test purpose. Replace with the lower version later
+                    // $this->addToGoogleDrive($user->id, $practice->video_id, $category_id);
 
-                    $permission = new Drive\Permission([ // Set up the new permission settings
-                        'type' => 'user',
-                        'role' => 'reader', // Choose the appropriate role (reader, writer, etc.)
-                        'emailAddress' => $user->email,
-                    ]);
-
-                    // check if there's expiration date
-                    $expirationDate =  DB::table('user_categories')->where('user_id', $user->id)->value('expiration_date');
-                    if ($expirationDate) {
-                        $permission->setExpirationTime($expirationDate);
-                    }
-                    try {
-                        $driveService->permissions->create($this->video_id, $permission);
-                        // Permission changed successfully
-                        // dd('worked', $permission);
-                    } catch (\Exception $e) {
-                        // An error occurred
-                        // dd('not worked', $permission, $e);
-                    }
                 }
             }
         }
