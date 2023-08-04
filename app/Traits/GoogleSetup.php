@@ -84,6 +84,7 @@ trait GoogleSetup {
             'emailAddress' => $emailAddress,
         ]);
 
+
         // If an expiration date is specified, set it
         if ($expirationDate) {
             $permission->setExpirationTime(date('c', strtotime($expirationDate)));
@@ -107,15 +108,17 @@ trait GoogleSetup {
                     $expirationDate = $this->setExpirationDate($driveService,$overwrapped_categories,$id,$emailAddress, $expirationDate);
                 }
                 $permission = $this->createPermission($emailAddress, $user_id, $expirationDate);
-                $driveService->permissions->create($id, $permission);
+
+                $driveService->permissions->create($id, $permission, array('fields' => 'id', 'sendNotificationEmail' => false));
             }
         } else {
             if(count($overwrapped_categories)!= 0){
                 $expirationDate = $this->setExpirationDate($driveService,$overwrapped_categories,$practice_id,$emailAddress, $expirationDate);
             }
             $permission = $this->createPermission($emailAddress, $user_id, $expirationDate);
-            $driveService->permissions->create($practice_id, $permission);
+            $driveService->permissions->create($practice_id, $permission, array('fields' => 'id', 'sendNotificationEmail' => false));
         }
+
         // dd('created', $permission);
             // Permission changed successfully
             // dd('worked', $permission);
