@@ -27,11 +27,11 @@ class PracticeDetails extends Component
         $this->pdf = asset('practice/' . $this->practice_file);
         $this->categories = $this->practice->categories()->orderBy('title')->get();
         if($this->practice->video_type == '1'){
-            $this->video_type = 'https://drive.google.com/file/d/';
+            $this->video_id = 'https://drive.google.com/file/d/' . $this->practice->video_id .'/preview';
         } else if($this->practice->video_type == '2'){
-            $this->video_type = 'https://www.youtube.com/embed/';
+            $this->video_id = 'https://www.youtube.com/embed/' . $this->practice->video_id;
         }
-        $this->video_id = $this->video_type . $this->practice->video_id;
+
         $this->is_admin = auth()->user()->is_admin;
 
         if($this->practice->musics()->first() != null){
