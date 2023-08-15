@@ -37,7 +37,7 @@
                 <button wire:click.prevent="$toggle('showDropdown')" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 my-6 rounded items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('practicepage.add_category') }}</button>
 
             @if($showDropdown)
-                <div class="h-48 overflow-auto w-1/2">
+                <div class="h-48 overflow-auto w-full">
                     <table class="text-sm text-left text-gray-500">
                         <tbody>
                             @foreach($all_categories as $category)
