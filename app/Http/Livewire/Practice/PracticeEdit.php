@@ -31,6 +31,7 @@ class PracticeEdit extends Component
     public $add_categories = [];
     public $showDropdown = false;
     public $original_music_removed = false;
+    public $url_previous;
 
     protected $rules = [
         'title' => 'required',
@@ -57,7 +58,7 @@ class PracticeEdit extends Component
         }
         $this->all_categories = Category::orderBy('title')->get();
         $this->add_categories = $this->practice->categories()->pluck('categories.id')->all();
-       
+        $this->url_previous = url()->previous();
     }
 
     /*
@@ -176,8 +177,7 @@ class PracticeEdit extends Component
             }
         }
 
-
-        return redirect()->to('/practices');
+        return redirect()->to($this->url_previous);
     }
     public function render()
     {
