@@ -7,6 +7,12 @@
 
 </x-slot>
 <div class="mt-4">
+    <div class="relative w-1/2">
+        <div class="flex absolute inset-y-0 items-center pl-3">
+            <i class="fa-solid fa-magnifying-glass" style="color:gray;"></i>
+        </div>
+        <input wire:model.delay.1000ms="search" type="search" class="p-4 pl-10 w-full text-sm bg-gray-50 rounded-lg  border-gray-300 focus:border-indigo-500" placeholder="{{ __('categorypage.search') }}">
+    </div>
     @if($is_admin)
         <div class="flex my-4 mx-4 text-sm">
             <button wire:click="$emit('openModal', 'category.add-practice', {{ json_encode(['category_id' => $category->id ]) }})" class=" bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center px-3 py-2 focus:outline-none transition ease-in-out duration-150">{{ __('categorypage.add_practice') }}</button>
@@ -25,7 +31,7 @@
             @endif
         </x-table-head>
         <x-table-body>
-                @forelse($practices as $practice)
+                @forelse($practice_list as $practice)
                 <x-table-row>
                     <x-table-data><b><a href="/practices/{{$practice->id}}">{{ $practice->title }}</a></b></x-table-data>
                     <x-table-data><a href="/practices/{{$practice->id}}">{{ $practice->description }}</a></x-table-data>
@@ -57,6 +63,9 @@
                     <td colspan="4" class="px-6 py-4 text-center"><b>{{ __('categorypage.no_practice') }}</b></td>
                 </x-table-row>
                 @endforelse
+                <div class="pb-3 pt-3">
+                {{ $practice_list->links() }}
+            </div>
         </x-table-body>
     </x-table>
 </div>

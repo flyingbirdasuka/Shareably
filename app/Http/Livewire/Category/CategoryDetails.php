@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Category;
 use App\Models\Practice;
 use App\Models\User;
@@ -11,17 +12,21 @@ use Carbon\Carbon;
 
 class CategoryDetails extends Component
 {
+    use WithPagination;
+
     public $category;
+    public $category_id;
     public $practices;
     public $users;
     public $user_id;
     public $is_admin;
     public $user_practices = [];
+    public $search = '';
 
     public function mount($id)
     {
+        $this->category_id = $id;
         $this->category = Category::find($id);
-        $this->practices = $this->category->practices()->orderBy('title')->get();
         $this->users = $this->category->users()->orderBy('name')->get();
         $this->is_admin = auth()->user()->is_admin;
         $this->user_practices = auth()->user()->practices()->pluck('practices.id')->all();
@@ -47,6 +52,12 @@ class CategoryDetails extends Component
         }
     }
 
+    // Reset the pagination after search is run
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function edit_practice($practice_id)
     {
         return redirect('practices/'.$practice_id.'/edit');
@@ -54,6 +65,14 @@ class CategoryDetails extends Component
 
     public function render()
     {
-        return view('livewire.category.category-details');
+            return view('livewire.category.category-details', [
+                'practice_list' =>
+                    Practice::join('practice_categories', 'practices.id', '=', 'practice_categories.practice_id')
+                    ->where('practice_categories.category_id', $this->category_id)
+                    ->where('title', 'like', '%'.$this->search.'%')
+                    ->select('practices.id','practices.title', 'practices.description', 'practices.created_at', 'practices.updated_at')
+                    ->distinct()
+                    ->orderBy('title')->paginate(2)
+            ]);
     }
 }
