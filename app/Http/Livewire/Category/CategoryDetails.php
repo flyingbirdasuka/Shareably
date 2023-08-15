@@ -82,7 +82,7 @@ class CategoryDetails extends Component
                 ->where('title', 'like', '%'.$this->search.'%')
                 ->select('practices.id','practices.title', 'practices.description', 'practices.created_at', 'practices.updated_at')
                 ->distinct()
-                ->orderBy('title')->paginate(2)
+                ->orderBy('title')->paginate(10)
         ]);
     }
 }
