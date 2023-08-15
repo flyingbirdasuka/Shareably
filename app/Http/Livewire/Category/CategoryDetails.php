@@ -29,10 +29,11 @@ class CategoryDetails extends Component
         $this->category = Category::find($id);
         $this->users = $this->category->users()->orderBy('name')->get();
         $this->is_admin = auth()->user()->is_admin;
+        $this->user_id = auth()->user()->id;
         $this->user_practices = auth()->user()->practices()->pluck('practices.id')->all();
         if(!$this->is_admin){
             DB::table('page_view_data')->insert([
-                'user_id' => auth()->user()->id,
+                'user_id' => $this->user_id,
                 'page_name' => 'category_'.$id,
                 "created_at" =>  Carbon::now(),
                 "updated_at" => Carbon::now(),
@@ -65,14 +66,23 @@ class CategoryDetails extends Component
 
     public function render()
     {
-            return view('livewire.category.category-details', [
-                'practice_list' =>
-                    Practice::join('practice_categories', 'practices.id', '=', 'practice_categories.practice_id')
-                    ->where('practice_categories.category_id', $this->category_id)
-                    ->where('title', 'like', '%'.$this->search.'%')
-                    ->select('practices.id','practices.title', 'practices.description', 'practices.created_at', 'practices.updated_at')
-                    ->distinct()
-                    ->orderBy('title')->paginate(2)
+        // Capture the search query for analytics
+        if(!$this->is_admin && $this->search !=''){
+            DB::table('search_words_data')->insert([
+                'user_id' => $this->user_id,
+                'search_word' => 'practice_'.$this->search,
+                "created_at" =>  Carbon::now(),
+                "updated_at" => Carbon::now(),
             ]);
+        }
+        return view('livewire.category.category-details', [
+            'practice_list' =>
+                Practice::join('practice_categories', 'practices.id', '=', 'practice_categories.practice_id')
+                ->where('practice_categories.category_id', $this->category_id)
+                ->where('title', 'like', '%'.$this->search.'%')
+                ->select('practices.id','practices.title', 'practices.description', 'practices.created_at', 'practices.updated_at')
+                ->distinct()
+                ->orderBy('title')->paginate(2)
+        ]);
     }
 }
