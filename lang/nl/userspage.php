@@ -2,13 +2,13 @@
 
 return [
 
-    'add_user' => 'Add User',
+    'add_user' => 'Gebruiker Toevoegen',
     'admin' => 'admin',
-    'close' => 'Close',
-    'name' => 'Name',
-    'non_admin' => 'non admin',
-    'no_user' => 'No User',
-    'remove' => 'Remove',
-    'remove_confirmation_message' => 'Are you sure to remove this user?',
-    'title' => 'All Users',
+    'close' => 'Sluiten',
+    'name' => 'Naam',
+    'non_admin' => 'geen admin',
+    'no_user' => 'Geen Gebruiker',
+    'remove' => 'Verwijderen',
+    'remove_confirmation_message' => 'Weet je zeker dat je deze gebruiker wilt verwijderen?',
+    'title' => 'Alle Gebruikers',
 ];

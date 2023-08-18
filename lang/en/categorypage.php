@@ -15,6 +15,7 @@ return [
     'no_users' => 'No user yet',
     'remove' => 'Remove',
     'remove_confirmation_message' => 'Are you sure you would like to remove this category?',
+    'save' => 'Save',
     'search' => 'Search',
     'show_users' => 'Show Users',
     'title' => 'Title',

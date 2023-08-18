@@ -9,6 +9,7 @@ return [
     'most_used_language' => 'most used language',
     'most_used_user' => 'most used user',
     'most_viewed_page' => 'most viewed page',
+    'no_data' => 'no data yet',
     'this_month' => 'This month',
     'this_week' => 'This week',
     'times' => 'times',
