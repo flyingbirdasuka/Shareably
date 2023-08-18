@@ -3,13 +3,13 @@
 return [
 
     'about' => 'About',
-    'active' => 'Active',
-    'category' => 'Category',
-    'description' => 'description',
+    'active' => 'Actief',
+    'category' => 'Categorie',
+    'description' => 'beschrijving',
     'email' => 'Email',
-    'favorite' => 'Favorite',
-    'member_since' => 'Member Since',
-    'name' => 'Name',
+    'favorite' => 'Favoriet',
+    'member_since' => 'Lid Sinds',
+    'name' => 'Naam',
     'status' => 'Status',
     'teams' => "Teams",
 

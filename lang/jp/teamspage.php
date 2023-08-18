@@ -2,14 +2,14 @@
 
 return [
 
-    'add_categories' => 'Add Categories',
-    'close' => 'Close',
-    'detail' => 'Detail',
-    'name' => 'Name',
-    'no_users' => 'No user yet',
-    'search' => 'Search',
-    'show_users' => 'Show Users',
-    'show_categories' => 'Show Categories',
-    'title' => 'All the teams',
-    'users' => 'Users'
+    'add_categories' => 'カテゴリーを追加する',
+    'close' => '閉じる',
+    'detail' => '詳細',
+    'name' => '名前',
+    'no_users' => 'まだユーザーが追加されていません',
+    'search' => '検索',
+    'show_users' => 'ユーザーの一覧',
+    'show_categories' => 'カテゴリーを見る',
+    'title' => '全てのチーム',
+    'users' => 'ユーザー'
 ];

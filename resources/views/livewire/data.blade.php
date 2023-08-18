@@ -19,7 +19,7 @@
 
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }} </p>
-        <h2 class="font-semibold">{{ $practice_most_favorited }}</h2>
+        <h4 class="font-semibold">{{ $practice_most_favorited }}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ $practice_most_favorited_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -31,8 +31,8 @@
 
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
-        <h2 class="font-semibold">{{ $most_used_session_user}} <br>
-        {{  $most_used_session_time  }} {{ __('datapage.minutes') }}</h2>
+        <h4 class="font-semibold">{{ $most_used_session_user}} <br>
+        {{  $most_used_session_time  }} {{ __('datapage.minutes') }}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: {{ $average_settion_time}} {{ __('datapage.minutes') }}</p>
       </div>
     </div>
@@ -44,7 +44,7 @@
 
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
-        <h2 class="font-semibold">{{ $most_viewed_page }} </h2>
+        <h4 class="font-semibold">{{ $most_viewed_page }} </h4>
         <p class="mt-2 text-sm text-gray-500">{{ $most_viewd_page_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -56,7 +56,7 @@
 
       <div class="ml-4">
       <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
-        <h2 class="font-semibold">{{ $most_used_language }}</h2>
+        <h4 class="font-semibold">{{ $most_used_language }}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -72,7 +72,7 @@
 
       <div class="ml-4">
       <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
-        <h2 class="font-semibold">{{  $practice_most_favorited_this_week }}</h2>
+        <h4 class="font-semibold">{{  $practice_most_favorited_this_week }}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ $practice_most_favorited_this_week_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -83,8 +83,8 @@
       </div>
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_user') }}</p>
-        <h2 class="font-semibold">{{ $most_used_session_user_this_week}} <br>
-        {{ $most_used_session_time_this_week}} {{ __('datapage.minutes') }}</h2>
+        <h4 class="font-semibold">{{ $most_used_session_user_this_week}} <br>
+        {{ $most_used_session_time_this_week}} {{ __('datapage.minutes') }}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: {{ $average_settion_time_this_week }} {{ __('datapage.minutes') }}</p>
       </div>
     </div>
@@ -95,7 +95,7 @@
       </div>
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
-        <h2 class="font-semibold">{{ $most_viewed_page_this_week}}</h2>
+        <h4 class="font-semibold">{{ $most_viewed_page_this_week}}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ $most_viewed_page_this_week_count}} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -106,7 +106,7 @@
       </div>
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
-        <h2 class="font-semibold">{{ $most_used_language_this_week}}</h2>
+        <h4 class="font-semibold">{{ $most_used_language_this_week}}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_this_week_count}} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -121,7 +121,7 @@
       </div>
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
-        <h2 class="font-semibold">{{ $practice_most_favorited_this_month }}</h2>
+        <h4 class="font-semibold">{{ $practice_most_favorited_this_month }}</h4>
         <p class="mt-2 text-sm text-gray-500">{{  $practice_most_favorited_this_month_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -133,8 +133,8 @@
 
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_user') }}</p>
-        <h2 class="font-semibold">{{ $most_used_session_user_this_month}}<br>
-        {{ $most_used_session_time_this_month}} {{ __('datapage.minutes') }}</h2>
+        <h4 class="font-semibold">{{ $most_used_session_user_this_month}}<br>
+        {{ $most_used_session_time_this_month}} {{ __('datapage.minutes') }}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: {{ $average_settion_time_this_month }} {{ __('datapage.minutes') }}</p>
       </div>
     </div>
@@ -146,7 +146,7 @@
 
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
-        <h2 class="font-semibold">{{ $most_viewed_page_this_month}}</h2>
+        <h4 class="font-semibold">{{ $most_viewed_page_this_month}}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ $most_viewed_page_this_month_count }} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -158,7 +158,7 @@
 
       <div class="ml-4">
         <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
-        <h2 class="font-semibold">{{ $most_used_language_this_month}}</h2>
+        <h4 class="font-semibold">{{ $most_used_language_this_month}}</h4>
         <p class="mt-2 text-sm text-gray-500">{{ $most_used_language_this_month_count}} {{ __('datapage.times') }}</p>
       </div>
     </div>
@@ -175,7 +175,7 @@
 
         <div class="ml-4">
           <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_fav_practice') }}</p>
-          <h2 class="font-semibold"><p class="range_data"></p></h2>
+          <h4 class="font-semibold"><p class="range_data"></p></h4>
           <p class="mt-2 text-sm text-gray-500"><span class="range_data"></span> {{ __('datapage.times') }}</p>
         </div>
       </div>
@@ -187,8 +187,8 @@
 
         <div class="ml-4">
           <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_user') }}</p>
-          <h2 class="font-semibold"><span class="range_data"></span><br>
-          <span class="range_data"></span>  {{ __('datapage.minutes') }}</h2>
+          <h4 class="font-semibold"><span class="range_data"></span><br>
+          <span class="range_data"></span>  {{ __('datapage.minutes') }}</h4>
           <p class="mt-2 text-sm text-gray-500">{{ __('datapage.average') }}: <span class="range_data"></span>  {{ __('datapage.minutes') }}</p>
         </div>
       </div>
@@ -199,7 +199,7 @@
         </div>
         <div class="ml-4">
           <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_viewed_page') }}</p>
-          <h2 class="font-semibold"><span class="range_data"></span></h2>
+          <h4 class="font-semibold"><span class="range_data"></span></h4>
           <p class="mt-2 text-sm text-gray-500"><span class="range_data"></span>  {{ __('datapage.times') }} </p>
         </div>
       </div>
@@ -210,7 +210,7 @@
         </div>
         <div class="ml-4">
           <p class="mt-2 text-sm text-gray-500">{{ __('datapage.most_used_language') }}</p>
-          <h2 class="font-semibold"><span class="range_data"></span></h2>
+          <h4 class="font-semibold"><span class="range_data"></span></h4>
           <p class="mt-2 text-sm text-gray-500"> <span class="range_data"></span> {{ __('datapage.times') }}</p>
         </div>
       </div>
@@ -237,13 +237,26 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script type="text/javascript">
+  const language = document.getElementsByTagName("html")[0].getAttribute("lang");
+  let all_element = ['user', 'email', 'category', 'practice'],
+    all_labels =[],
+    charts_labels = [];
 
-  const all_element = ['user', 'email', 'category', 'practice'];
-  const all_labels = ['new user', 'email subscription rate (%)', 'new category', 'new practice'];
+  if(language == 'nl'){
+    all_labels = ['nieuwe gebruiker', 'email inschrijvingspercentage (%)', 'nieuwe categorie', 'nieuwe oefening'];
+    charts_labels = ['alle', 'deze week','deze maand'];
+  } else if (language == 'jp'){
+    all_labels = ['新しいユーザー', 'メール　サブスクリプション率 (%)', '新しいカテゴリー', '新しいプラクティス'];
+    charts_labels = ['全て', '今週', '今月'];
+  } else {
+    all_labels = ['new user', 'email subscription rate (%)', 'new category', 'new practice'];
+    charts_labels = ['all', 'this week','this month'];
+  }
   const all_data = [ @js($user_data), @js($email_data), @js($category_data),@js($practice_data)];
 
 
   var dataSet = [];
+
   all_element.forEach((element, index) => {
     dataSet[index] = makeChart(all_element[index], all_labels[index],all_data[index]);
   });
@@ -254,9 +267,7 @@
     const chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['all',
-            'this week',
-            'this month',],
+        labels: charts_labels,
         datasets: [{
           label: $label,
           backgroundColor: '#6366F1',

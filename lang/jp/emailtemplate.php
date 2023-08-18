@@ -2,12 +2,12 @@
 
 return [
 
-    'accept' => 'If you already have an account, you may accept this invitation by clicking the button below:',
-    'accept_click' => 'You may accept this invitation by clicking the button below:',
-    'accept_invitation' => 'Accept Invitation',
-    'create_account' => 'Create Account',
-    'discard' => 'If you did not expect to receive an invitation to this team, you may discard this email.',
-    'no_account' => 'If you do not have an account, you may create one by clicking the button below.',
-    'team_invite' => 'You have been invited to join the :team team!',
+    'accept' => 'もうアカウントをお持ちの方は、この下のボタンをクリックすることで招待を承認することができます:',
+    'accept_click' => 'この下のボタンをクリックすることで招待を承認することができます:',
+    'accept_invitation' => '招待を承認する',
+    'create_account' => 'アカウント作成',
+    'discard' => 'このようなメールを受信する覚えがない場合は、このメールを破棄してください',
+    'no_account' => 'まだアカウントをお持ちのない方は、この下のボタンをクリックしてアカウントを作成してください:',
+    'team_invite' => ':team というチームに招待されました!',
 
 ];

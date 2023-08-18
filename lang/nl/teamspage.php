@@ -2,14 +2,14 @@
 
 return [
 
-    'add_categories' => 'Add Categories',
-    'close' => 'Close',
+    'add_categories' => 'Categorieën Toevoegen',
+    'close' => 'Sluiten',
     'detail' => 'Detail',
-    'name' => 'Name',
-    'no_users' => 'No user yet',
-    'search' => 'Search',
-    'show_users' => 'Show Users',
-    'show_categories' => 'Show Categories',
-    'title' => 'All the teams',
-    'users' => 'Users'
+    'name' => 'Naam',
+    'no_users' => 'Nog geen gebruiker',
+    'search' => 'Zoeken',
+    'show_users' => 'Toon Gebruikers',
+    'show_categories' => 'Toon Categorieën',
+    'title' => 'Alle Teams',
+    'users' => 'Gebruikers'
 ];
